@@ -149,7 +149,7 @@
     <bpmn2:sequenceFlow id="SequenceFlow_44" name="Yes" sourceRef="ExclusiveGateway_3" targetRef="CallActivity_PBISSProcess">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(true)</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:callActivity id="CallActivity_PBISSProcess" name="PB ISS Process">
+    <bpmn2:callActivity id="CallActivity_PBISSProcess" name="PB ISS Process" calledElement="pb_iss">
       <bpmn2:incoming>SequenceFlow_44</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_49</bpmn2:outgoing>
     </bpmn2:callActivity>
@@ -199,7 +199,7 @@
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_56" name="" sourceRef="IntermediateCatchEvent_3" targetRef="UserTask_12"/>
     <bpmn2:sequenceFlow id="SequenceFlow_57" name="" sourceRef="UserTask_12" targetRef="ExclusiveGateway_8"/>
-    <bpmn2:callActivity id="CallActivity_2" name="Dunning">
+    <bpmn2:callActivity id="CallActivity_2" name="Dunning" calledElement="dunning">
       <bpmn2:incoming>SequenceFlow_58</bpmn2:incoming>
     </bpmn2:callActivity>
     <bpmn2:endEvent id="EndEvent_1">
