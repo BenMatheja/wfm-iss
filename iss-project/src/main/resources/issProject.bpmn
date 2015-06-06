@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="_QoDYoAlCEeWZ2KGCtVkZsg" exporter="camunda modeler" exporterVersion="2.7.0" targetNamespace="http://activiti.org/bpmn">
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:fox="http://www.camunda.com/fox" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="_QoDYoAlCEeWZ2KGCtVkZsg" exporter="camunda modeler" exporterVersion="2.7.0" targetNamespace="http://activiti.org/bpmn">
   <bpmn2:collaboration id="_Collaboration_3">
     <bpmn2:participant id="Pool_ISS" name="ISS" processRef="issProject"/>
   </bpmn2:collaboration>
@@ -58,11 +58,11 @@
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="UserTask_ForwardCustomerRequest" targetRef="UserTask_EvaluateRequest"/>
     <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="UserTask_EvaluateRequest" targetRef="ExclusiveGateway_1"/>
-    <bpmn2:serviceTask id="ServiceTask_SendConfirmationToCR" name="Confirm Request">
+    <bpmn2:serviceTask id="ServiceTask_SendConfirmationToCR" camunda:expression="$(true)" name="Confirm Request">
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
     </bpmn2:serviceTask>
-    <bpmn2:serviceTask id="ServiceTask_SendRejection" name="Send Rejection">
+    <bpmn2:serviceTask id="ServiceTask_SendRejection" camunda:expression="$(true)" name="Send Rejection">
       <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
     </bpmn2:serviceTask>
     <bpmn2:exclusiveGateway id="ExclusiveGateway_1">
@@ -73,7 +73,9 @@
     <bpmn2:sequenceFlow id="SequenceFlow_5" name="Declined" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_SendRejection">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${Declined}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:sequenceFlow id="SequenceFlow_7" name="Accepted" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_SendConfirmationToCR"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_7" name="Accepted" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_SendConfirmationToCR">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(Accepted)</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
     <bpmn2:userTask id="UserTask_NegotiateContract" name="Negotiate Contract">
       <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
@@ -98,7 +100,7 @@
       <bpmn2:incoming>SequenceFlow_54</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_31</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:serviceTask id="ServiceTask_InformAccounting" name="Inform Accounting">
+    <bpmn2:serviceTask id="ServiceTask_InformAccounting" camunda:expression="$(true)" name="Inform Accounting">
       <bpmn2:incoming>SequenceFlow_31</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_32</bpmn2:outgoing>
     </bpmn2:serviceTask>
@@ -108,7 +110,7 @@
       <bpmn2:outgoing>SequenceFlow_33</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_32" name="" sourceRef="ServiceTask_InformAccounting" targetRef="UserTask_CreateBill"/>
-    <bpmn2:serviceTask id="ServiceTask_SendBill" name="Send Bill">
+    <bpmn2:serviceTask id="ServiceTask_SendBill" camunda:expression="$(true)" name="Send Bill">
       <bpmn2:incoming>SequenceFlow_33</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_34</bpmn2:outgoing>
     </bpmn2:serviceTask>
@@ -116,7 +118,9 @@
     <bpmn2:intermediateCatchEvent id="IntermediateCatchEvent_1" name="Wait 4 weeks">
       <bpmn2:incoming>SequenceFlow_34</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_37</bpmn2:outgoing>
-      <bpmn2:timerEventDefinition id="TimerEventDefinition_1"/>
+      <bpmn2:timerEventDefinition id="TimerEventDefinition_1">
+        <bpmn2:timeDuration xsi:type="bpmn2:tFormalExpression">P4DT12H30M5S</bpmn2:timeDuration>
+      </bpmn2:timerEventDefinition>
     </bpmn2:intermediateCatchEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_34" name="" sourceRef="ServiceTask_SendBill" targetRef="IntermediateCatchEvent_1"/>
     <bpmn2:userTask id="UserTask_CheckStatus" name="Check Status">
@@ -130,7 +134,9 @@
       <bpmn2:outgoing>SequenceFlow_39</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_61</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-    <bpmn2:sequenceFlow id="SequenceFlow_39" name="no" sourceRef="ExclusiveGateway_4" targetRef="ServiceTask_SendReminder"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_39" name="No" sourceRef="ExclusiveGateway_4" targetRef="ServiceTask_SendReminder">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(false)</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
     <bpmn2:parallelGateway id="ParallelGateway_2">
       <bpmn2:incoming>SequenceFlow_42</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_27</bpmn2:outgoing>
@@ -140,7 +146,9 @@
     <bpmn2:sequenceFlow id="SequenceFlow_27" name="" sourceRef="ParallelGateway_2" targetRef="UserTask_ExecuteProject"/>
     <bpmn2:sequenceFlow id="SequenceFlow_42" name="" sourceRef="UserTask_InitiateProject" targetRef="ParallelGateway_2"/>
     <bpmn2:sequenceFlow id="SequenceFlow_43" name="" sourceRef="ParallelGateway_2" targetRef="ExclusiveGateway_3"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_44" name="" sourceRef="ExclusiveGateway_3" targetRef="CallActivity_PBISSProcess"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_44" name="Yes" sourceRef="ExclusiveGateway_3" targetRef="CallActivity_PBISSProcess">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(true)</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
     <bpmn2:callActivity id="CallActivity_PBISSProcess" name="PB ISS Process">
       <bpmn2:incoming>SequenceFlow_44</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_49</bpmn2:outgoing>
@@ -160,7 +168,9 @@
       <bpmn2:outgoing>SequenceFlow_53</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="SequenceFlow_49" name="" sourceRef="CallActivity_PBISSProcess" targetRef="ExclusiveGateway_6"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_50" name="" sourceRef="ExclusiveGateway_3" targetRef="ExclusiveGateway_6"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_50" name="No" sourceRef="ExclusiveGateway_3" targetRef="ExclusiveGateway_6">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(false)</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
     <bpmn2:parallelGateway id="ParallelGateway_3">
       <bpmn2:incoming>SequenceFlow_51</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_52</bpmn2:incoming>
@@ -171,14 +181,16 @@
     <bpmn2:sequenceFlow id="SequenceFlow_52" name="" sourceRef="UserTask_ExecuteProject" targetRef="ParallelGateway_3"/>
     <bpmn2:sequenceFlow id="SequenceFlow_53" name="" sourceRef="ExclusiveGateway_6" targetRef="ParallelGateway_3"/>
     <bpmn2:sequenceFlow id="SequenceFlow_54" name="" sourceRef="ParallelGateway_3" targetRef="UserTask_FinishProject"/>
-    <bpmn2:serviceTask id="ServiceTask_SendReminder" name="Send Reminder">
+    <bpmn2:serviceTask id="ServiceTask_SendReminder" camunda:expression="$(true)" name="Send Reminder">
       <bpmn2:incoming>SequenceFlow_39</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_55</bpmn2:outgoing>
     </bpmn2:serviceTask>
-    <bpmn2:intermediateCatchEvent id="IntermediateCatchEvent_3">
+    <bpmn2:intermediateCatchEvent id="IntermediateCatchEvent_3" name="Wait 2 weeks">
       <bpmn2:incoming>SequenceFlow_55</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_56</bpmn2:outgoing>
-      <bpmn2:timerEventDefinition id="TimerEventDefinition_3"/>
+      <bpmn2:timerEventDefinition id="TimerEventDefinition_3">
+        <bpmn2:timeDuration xsi:type="bpmn2:tFormalExpression">P4DT12H30M5S</bpmn2:timeDuration>
+      </bpmn2:timerEventDefinition>
     </bpmn2:intermediateCatchEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_55" name="" sourceRef="ServiceTask_SendReminder" targetRef="IntermediateCatchEvent_3"/>
     <bpmn2:userTask id="UserTask_12" name="Check again">
@@ -198,14 +210,20 @@
       <bpmn2:incoming>SequenceFlow_62</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_63</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-    <bpmn2:sequenceFlow id="SequenceFlow_61" name="" sourceRef="ExclusiveGateway_4" targetRef="ExclusiveGateway_9"/>
-    <bpmn2:exclusiveGateway id="ExclusiveGateway_8">
+    <bpmn2:sequenceFlow id="SequenceFlow_61" name="Yes" sourceRef="ExclusiveGateway_4" targetRef="ExclusiveGateway_9">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(true)</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_8" name="Payment Received">
       <bpmn2:incoming>SequenceFlow_57</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_58</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_62</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-    <bpmn2:sequenceFlow id="SequenceFlow_58" name="" sourceRef="ExclusiveGateway_8" targetRef="CallActivity_2"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_62" name="" sourceRef="ExclusiveGateway_8" targetRef="ExclusiveGateway_9"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_58" name="No" sourceRef="ExclusiveGateway_8" targetRef="CallActivity_2">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(false)</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_62" name="Yes" sourceRef="ExclusiveGateway_8" targetRef="ExclusiveGateway_9">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(true)</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_63" name="" sourceRef="ExclusiveGateway_9" targetRef="EndEvent_1"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
