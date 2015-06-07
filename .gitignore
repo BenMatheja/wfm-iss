@@ -45,4 +45,6 @@ Temporary Items
 
 # ECLIPSE METADATA AND CLASSPATHS
 *.metadata/
+.classpath
 *.classpath
+target/
