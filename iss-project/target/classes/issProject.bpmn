@@ -30,6 +30,7 @@
         <bpmn2:flowNodeRef>SendTask_7</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>SendTask_8</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>UserTask_ForwardCustomerRequest</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>EndEvent_3</bpmn2:flowNodeRef>
       </bpmn2:lane>
       <bpmn2:lane id="Lane_Accounting" name="Accounting">
         <bpmn2:flowNodeRef>ParallelGateway_5</bpmn2:flowNodeRef>
@@ -104,6 +105,7 @@
     </bpmn2:serviceTask>
     <bpmn2:sequenceFlow id="SequenceFlow_28" name="" sourceRef="ServiceTask_2" targetRef="ParallelGateway_2"/>
     <bpmn2:userTask id="UserTask_NegotiateContract" name="Negotiate Contract">
+      <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_15" name="" sourceRef="UserTask_NegotiateContract" targetRef="UserTask_SendContract"/>
@@ -253,9 +255,11 @@
     <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="StartEvent_CustomerRequest" targetRef="UserTask_ForwardCustomerRequest"/>
     <bpmn2:sendTask id="SendTask_7" name="Send Rejection">
       <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:sendTask id="SendTask_8" name="Confirm Request">
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:intermediateCatchEvent id="IntermediateCatchEvent_3" name="Wait 2 weeks">
       <bpmn2:incoming>SequenceFlow_55</bpmn2:incoming>
@@ -280,6 +284,11 @@
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="UserTask_ForwardCustomerRequest" targetRef="UserTask_EvaluateRequest"/>
+    <bpmn2:endEvent id="EndEvent_3" name="rejected">
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="SendTask_7" targetRef="EndEvent_3"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_6" name="" sourceRef="SendTask_8" targetRef="UserTask_NegotiateContract"/>
     <bpmn2:textAnnotation id="TextAnnotation_1">
       <bpmn2:text>Different User</bpmn2:text>
     </bpmn2:textAnnotation>
@@ -804,6 +813,25 @@
       <bpmndi:BPMNShape id="_BPMNShape_SendTask_17" bpmnElement="SendTask_8">
         <dc:Bounds height="80.0" width="125.0" x="696.0" y="1167.0"/>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_17" bpmnElement="EndEvent_3">
+        <dc:Bounds height="36.0" width="36.0" x="573.0" y="1284.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="52.0" x="608.0" y="1299.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_BPMNShape_SendTask_16" targetElement="_BPMNShape_EndEvent_17">
+        <di:waypoint xsi:type="dc:Point" x="590.0" y="1247.0"/>
+        <di:waypoint xsi:type="dc:Point" x="590.0" y="1265.0"/>
+        <di:waypoint xsi:type="dc:Point" x="590.0" y="1244.0"/>
+        <di:waypoint xsi:type="dc:Point" x="591.0" y="1284.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="587.0" y="1264.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="_BPMNShape_SendTask_17" targetElement="_BPMNShape_UserTask_7">
+        <di:waypoint xsi:type="dc:Point" x="820.0" y="1207.0"/>
+        <di:waypoint xsi:type="dc:Point" x="864.0" y="1207.0"/>
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn2:definitions>
