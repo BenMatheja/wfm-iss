@@ -136,7 +136,7 @@
       <bpmn2:incoming>SequenceFlow_36</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_40</bpmn2:outgoing>
     </bpmn2:sendTask>
-    <bpmn2:userTask id="UserTask_4" name="Deliver Meeting Minutes">
+    <bpmn2:userTask id="UserTask_4" name="Submit Meeting Minutes">
       <bpmn2:incoming>SequenceFlow_14</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_46</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -228,7 +228,7 @@
       <bpmn2:outgoing>SequenceFlow_55</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:sequenceFlow id="SequenceFlow_55" name="" sourceRef="SendTask_5" targetRef="IntermediateCatchEvent_3"/>
-    <bpmn2:endEvent id="EndEvent_1">
+    <bpmn2:endEvent id="EndEvent_1" name="Terminate Process">
       <bpmn2:incoming>SequenceFlow_63</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:exclusiveGateway id="ExclusiveGateway_9">
