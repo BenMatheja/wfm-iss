@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>.internal</name>
+	<comment>BPMN 2.0 modeler internal project that links non-workspace resources</comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>Z.WfM.PB_ISS_Process_Model_v1_skr.bpmn</name>
+			<type>1</type>
+			<location>Z:/WfM/PB_ISS_Process_Model_v1_skr.bpmn</location>
+		</link>
+	</linkedResources>
+</projectDescription>
