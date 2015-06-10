@@ -259,7 +259,7 @@
     <bpmn2:endEvent id="EndEvent_2" name="Initiate dunning Process">
       <bpmn2:incoming>SequenceFlow_24</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:startEvent id="StartEvent_CustomerRequest" name="Customer has request">
+    <bpmn2:startEvent id="StartEvent_CustomerRequest" camunda:formKey="app:customerrequest.jsf" name="Customer has request">
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
     </bpmn2:startEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="StartEvent_CustomerRequest" targetRef="UserTask_ForwardCustomerRequest"/>

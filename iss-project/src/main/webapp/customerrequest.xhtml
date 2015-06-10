@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core">
+ 
+<f:view>
+  <f:metadata>   
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startProcessInstanceByKeyForm()}" />
+  </f:metadata>
+  <h:head>
+    <title>Customer Request</title>
+  </h:head>
+  <h:body>
+    <h1>Insert Customer Data</h1>
+    <h:form id="submitForm">
+      <h:panelGrid columns="2">
+        <p>
+          <label for="name">Name</label>
+          <!-- create process variables using the processVariables map. -->
+          <h:inputText id="name" value="#{processVariables['name']}" required="true" />
+        </p>
+        <p>
+          <label for="address">Address</label>
+          <!-- create process variables using the processVariables map. -->
+          <h:inputText id="address" value="#{processVariables['address']}" required="true" />
+        </p>
+         <p>
+          <label for="email">E-Mail</label>
+          <!-- create process variables using the processVariables map. -->
+          <h:inputText id="email" value="#{processVariables['email']}" required="true" />
+        </p>
+      </h:panelGrid>
+      
+      <h1>Insert Request</h1>
+      <h:panelGrid columns="2">
+        <p>
+          <label for="title">Title</label>
+          <!-- create process variables using the processVariables map. -->
+          <h:inputText id="title" value="#{processVariables['title']}" required="true" />
+        </p>
+        <p>
+          <label for="text">Text</label>
+          <!-- create process variables using the processVariables map. -->
+          <h:inputText id="text" value="#{processVariables['text']}" required="true" />
+        </p>        
+      </h:panelGrid>       
+    
+      <h:commandButton id="submit_button" value="Submit Request" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
+ 
+      <h:messages style="color:red;margin:8px;" />
+    </h:form>
+  </h:body>
+</f:view>
+</html>
