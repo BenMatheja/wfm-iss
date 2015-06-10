@@ -291,7 +291,7 @@
     <bpmn2:endEvent id="EndEvent_3" name="rejected">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:serviceTask id="ServiceTask_1" camunda:expression="${customerRequestLogic.persistCustomerRequest(execution)}" name="Persist Request">
+    <bpmn2:serviceTask id="ServiceTask_1" camunda:expression="${customerRequestService.persistCustomerRequest(execution)}" name="Persist Request">
       <bpmn2:incoming>SequenceFlow_18</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_17</bpmn2:outgoing>
     </bpmn2:serviceTask>
@@ -300,7 +300,7 @@
       <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
     </bpmn2:startEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_10" name="" sourceRef="StartEvent_CustomerRequest" targetRef="ServiceTask_3"/>
-    <bpmn2:serviceTask id="ServiceTask_3" camunda:expression="${customerLogic.persistCustomer(execution)}" name="Persist Customer">
+    <bpmn2:serviceTask id="ServiceTask_3" camunda:expression="${customerService.persistCustomer(execution)}" name="Persist Customer">
       <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_18</bpmn2:outgoing>
     </bpmn2:serviceTask>
