@@ -52,7 +52,7 @@ public class CustomerService {
 	    delegateExecution.setVariable("customerId", customerEntity.getId());
 	  }
 
-	  public Customer getCustomer(Long customerId) {
+	  public Customer getCustomer(long customerId) {
 		  // Load entity from database
 		  return entityManager.find(Customer.class, customerId);
 	  }

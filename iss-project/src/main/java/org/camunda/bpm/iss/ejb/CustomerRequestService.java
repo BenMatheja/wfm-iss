@@ -54,7 +54,7 @@ public class CustomerRequestService {
 	  }
 
 
-	  public CustomerRequest getCustomerRequest(Long customerRequestId) {
+	  public CustomerRequest getCustomerRequest(long customerRequestId) {
 		  // Load entity from database
 		  return entityManager.find(CustomerRequest.class, customerRequestId);
 	  }

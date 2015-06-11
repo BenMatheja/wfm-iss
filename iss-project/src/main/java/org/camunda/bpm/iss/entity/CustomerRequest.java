@@ -25,11 +25,11 @@ public class CustomerRequest implements Serializable {
 	  protected String text;
 	 
 	 	 
-	  public Long getId() {
+	  public long getId() {
 	    return id;
 	  }
 	 
-	  public void setId(Long id) {
+	  public void setId(long id) {
 	    this.id = id;
 	  }
 	 
