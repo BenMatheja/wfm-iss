@@ -17,7 +17,8 @@ import org.camunda.bpm.iss.entity.CustomerRequest;
 @Stateless
 @Named
 public class CustomerRequestService {
-
+	CustomerService customerService;
+	
 	 @PersistenceContext
 	  private EntityManager entityManager;
 	  
@@ -37,7 +38,7 @@ public class CustomerRequestService {
 	    // Set attributes
 	    customerRequestEntity.setTitle((String) variables.get("title"));
 	    customerRequestEntity.setText((String) variables.get("text"));
-	    customerRequestEntity.setCustomer((Customer) variables.get("customerId"));
+	    customerRequestEntity.setCustomer(customerService.getCustomer((Long)variables.get("customerId")));
 	 
 	    /*
 	      Persist instance and flush. After the flush the
