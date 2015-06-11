@@ -32,5 +32,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Marlene/OneDrive/Documents/Master IS/2 Semester/Workflow Management/javaee.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Marlene/OneDrive/Documents/Master IS/2 Semester/Workflow Management/mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
