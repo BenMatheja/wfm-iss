@@ -17,12 +17,13 @@ public class CustomerRequest implements Serializable {
 	 
 	  @Version
 	  protected long version;
-	 
-	  protected String title;
-	  protected String text;
 	  
 	  @ManyToOne
 	  protected Customer customer;
+	 
+	  protected String title;
+	  protected String text;
+	 
 	 	 
 	  public Long getId() {
 	    return id;

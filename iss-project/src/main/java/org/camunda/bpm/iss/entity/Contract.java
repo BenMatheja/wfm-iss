@@ -1,20 +1,26 @@
 package org.camunda.bpm.iss.entity;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
+
+import javax.persistence.*;
+
 import org.camunda.bpm.iss.entity.Project;
 
 @Entity
-public class Contract {
-
+public class Contract implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	protected Customer customer;
-	protected String contractTitle;
+	@OneToOne
 	protected Project project;
+	
+	@OneToOne
+	protected Customer customer;
+	
+	protected String contractTitle;	
 	protected int price;
 	
 	public Customer getCustomer() {

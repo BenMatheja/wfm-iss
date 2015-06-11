@@ -1,20 +1,26 @@
 package org.camunda.bpm.iss.entity;
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Appointment {
+public class Appointment implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	protected Date date;
+	@OneToOne
 	protected Project project;
+	
+	protected Date date;	
 	protected boolean possible;
 	
 	public Date getDate() {

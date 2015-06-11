@@ -1,14 +1,20 @@
 package org.camunda.bpm.iss.entity;
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
-public class CustomerBill {
-
+public class CustomerBill implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@OneToOne
 	protected Project project;
+	
 	protected int cost;
 	protected boolean received;
 	protected boolean dunned;

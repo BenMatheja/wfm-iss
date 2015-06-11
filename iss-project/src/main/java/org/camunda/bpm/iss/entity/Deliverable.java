@@ -1,13 +1,19 @@
 package org.camunda.bpm.iss.entity;
+import java.io.Serializable;
+
 import javax.persistence.*;
 
-public class Deliverable {
-
+public class Deliverable implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@ManyToOne
 	protected Project project;
+	
 	protected byte[] executableVersion;
 	
 	public Project getProject() {

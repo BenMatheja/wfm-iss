@@ -1,21 +1,27 @@
 package org.camunda.bpm.iss.entity;
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Project {
-
+public class Project implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	protected String title;
+	@OneToMany
 	protected Collection<Employee> employee;
-	//is this ever used throughout the process?
+	
+	protected String title;
+	// individualTime: is this ever used throughout the process?
 	protected int[] individualTime;
 	protected boolean design;
 	protected boolean finished;
