@@ -1,8 +1,10 @@
 package org.camunda.bpm.iss.ejb;
 
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,7 +13,6 @@ import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
-import org.camunda.bpm.iss.entity.Customer;
 import org.camunda.bpm.iss.entity.CustomerRequest;
 
 @Stateless
@@ -38,8 +39,12 @@ public class CustomerRequestService {
 	    // Set attributes
 	    customerRequestEntity.setTitle((String) variables.get("title"));
 	    customerRequestEntity.setText((String) variables.get("text"));
+	    try{
 	    customerRequestEntity.setCustomer(customerService.getCustomer((Long)variables.get("customerId")));
-	 
+	    }catch(EJBException e){
+	    	Throwable cause = e.getCause();
+	    	LOGGER.log(Level.SEVERE, cause.getMessage());
+	    }
 	    /*
 	      Persist instance and flush. After the flush the
 	      id of the instance is set.
