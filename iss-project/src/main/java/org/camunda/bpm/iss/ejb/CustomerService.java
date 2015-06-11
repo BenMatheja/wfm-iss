@@ -3,7 +3,9 @@ package org.camunda.bpm.iss.ejb;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -11,6 +13,8 @@ import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.iss.entity.Customer;
 
+@Stateless
+@Named
 public class CustomerService {
 
 	 @PersistenceContext
