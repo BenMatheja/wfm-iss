@@ -1,18 +1,26 @@
 package org.camunda.bpm.getstarted.pizza;
  
-import org.camunda.bpm.engine.cdi.jsf.TaskForm;
-import org.camunda.bpm.engine.delegate.DelegateExecution;
+import java.io.IOException;
+import java.util.Map;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.camunda.bpm.engine.cdi.jsf.TaskForm;
+import org.camunda.bpm.engine.delegate.DelegateExecution;
  
 @Stateless
 @Named
@@ -78,5 +86,38 @@ public class OrderBusinessLogic {
   public void rejectOrder(DelegateExecution delegateExecution) {
 	    OrderEntity order = getOrder((Long) delegateExecution.getVariable("orderId"));
 	    LOGGER.log(Level.INFO, "\n\n\nSending Email:\nDear {0}, your order {1} of a {2} pizza has been rejected.\n\n\n", new String[]{order.getCustomer(), String.valueOf(order.getId()), order.getPizza()});
-	  }
+	    final String username = "contactISSgroup@gmail.com";
+		final String password = "verysecurepw";
+	 
+			Properties props = new Properties();
+			props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+	 
+			Session session = Session.getInstance(props,
+			  new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(username, password);
+				}
+			  });
+	 
+			try {
+	 
+				Message message = new MimeMessage(session);
+				message.setFrom(new InternetAddress("contactISSgroup@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse("Marlene.Beyer@gmx.de"));
+			message.setSubject("Testing Subject");
+			message.setText("Dear Mail Crawler,"
+				+ "\n\n No spam to my email, please!");
+	 
+				Transport.send(message);
+	 
+				System.out.println("Done");
+	 
+			} catch (MessagingException e) {
+				throw new RuntimeException(e);
+			}	  
+  }
 }

@@ -1,18 +1,21 @@
 package org.camunda.bpm.getstarted.pizza;
 	
-		import java.util.Properties;
+		import java.io.Serializable;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 		 
-		import javax.mail.Message;
-		import javax.mail.MessagingException;
-		import javax.mail.PasswordAuthentication;
-		import javax.mail.Session;
-		import javax.mail.Transport;
-		import javax.mail.internet.InternetAddress;
-		import javax.mail.internet.MimeMessage;
-		 
-public class sendMail {
-		 
-			public static void main(String[] args) {
+public class sendMail implements Serializable{
+	 
+	private static final long serialVersionUID = 1L; 
+	public static void main(String[] args) {
 		 
 				final String username = "contactISSgroup@gmail.com";
 				final String password = "verysecurepw";
@@ -46,6 +49,6 @@ public class sendMail {
 		 
 				} catch (MessagingException e) {
 					throw new RuntimeException(e);
-				}
+				}	
 			}
-		}
+	}	
