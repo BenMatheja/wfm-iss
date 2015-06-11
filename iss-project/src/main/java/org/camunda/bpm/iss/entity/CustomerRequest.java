@@ -13,7 +13,7 @@ public class CustomerRequest implements Serializable {
 	 
 	  @Id
 	  @GeneratedValue
-	  protected long id;
+	  protected Long id;
 	 
 	  @Version
 	  protected long version;
@@ -25,11 +25,11 @@ public class CustomerRequest implements Serializable {
 	  protected String text;
 	 
 	 	 
-	  public long getId() {
+	  public Long getId() {
 	    return id;
 	  }
 	 
-	  public void setId(long id) {
+	  public void setId(Long id) {
 	    this.id = id;
 	  }
 	 
