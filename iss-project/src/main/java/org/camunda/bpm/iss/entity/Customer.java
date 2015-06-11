@@ -13,7 +13,7 @@ public class Customer implements Serializable {
 	 
 	  @Id
 	  @GeneratedValue
-	  protected Long id;
+	  protected long id;
 	 
 	  @Version
 	  protected long version;
