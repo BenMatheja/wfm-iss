@@ -17,15 +17,9 @@ xmlns:f="http://java.sun.com/jsf/core">
   <p>Name: #{evaluateRequestController.customerEntity.name}</p>
   <p>Address: #{evaluateRequestController.customerEntity.address}</p>
   <p>EMail: #{evaluateRequestController.customerEntity.eMail}</p>
-  <!--  
-  <h1>Request:</h1>
-  <p>Title: #{evaluateRequestController.customerRequestEntity.title}</p>
-  <p>Text: #{evaluateRequestController.customerRequestEntity.text}</p>
-  -->
   <h:form id="submitForm">
     <h:outputLabel>Accept Request?</h:outputLabel>
-    <h:commandButton id="submit_button" value="Accept Request" action="#{evaluateRequestController.submitForm()}" />
-    <h:commandButton id="submit_button" value="Decline Request" action="#{evaluateRequestController.submitForm()}" />
+    <h:commandButton id="submit_button" value="Accept Request" action="#{evaluateRequestController.submitForm()}" />    
   </h:form>
 </h:body>
 </f:view>

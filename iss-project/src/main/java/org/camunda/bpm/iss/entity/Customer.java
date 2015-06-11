@@ -55,14 +55,13 @@ public class Customer implements Serializable {
 	 
 	  public void setAddress(String address) {
 	    this.address = address;
-	  }
-	 
-	  public String getEMail() {
-	    return eMail;
-	  }
-	 
-	  public void setEMail(String eMail) {
-	    this.eMail = eMail;
-	  }	 
+	  }	  
+	  public String geteMail() {
+			return eMail;
+		}
+
+		public void seteMail(String eMail) {
+			this.eMail = eMail;
+		}
 
 	}

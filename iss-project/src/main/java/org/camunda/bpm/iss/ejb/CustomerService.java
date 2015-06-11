@@ -41,7 +41,7 @@ public class CustomerService {
 	    // Set order attributes
 	    customerEntity.setName((String) variables.get("name"));
 	    customerEntity.setAddress((String) variables.get("address"));
-	    customerEntity.setEMail((String) variables.get("eMail"));
+	    customerEntity.seteMail((String) variables.get("eMail"));
 	 
 	    /*
 	      Persist customer instance and flush. After the flush the
@@ -55,7 +55,7 @@ public class CustomerService {
 	    // Remove no longer needed process variables
 	    // delegateExecution.removeVariables(variables.keySet());
 	 
-	    LOGGER.log(Level.INFO, "Add newly created customer id as process variable");
+	    LOGGER.log(Level.INFO, "Add newly created customer id as process variable. It is:" + customerEntity.getId());
 	    // Add newly created customer id as process variable
 	    delegateExecution.setVariable("customerId", customerEntity.getId());
 	  }

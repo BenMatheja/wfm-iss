@@ -36,6 +36,7 @@ public class EvaluateRequestController implements Serializable{
 	  // Inject the Logic 
 	  @Inject
 	  private CustomerRequestService customerRequestLogic;
+	  @Inject
 	  private CustomerService customerLogic;
 	 
 	  // Caches the Entities during the conversation
@@ -55,9 +56,10 @@ public class EvaluateRequestController implements Serializable{
 	  public Customer getCustomerEntity() {
 		    if (customerEntity == null) {
 		      // Load the entity from the database if not already cached
-		    Long a = (Long) businessProcess.getVariable("customerId");
-		    LOGGER.log(Level.INFO, "This is Customer ID Long: " + a.toString()); 
-		      customerEntity = customerLogic.getCustomer(a);
+		    LOGGER.log(Level.INFO, "This is customerId from businessProcess: " + businessProcess.getVariable("customerId")); 
+		    LOGGER.log(Level.INFO, "This is the same casted as Long: " + (Long) businessProcess.getVariable("customerId"));
+		    LOGGER.log(Level.INFO, "This is getCustomer from the Service invoked with it " + customerLogic.getCustomer((Long) businessProcess.getVariable("customerId")));
+		    customerEntity = customerLogic.getCustomer((Long) businessProcess.getVariable("customerId"));
 		    }
 		    return customerEntity;
 		  }
