@@ -2,6 +2,8 @@ package org.camunda.bpm.iss.web;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
@@ -21,6 +23,8 @@ public class EvaluateRequestController implements Serializable{
 
 	  private static  final long serialVersionUID = 1L;
 	  
+	  
+	  private static Logger LOGGER = Logger.getLogger(EvaluateRequestController.class.getName());
 	  // Inject the BusinessProcess to access the process variables
 	  @Inject
 	  private BusinessProcess businessProcess;
@@ -38,6 +42,7 @@ public class EvaluateRequestController implements Serializable{
 	  private CustomerRequest customerRequestEntity;
 	  private Customer customerEntity;
 	 
+	  /**
 	  public CustomerRequest getCustomerRequestEntity() {
 	    if (customerRequestEntity == null) {
 	      // Load the entity from the database if not already cached
@@ -45,11 +50,14 @@ public class EvaluateRequestController implements Serializable{
 	    }
 	    return customerRequestEntity;
 	  }
+	  **/
 	  
 	  public Customer getCustomerEntity() {
 		    if (customerEntity == null) {
 		      // Load the entity from the database if not already cached
-		      customerEntity = customerLogic.getCustomer((Long) businessProcess.getVariable("customerId"));
+		    Long a = (Long) businessProcess.getVariable("customerId");
+		    LOGGER.log(Level.INFO, "This is Customer ID Long: " + a.toString()); 
+		      customerEntity = customerLogic.getCustomer(a);
 		    }
 		    return customerEntity;
 		  }

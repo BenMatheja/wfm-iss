@@ -13,7 +13,9 @@ import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.iss.entity.Customer;
 import org.camunda.bpm.iss.entity.CustomerRequest;
+
 
 @Stateless
 @Named
@@ -39,8 +41,8 @@ public class CustomerRequestService {
 	    // Set attributes
 	    customerRequestEntity.setTitle((String) variables.get("title"));
 	    customerRequestEntity.setText((String) variables.get("text"));
-	    try{
-	    customerRequestEntity.setCustomer(customerService.getCustomer((Long)variables.get("customerId")));
+	    try{	    	    	
+	    customerRequestEntity.setCustomer(customerService.getCustomer((Long) variables.get("customerId")));
 	    }catch(EJBException e){
 	    	Throwable cause = e.getCause();
 	    	LOGGER.log(Level.SEVERE, cause.getMessage());
