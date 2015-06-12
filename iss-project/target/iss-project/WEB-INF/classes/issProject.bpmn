@@ -152,7 +152,7 @@
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(true)</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:userTask id="UserTask_EvaluateRequest" camunda:formKey="app:evaluaterequest.jsf" camunda:assignee="john" name="Evaluate Request">
-      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_17</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="UserTask_EvaluateRequest" targetRef="ExclusiveGateway_1"/>
@@ -291,16 +291,20 @@
     <bpmn2:endEvent id="EndEvent_3" name="rejected">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:serviceTask id="ServiceTask_1" camunda:expression="${customerRequestService.persistCustomerRequest(execution)}" name="Persist Request"/>
+    <bpmn2:serviceTask id="ServiceTask_1" camunda:expression="${customerRequestService.persistCustomerRequest(execution)}" name="Persist Request">
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_17</bpmn2:outgoing>
+    </bpmn2:serviceTask>
     <bpmn2:startEvent id="StartEvent_CustomerRequest" camunda:formKey="app:customerrequest.jsf" name="Customer has request">
       <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
     </bpmn2:startEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_10" name="" sourceRef="StartEvent_CustomerRequest" targetRef="ServiceTask_3"/>
     <bpmn2:serviceTask id="ServiceTask_3" camunda:expression="${customerService.persistCustomer(execution)}" name="Persist Customer">
       <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
     </bpmn2:serviceTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="ServiceTask_3" targetRef="UserTask_EvaluateRequest"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="ServiceTask_3" targetRef="ServiceTask_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_17" name="" sourceRef="ServiceTask_1" targetRef="UserTask_EvaluateRequest"/>
     <bpmn2:textAnnotation id="TextAnnotation_1">
       <bpmn2:text>Different User</bpmn2:text>
     </bpmn2:textAnnotation>
@@ -844,11 +848,13 @@
       <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_10" bpmnElement="ServiceTask_3">
         <dc:Bounds height="80.0" width="125.0" x="216.0" y="1167.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="_BPMNShape_ServiceTask_10" targetElement="_BPMNShape_UserTask_4">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="_BPMNShape_ServiceTask_10" targetElement="_BPMNShape_ServiceTask_9">
         <di:waypoint xsi:type="dc:Point" x="340.0" y="1207.0"/>
-        <di:waypoint xsi:type="dc:Point" x="362.0" y="1207.0"/>
-        <di:waypoint xsi:type="dc:Point" x="362.0" y="594.0"/>
-        <di:waypoint xsi:type="dc:Point" x="384.0" y="594.0"/>
+        <di:waypoint xsi:type="dc:Point" x="384.0" y="1207.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_17" bpmnElement="SequenceFlow_17" sourceElement="_BPMNShape_ServiceTask_9" targetElement="_BPMNShape_UserTask_4">
+        <di:waypoint xsi:type="dc:Point" x="446.0" y="1167.0"/>
+        <di:waypoint xsi:type="dc:Point" x="446.0" y="634.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

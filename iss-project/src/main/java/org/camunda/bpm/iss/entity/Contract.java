@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import org.camunda.bpm.iss.entity.Project;
 
+
 @Entity
 public class Contract implements Serializable {
 	

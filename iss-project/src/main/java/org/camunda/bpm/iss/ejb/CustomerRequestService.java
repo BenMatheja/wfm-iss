@@ -54,10 +54,14 @@ public class CustomerRequestService {
 	    entityManager.persist(customerRequestEntity);
 	    entityManager.flush();
 	 
+	    // Save the customer temporarily 
+	    Object tempCust = variables.get("customerId");
+	    
 	    // Remove no longer needed process variables
 	    delegateExecution.removeVariables(variables.keySet());
 	 
 	    // Add newly created id as process variable
+	    delegateExecution.setVariable("customerId", tempCust);
 	    delegateExecution.setVariable("customerRequestId", customerRequestEntity.getId());
 	  }
 
