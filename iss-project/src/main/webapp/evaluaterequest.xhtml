@@ -14,30 +14,28 @@ xmlns:f="http://java.sun.com/jsf/core">
 </h:head>
 <h:body>
   
-  <h1>Customer: ##{evaluateRequestController.customerEntity.id}</h1>
+  <h1>Customer: #{evaluateRequestController.customerEntity.name}</h1>
   	<h:form>
  		<h:panelGrid columns="2" columnClasses="form-label, form-label">
- 			<h:outputLabel value="Name" />
- 	 		<h:outputLabel value="#{evaluateRequestController.customerEntity.name}"/>
-		 	<h:outputLabel value="Address" />
+ 			<h:outputLabel value="Address" />
 		 	<h:outputLabel value="#{evaluateRequestController.customerEntity.address}"/>
 		 	<h:outputLabel value="E-Mail" />
 		 	<h:outputLabel value="#{evaluateRequestController.customerEntity.email}"/>
 	  	</h:panelGrid>
   	</h:form>
   	
-  <h2>Request: ##{evaluateRequestController.customerRequestEntity.id}</h2>
-  	<h:form id="submitForm" columns="2" columnClasses="form-label,form-label" footer-Class="form-footer">
-	  	<h:outputLabel value="Title" />
-	  	<h:outputLabel value="#{evaluateRequestController.customerRequestEntity.title}" />
-	  	<h:outputLabel value="Description" />
-	  	<h:outputLabel value="#{evaluateRequestController.customerRequestEntity.text}" />
-	    <f:facet name="footer"> 
-	    <h:outputLabel value="Accept Request?" /> 
-	    	<h:commandButton id="confirmButton" value="Accept Request" action="#{evaluateRequestController.confirmRequest()}" />    
-	    	<h:commandButton id="declineButton" value="Decline Request" action="#{evaluateRequestController.declineRequest()}" />
-	  	</f:facet>
-	</h:form>
+  <h1>Request: #{evaluateRequestController.customerRequestEntity.title}</h1>
+  	<h:form>
+ 		<h:panelGrid columns="2" columnClasses="form-label, form-label">
+		  	<h:outputLabel value="Description" />
+		  	<h:outputLabel value="#{evaluateRequestController.customerRequestEntity.text}" />
+		 </h:panelGrid>
+  	</h:form>	  
+	<h:form id="submitForm" columns="2" columnClasses="form-label,form-label" footer-Class="form-footer">
+	<h:outputLabel value="Accept Request?" /> 
+	   	<h:commandButton id="confirmButton" value="Accept Request" action="#{evaluateRequestController.confirmRequest()}" />    
+	   	<h:commandButton id="declineButton" value="Decline Request" action="#{evaluateRequestController.declineRequest()}" />
+	</h:form>		
 </h:body>
 </f:view>
 </html>
