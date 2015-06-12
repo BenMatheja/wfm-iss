@@ -1,12 +1,14 @@
 package org.camunda.bpm.iss.entity;
 
+import java.io.Serializable;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
-import java.io.Serializable;
-
+@Entity
 public class CustomerRequest implements Serializable {
 
 	private static  final long serialVersionUID = 1L;

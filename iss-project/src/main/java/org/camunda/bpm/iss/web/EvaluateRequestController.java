@@ -33,39 +33,45 @@ public class EvaluateRequestController implements Serializable{
 	  @PersistenceContext
 	  private EntityManager entityManager;
 	 
-	  // Inject the Logic 
+	  // Inject the Service 
 	  @Inject
-	  private CustomerRequestService customerRequestLogic;
+	  private CustomerRequestService customerRequestService;
 	  @Inject
-	  private CustomerService customerLogic;
+	  private CustomerService customerService;
 	 
 	  // Caches the Entities during the conversation
 	  private CustomerRequest customerRequestEntity;
 	  private Customer customerEntity;
 	 
-	  /**
+	  
 	  public CustomerRequest getCustomerRequestEntity() {
 	    if (customerRequestEntity == null) {
 	      // Load the entity from the database if not already cached
-	      customerRequestEntity = customerRequestLogic.getCustomerRequest((Long) businessProcess.getVariable("customerRequestId"));
+	      LOGGER.log(Level.INFO, "This is customerRequestId from businessProcess: " + businessProcess.getVariable("customerRequestId")); 
+		  LOGGER.log(Level.INFO, "This is the same casted as Long: " + (Long) businessProcess.getVariable("customerRequestId"));
+		  LOGGER.log(Level.INFO, "This is getCustomer from the Service invoked with it " + customerRequestService.getCustomerRequest((Long) businessProcess.getVariable("customerRequestId")));
+	      customerRequestEntity = customerRequestService.getCustomerRequest((Long) businessProcess.getVariable("customerRequestId"));
 	    }
 	    return customerRequestEntity;
 	  }
-	  **/
+	  
 	  
 	  public Customer getCustomerEntity() {
 		    if (customerEntity == null) {
 		      // Load the entity from the database if not already cached
 		    LOGGER.log(Level.INFO, "This is customerId from businessProcess: " + businessProcess.getVariable("customerId")); 
 		    LOGGER.log(Level.INFO, "This is the same casted as Long: " + (Long) businessProcess.getVariable("customerId"));
-		    LOGGER.log(Level.INFO, "This is getCustomer from the Service invoked with it " + customerLogic.getCustomer((Long) businessProcess.getVariable("customerId")));
-		    customerEntity = customerLogic.getCustomer((Long) businessProcess.getVariable("customerId"));
+		    LOGGER.log(Level.INFO, "This is getCustomer from the Service invoked with it " + customerService.getCustomer((Long) businessProcess.getVariable("customerId")));
+		    customerEntity = customerService.getCustomer((Long) businessProcess.getVariable("customerId"));
 		    }
 		    return customerEntity;
-		  }
+	  }
 	 
-	  public void submitForm() throws IOException {
+	  public void confirmRequest() throws IOException {
 	    // Do something awesome in here
 	  }
 	
+	  public void declineRequest() throws IOException{
+		//Decline Request and send a
+	  }
 }

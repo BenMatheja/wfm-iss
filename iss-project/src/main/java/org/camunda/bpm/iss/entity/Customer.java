@@ -22,7 +22,7 @@ public class Customer implements Serializable {
 	  
 	  protected String name;
 	  protected String address;
-	  protected String eMail;
+	  protected String email;
 	  
 	 
 	  public Long getId() {
@@ -56,12 +56,12 @@ public class Customer implements Serializable {
 	  public void setAddress(String address) {
 	    this.address = address;
 	  }	  
-	  public String geteMail() {
-			return eMail;
+	  public String getEmail() {
+			return email;
 		}
 
-		public void seteMail(String eMail) {
-			this.eMail = eMail;
+		public void setEmail(String email) {
+			this.email = email;
 		}
 
 	}

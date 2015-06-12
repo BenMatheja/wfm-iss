@@ -13,13 +13,13 @@ import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
-import org.camunda.bpm.iss.entity.Customer;
 import org.camunda.bpm.iss.entity.CustomerRequest;
 
 
 @Stateless
 @Named
 public class CustomerRequestService {
+	@Inject
 	CustomerService customerService;
 	
 	 @PersistenceContext
@@ -62,7 +62,7 @@ public class CustomerRequestService {
 	  }
 
 
-	  public CustomerRequest getCustomerRequest(long customerRequestId) {
+	  public CustomerRequest getCustomerRequest(Long customerRequestId) {
 		  // Load entity from database
 		  return entityManager.find(CustomerRequest.class, customerRequestId);
 	  }

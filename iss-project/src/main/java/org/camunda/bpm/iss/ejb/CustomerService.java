@@ -41,7 +41,7 @@ public class CustomerService {
 	    // Set order attributes
 	    customerEntity.setName((String) variables.get("name"));
 	    customerEntity.setAddress((String) variables.get("address"));
-	    customerEntity.seteMail((String) variables.get("eMail"));
+	    customerEntity.setEmail((String) variables.get("email"));
 	 
 	    /*
 	      Persist customer instance and flush. After the flush the
