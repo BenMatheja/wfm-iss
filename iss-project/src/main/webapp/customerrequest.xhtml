@@ -16,17 +16,17 @@
     <h:form id="submitForm">
       <h:panelGrid columns="2">
         <p>
-          <label for="name">Name</label>
+          <label for="name">Customer name</label>
           <!-- create process variables using the processVariables map. -->
           <h:inputText id="name" value="#{processVariables['name']}" required="true" />
         </p>
         <p>
-          <label for="address">Address</label>
+          <label for="address">Customer address</label>
           <!-- create process variables using the processVariables map. -->
           <h:inputText id="address" value="#{processVariables['address']}" required="true" />
         </p>
          <p>
-          <label for="email">E-Mail</label>
+          <label for="email">Customer eMail</label>
           <!-- create process variables using the processVariables map. -->
           <h:inputText id="email" value="#{processVariables['email']}" required="true" />
         </p>
@@ -35,19 +35,19 @@
       <h1>Insert Request</h1>
       <h:panelGrid columns="2">
         <p>
-          <label for="title">Title</label>
+          <label for="title">Request title</label>
           <!-- create process variables using the processVariables map. -->
           <h:inputText id="title" value="#{processVariables['title']}" required="true" />
         </p>
         <p>
-          <label for="text">Text</label>
+          <label for="text">Request text</label>
           <!-- create process variables using the processVariables map. -->
           <h:inputText id="text" value="#{processVariables['text']}" required="true" />
         </p>        
       </h:panelGrid>       
     
       <h:commandButton id="submit_button" value="Submit Request" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
- 
+	  <h:commandButton id="cancel_button" value="Discard Request" onclick="history.go(-1)" />
       <h:messages style="color:red;margin:8px;" />
     </h:form>
   </h:body>
