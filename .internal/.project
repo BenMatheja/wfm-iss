@@ -10,6 +10,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>C.Users.Marlene.git.camunda-bpm-examples2.servicetask.rest-service.src.test.java.org.camunda.bpm.example.servicetask.rest.ServiceTaskRestTest.java</name>
+			<type>1</type>
+			<location>C:/Users/Marlene/git/camunda-bpm-examples2/servicetask/rest-service/src/test/java/org/camunda/bpm/example/servicetask/rest/ServiceTaskRestTest.java</location>
+		</link>
+		<link>
 			<name>Z.WfM.PB_ISS_Process_Model_v1_skr.bpmn</name>
 			<type>1</type>
 			<location>Z:/WfM/PB_ISS_Process_Model_v1_skr.bpmn</location>

@@ -263,7 +263,7 @@
       <bpmn2:outgoing>SequenceFlow_57</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_57" name="" sourceRef="UserTask_12" targetRef="ExclusiveGateway_8"/>
-    <bpmn2:userTask id="UserTask_NegotiateContract" name="Negotiate Contract">
+    <bpmn2:userTask id="UserTask_NegotiateContract" camunda:formKey="app:negotiatecontract.jsf" camunda:assignee="john" name="Negotiate Contract">
       <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
     </bpmn2:userTask>
