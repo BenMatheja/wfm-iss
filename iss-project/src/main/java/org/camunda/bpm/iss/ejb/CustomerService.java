@@ -100,10 +100,12 @@ public class CustomerService {
 					Message message = new MimeMessage(session);
 					message.setFrom(new InternetAddress("contactISSgroup@gmail.com"));
 				message.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse("karsten.rothmeier@yahoo.de"));
+					InternetAddress.parse(customer.getEmail()));
 				message.setSubject("Testing Subject");
-				message.setText("Dear Mail Crawler,"
-					+ "\n\n No spam to my email, please!");
+				message.setText("Dear "+customer.getName()+"," 
+					+mailtext
+					+ ""
+					+ "Best regards, ISS");
 		 
 					Transport.send(message);
 		 
