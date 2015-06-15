@@ -4,52 +4,54 @@
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core">
  
-<f:view>
+<ui:composition template="/resources/master.xhtml">
+  <ui:define name="metadata">
   <f:metadata>   
     <f:event type="preRenderView" listener="#{camundaTaskForm.startProcessInstanceByKeyForm()}" />
   </f:metadata>
-  <h:head>
-    <title>Customer Request</title>
-  </h:head>
-  <h:body>
-    <h1>Insert Customer Data</h1>
-    <h:form id="submitForm">
-      <h:panelGrid columns="2">
-        <p>
-          <label for="name">Customer name</label>
-          <!-- create process variables using the processVariables map. -->
-          <h:inputText id="name" value="#{processVariables['name']}" required="true" />
-        </p>
-        <p>
-          <label for="address">Customer address</label>
-          <!-- create process variables using the processVariables map. -->
-          <h:inputText id="address" value="#{processVariables['address']}" required="true" />
-        </p>
-         <p>
-          <label for="email">Customer eMail</label>
-          <!-- create process variables using the processVariables map. -->
-          <h:inputText id="email" value="#{processVariables['email']}" required="true" />
-        </p>
-      </h:panelGrid>
+  </ui:define>
+  
+  <ui:define name="title">Customer Request</ui:define>
+  
+  <ui:define name="content">
+  	<div class="details">
+  	    <h:form id="submitForm">
+  	    	<h2>Insert Customer Data</h2>    		
+      			<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
+        			<p>
+          				<label for="name">Customer name</label>
+                    	<h:inputText id="name" value="#{processVariables['name']}" required="true" />
+                    	<h:message for="name" />
+        			</p>
+        			<p>
+          				<label for="address">Customer address</label>
+                    	<h:inputText id="address" value="#{processVariables['address']}" required="true" />
+                    	<h:message for="address" />
+        			</p>
+         			<p>
+          				<label for="email">Customer eMail</label>
+                    	<h:inputText id="email" value="#{processVariables['email']}" required="true" />
+                    	<h:message for="email" />
+        			</p>        			
+      			</h:panelGrid>
       
-      <h1>Insert Request</h1>
-      <h:panelGrid columns="2">
-        <p>
-          <label for="title">Request title</label>
-          <!-- create process variables using the processVariables map. -->
-          <h:inputText id="title" value="#{processVariables['title']}" required="true" />
-        </p>
-        <p>
-          <label for="text">Request text</label>
-          <!-- create process variables using the processVariables map. -->
-          <h:inputText id="text" value="#{processVariables['text']}" required="true" />
-        </p>        
-      </h:panelGrid>       
-    
-      <h:commandButton id="submit_button" value="Submit Request" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
-	  <h:commandButton id="cancel_button" value="Discard Request" onclick="history.go(-1)" />
-      <h:messages style="color:red;margin:8px;" />
-    </h:form>
-  </h:body>
-</f:view>
+      		<h2>Insert Request</h2>
+      			<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
+        			<p>
+          				<label for="title">Request title</label>
+                    	<h:inputText id="title" value="#{processVariables['title']}" required="true" />
+                    	<h:message for="title" />
+        			</p>
+        			<p>
+          				<label for="text">Request text</label>
+                   		<h:inputText id="text" value="#{processVariables['text']}" required="true" />
+                   		<h:message for="text" />
+        			</p>        			      
+      			</h:panelGrid>       
+    			
+    			<h:commandButton id="submit_button" value="Submit Request" action="#{camundaTaskForm.completeProcessInstanceForm()}" /> 	  			   			
+    	</h:form><h:commandButton id="cancel_button" value="Discard Request" onclick="history.go(-1)" />
+  	</div>
+  </ui:define>
+</ui:composition>
 </html>

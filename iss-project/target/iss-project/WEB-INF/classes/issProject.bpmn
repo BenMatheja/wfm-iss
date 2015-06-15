@@ -61,10 +61,10 @@
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="SequenceFlow_5" name="Declined" sourceRef="ExclusiveGateway_1" targetRef="SendTask_7">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${Declined}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${not customerRequestService.getCustomerRequest(customerRequestId).evaluated}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_7" name="Accepted" sourceRef="ExclusiveGateway_1" targetRef="SendTask_8">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(Accepted)</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${customerRequestService.getCustomerRequest(customerRequestId).evaluated}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:exclusiveGateway id="ExclusiveGateway_3" name="Designs needed?">
       <bpmn2:incoming>SequenceFlow_43</bpmn2:incoming>
@@ -278,12 +278,12 @@
       <bpmn2:outgoing>SequenceFlow_40</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:sequenceFlow id="SequenceFlow_40" name="" sourceRef="SendTask_4" targetRef="ParallelGateway_5"/>
-    <bpmn2:sendTask id="SendTask_7" camunda:expression="$(true)" name="Send Rejection">
+    <bpmn2:sendTask id="SendTask_7" camunda:expression="${customerService.mailCustomer(execution)}" name="Send Rejection">
       <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="SendTask_7" targetRef="EndEvent_3"/>
-    <bpmn2:sendTask id="SendTask_8" camunda:expression="$(true)" name="Confirm Request">
+    <bpmn2:sendTask id="SendTask_8" camunda:expression="${customerService.mailCustomer(execution)}" name="Confirm Request">
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
     </bpmn2:sendTask>

@@ -1,5 +1,6 @@
 package org.camunda.bpm.iss.ejb;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,5 +70,19 @@ public class CustomerRequestService {
 	  public CustomerRequest getCustomerRequest(Long customerRequestId) {
 		  // Load entity from database
 		  return entityManager.find(CustomerRequest.class, customerRequestId);
+	  }
+	  
+	  public void mergeAndComplete(CustomerRequest customerRequest) {
+		  // Merge detached customerRequest entity with current persisted state
+		 
+		  entityManager.merge(customerRequest);		  			
+		  
+		  try {
+		      // Complete user task from
+		      taskForm.completeTask();
+		   } catch (IOException e) {
+		      // Rollback both transactions on error
+		      throw new RuntimeException("Cannot complete task", e);
+		   }
 	  }
 }	

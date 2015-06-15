@@ -2,16 +2,25 @@ package org.camunda.bpm.iss.web;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.BusinessProcess;
+import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.iss.ejb.CustomerRequestService;
 import org.camunda.bpm.iss.ejb.CustomerService;
 import org.camunda.bpm.iss.entity.Customer;
@@ -42,6 +51,8 @@ public class EvaluateRequestController implements Serializable{
 	  // Caches the Entities during the conversation
 	  private CustomerRequest customerRequestEntity;
 	  private Customer customerEntity;
+	  
+	  private DelegateExecution delegateExecution;
 	 
 	  
 	  public CustomerRequest getCustomerRequestEntity() {
@@ -68,10 +79,18 @@ public class EvaluateRequestController implements Serializable{
 	  }
 	 
 	  public void confirmRequest() throws IOException {
-	    // Do something awesome in here
+		  // Accept Request and forward
+		  customerRequestEntity.setEvaluated(true);
+		  String mailtext = "your Request '"+customerRequestEntity.getTitle()+"' has been accepted. We're looking forward to working with you.";
+		  businessProcess.setVariable("mailtext", mailtext);
+		  customerRequestService.mergeAndComplete(customerRequestEntity);
 	  }
 	
 	  public void declineRequest() throws IOException{
-		//Decline Request and send a
+		  //Decline Request and forward
+		  customerRequestEntity.setEvaluated(false);
+		  String mailtext = "your Request '"+customerRequestEntity.getTitle()+"' has been rejected. We are sorry.";
+		  businessProcess.setVariable("mailtext", mailtext);
+		  customerRequestService.mergeAndComplete(customerRequestEntity);		    	
 	  }
 }

@@ -25,9 +25,18 @@ public class CustomerRequest implements Serializable {
 	 
 	  protected String title;
 	  protected String text;
+	  protected boolean evaluated;
 	 
 	 	 
-	  public Long getId() {
+	  public boolean isEvaluated() {
+		return evaluated;
+	}
+
+	public void setEvaluated(boolean evaluated) {
+		this.evaluated = evaluated;
+	}
+
+	public Long getId() {
 	    return id;
 	  }
 	 
