@@ -151,7 +151,7 @@
     <bpmn2:sequenceFlow id="SequenceFlow_23" name="yes" sourceRef="ExclusiveGateway_5" targetRef="ParallelGateway_3">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(true)</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:userTask id="UserTask_EvaluateRequest" camunda:formKey="app:evaluaterequest.jsf" camunda:assignee="john" name="Evaluate Request">
+    <bpmn2:userTask id="UserTask_EvaluateRequest" camunda:formKey="app:evaluaterequest.jsf" camunda:candidateGroups="project-manager" name="Evaluate Request">
       <bpmn2:incoming>SequenceFlow_17</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -263,12 +263,12 @@
       <bpmn2:outgoing>SequenceFlow_57</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_57" name="" sourceRef="UserTask_12" targetRef="ExclusiveGateway_8"/>
-    <bpmn2:userTask id="UserTask_NegotiateContract" camunda:formKey="app:negotiatecontract.jsf" camunda:assignee="john" name="Negotiate Contract">
+    <bpmn2:userTask id="UserTask_NegotiateContract" camunda:formKey="app:negotiatecontract.jsf" camunda:assignee="john" camunda:candidateGroups="customer-relations" name="Negotiate Contract">
       <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_15" name="" sourceRef="UserTask_NegotiateContract" targetRef="UserTask_SendContract"/>
-    <bpmn2:userTask id="UserTask_SendContract" name="Check &amp; Send Contract">
+    <bpmn2:userTask id="UserTask_SendContract" camunda:candidateGroups="customer-relations" name="Check &amp; Send Contract">
       <bpmn2:incoming>SequenceFlow_15</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_16</bpmn2:outgoing>
     </bpmn2:userTask>
