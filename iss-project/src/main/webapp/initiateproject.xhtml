@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core">
+ 
+<ui:composition template="/resources/master.xhtml">
+	<ui:define name="metadata">
+	<f:metadata>   
+		<f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+	</f:metadata>
+	</ui:define>	
+	
+	<ui:define name="title">Initiate Project</ui:define>
+	<ui:define name="content">
+		<div class="details">	
+			<h2>Customer Data</h2>
+			<h:form>
+	 		<h:panelGrid columns="2" columnClasses="form-label, form-label">
+	 			<h:outputLabel value="Customer name" />
+			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.name}"/>
+	 			<h:outputLabel value="Address" />
+			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.address}"/>
+			 	<h:outputLabel value="E-Mail" />
+			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.email}"/>
+		  	</h:panelGrid>
+	  		</h:form>
+	  	<h:form id="submitForm">
+	  		<h2>Project Data</h2>    		
+      		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
+        			<p>
+          				<label for="projectTitle">Project title</label>
+                    	<h:inputText id="projectTitle" value="#{processVariables['projectTitle']}" required="true" />
+                    	<h:message for="projectTitle" />
+        			</p>
+        			<p>
+          				<label for="projectStart">Project start</label>
+                    	<h:inputText id="projectStart" value="#{processVariables['projectStart']}" required="true" />
+                    	<h:message for="projectStart" />
+        			</p>
+         			<p>
+          				<label for="projectEnd">Project end</label>
+                    	<h:inputText id="projectEnd" value="#{processVariables['projectEnd']}" required="true" />
+                    	<h:message for="projectEnd" />
+        			</p>        			
+      		</h:panelGrid>
+      		<h:selectManyListbox value="#{processVariables['employee']}">
+	   			<f:selectItem itemValue="bernhard-becks" itemLabel="Bernhard Becks" />
+	   			<f:selectItem itemValue="erika-erdinger" itemLabel="Erika Erdinger" />
+	   			<f:selectItem itemValue="frieda-franziskaner" itemLabel="Frieda Franziskaner" />
+	   		</h:selectManyListbox>
+	  		Design required <h:selectBooleanCheckbox value="#{processVariables['design']}" />
+	   		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
+        			<p>
+          				<label for="costEstimate">Cost estimation</label>
+                    	<h:inputText id="costEstimate" value="#{processVariables['costEstimate']}" required="true" />
+                    	<h:message for="costEstimate" />
+        			</p>
+        	</h:panelGrid>		
+		  	<h:commandButton id="initateProject" value="Initiate project" action="#{camundaTaskForm.completeProcessInstanceForm()}" /> 	  			   			
+    	</h:form><h:commandButton id="discardProject" value="Discard project" onclick="history.go(-1)" />
+  	</div>
+  </ui:define>
+</ui:composition>
+</html>
+		  	  	
+		
