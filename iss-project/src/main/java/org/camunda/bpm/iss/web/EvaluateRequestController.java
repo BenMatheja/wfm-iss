@@ -53,7 +53,7 @@ public class EvaluateRequestController implements Serializable{
 	  private Customer customerEntity;
 	  
 	  private DelegateExecution delegateExecution;
-	 
+
 	  
 	  public CustomerRequest getCustomerRequestEntity() {
 	    if (customerRequestEntity == null) {
@@ -80,16 +80,19 @@ public class EvaluateRequestController implements Serializable{
 	 
 	  public void confirmRequest() throws IOException {
 		  // Accept Request and forward
+		  String newline = System.getProperty("line.separator");
+		  
 		  customerRequestEntity.setEvaluated(true);
-		  String mailtext = "your Request '"+customerRequestEntity.getTitle()+"' has been accepted. We're looking forward to working with you.";
+		  String mailtext = newline + "your Request '"+customerRequestEntity.getTitle()+"' has been accepted." + newline + "We're looking forward to working with you." +newline+newline;
 		  businessProcess.setVariable("mailtext", mailtext);
 		  customerRequestService.mergeAndComplete(customerRequestEntity);
 	  }
 	
 	  public void declineRequest() throws IOException{
 		  //Decline Request and forward
+		  String newline = System.getProperty("line.separator");
 		  customerRequestEntity.setEvaluated(false);
-		  String mailtext = "your Request '"+customerRequestEntity.getTitle()+"' has been rejected. We are sorry.";
+		  String mailtext = newline + "your Request '"+customerRequestEntity.getTitle()+"' has been rejected. We are sorry." +newline+newline;
 		  businessProcess.setVariable("mailtext", mailtext);
 		  customerRequestService.mergeAndComplete(customerRequestEntity);		    	
 	  }
