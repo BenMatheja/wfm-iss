@@ -44,12 +44,14 @@
                     	<h:message for="projectEnd" />
         			</p>        			
       		</h:panelGrid>
+      		Employees
       		<h:selectManyListbox value="#{processVariables['employee']}">
 	   			<f:selectItem itemValue="bernhard-becks" itemLabel="Bernhard Becks" />
 	   			<f:selectItem itemValue="erika-erdinger" itemLabel="Erika Erdinger" />
 	   			<f:selectItem itemValue="frieda-franziskaner" itemLabel="Frieda Franziskaner" />
 	   		</h:selectManyListbox>
-	  		Design required <h:selectBooleanCheckbox value="#{processVariables['design']}" />
+	  		Design required
+	  		<h:selectBooleanCheckbox value="#{processVariables['design']}" />
 	   		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
         			<p>
           				<label for="costEstimate">Cost estimation</label>
