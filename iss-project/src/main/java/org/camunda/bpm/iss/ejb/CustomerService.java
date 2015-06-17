@@ -74,6 +74,7 @@ public class CustomerService {
 		  return entityManager.find(Customer.class, customerId);
 	  }
 	  
+	  
 	  public void mailCustomer(DelegateExecution delegateExecution) {
 		  	Customer customer = getCustomer((Long) delegateExecution.getVariable("customerId"));		  	
 		    String mailtext = (String) delegateExecution.getVariable("mailtext");		  	
