@@ -1,19 +1,18 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core">
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core">
  
-<ui:composition template="/resources/master.xhtml">
-	<ui:define name="metadata">
-	<f:metadata>   
-		<f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
-	</f:metadata>
-	</ui:define>	
-	
-	<ui:define name="title">Evaluate Appointment</ui:define>
-	<ui:define name="content">
-		<div class="details">
+<f:view>
+<f:metadata>
+ 
+  <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+</f:metadata>
+<h:head>
+  <title>Evaluate Appointment</title>
+</h:head>
+<h:body>
 		
 		<h2>Customer: #{evaluateAppointmentController.customerEntity.name}</h2>
 		
