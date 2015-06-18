@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core">
+ 
+<ui:composition template="/resources/master.xhtml">
+	<ui:define name="metadata">
+	<f:metadata>   
+		<f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+	</f:metadata>
+	</ui:define>	
+	
+	<ui:define name="title">Evaluate Appointment</ui:define>
+	<ui:define name="content">
+		<div class="details">
+		
+		<h2>Customer: #{evaluateAppointmentController.customerEntity.name}</h2>
+		
+		<h2>Project Title: #{evaluateAppointmentController.projectEntity.projectTitle}</h2>
+		<h:form>
+  		<h:panelGrid columns="2" columnClasses="form-label, form-label">
+		  	<h:outputLabel value="Project start:" />
+		  	<h:outputLabel value="#{evaluateAppointmentController.projectEntity.projectStart}" />
+		  	<h:outputLabel value="Project end:" />
+		  	<h:outputLabel value="#{evaluateAppointmentController.projectEntity.projectEnd}" />
+		  	<h:outputLabel value="Emplyoees:" />
+		  	<h:outputLabel value="#{evaluateAppointmentController.projectEntity.employee}" />
+		 </h:panelGrid>
+		 </h:form>	
+		 
+		 <h2>Appointment</h2>   
+		 <h:form>
+		 <h:panelGrid columns="2" columnClasses="form-label, form-label">
+		  	<h:outputLabel value="Appointment title:" />
+		  	<h:outputLabel value="#{evaluateAppointmentController.appointmentEntity.appointmentTitle}" />
+		  	<h:outputLabel value="Appointment description:" />
+		  	<h:outputLabel value="#{evaluateAppointmentController.appointmentEntity.appointmentDescription}" />
+		  	<h:outputLabel value="Next appointment:" />
+		  	<h:outputLabel value="#{evaluateAppointmentController.appointmentEntity.date}" />
+		   </h:panelGrid>
+  	</h:form>	
+  	
+  	<h:form id="submitForm" columns="2" columnClasses="form-label,form-label" footer-Class="form-footer">
+	<h:outputLabel value="Approve Appointment?" /> 
+	   	<h:commandButton id="confirmButton" value="Approve appointment" action="#{evaluateAppointmentController.confirmRequest()}" />    
+	   	<h:commandButton id="declineButton" value="Reject appointment" action="#{evaluateAppointmentController.declineRequest()}" />
+	</h:form>		
+</h:body>
+</f:view>
+</html>
