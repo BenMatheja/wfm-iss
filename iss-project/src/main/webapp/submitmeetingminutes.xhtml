@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core">
+ 
+<f:view>
+<f:metadata>
+ 
+  <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+</f:metadata>
+<h:head>
+  <title>Submit meeting minutes</title>
+</h:head>
+<h:body>
+		
+		<h2>Customer: #{submitmeetingminutesController.customerEntity.name}</h2>
+		
+		<h2>Project Title: #{submitmeetingminutesController.projectEntity.projectTitle}</h2>
+		<h:form>
+  		<h:panelGrid columns="2" columnClasses="form-label, form-label">
+		  	<h:outputLabel value="Project start:" />
+		  	<h:outputLabel value="#{submitmeetingminutesController.projectEntity.projectStart}" />
+		  	<h:outputLabel value="Project end:" />
+		  	<h:outputLabel value="#{submitmeetingminutesController.projectEntity.projectEnd}" />
+		  	<h:outputLabel value="Emplyoees:" />
+		  	<h:outputLabel value="#{submitmeetingminutesController.employeeEntity.employee}" />
+		  	<h:outputLabel value="Date:" />
+		  	<h:outputLabel value="#{submitmeetingminutesController.appointmentEntity.date}" />
+		 </h:panelGrid>
+		 </h:form>	
+		 
+		<h:form id="submitForm" columns="2" columnClasses="form-label,form-label" footer-Class="form-footer">
+	<h:outputLabel value="Submit meeting minutes?" /> 
+	   	<h:commandButton id="confirmButton" value="Submit meeting minutes" action="#{evaluateAppointmentController.confirmRequest()}" />    
+	   	<h:commandButton id="declineButton" value="Discard meeting minutes" action="#{evaluateAppointmentController.declineRequest()}" />
+	</h:form>		
+</h:body>
+</f:view>
+</html>
