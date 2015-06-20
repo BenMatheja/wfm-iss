@@ -1,28 +1,19 @@
 package org.camunda.bpm.iss.web;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
-import org.camunda.bpm.iss.ejb.CustomerRequestService;
 import org.camunda.bpm.iss.ejb.CustomerService;
+import org.camunda.bpm.iss.entity.Contract;
 import org.camunda.bpm.iss.entity.Customer;
 import org.camunda.bpm.iss.entity.CustomerRequest;
 
@@ -47,8 +38,8 @@ public class CheckSendContractController implements Serializable{
 	  @Inject
 	  private CustomerService customerService;
 	 
+	 
 	  // Caches the Entities during the conversation
-	  private CustomerRequest customerRequestEntity;
 	  private Customer customerEntity;
 	  private Contract contractEntity;
 	  
