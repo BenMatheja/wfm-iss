@@ -1,9 +1,11 @@
 package org.camunda.bpm.iss.entity;
 import java.io.Serializable;
 
-import javax.persistence.*;
-
-import org.camunda.bpm.iss.entity.Project;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -22,6 +24,7 @@ public class Contract implements Serializable {
 	protected Customer customer;
 	
 	protected String contractTitle;	
+	protected String contractDescription;	
 	protected int price;
 	
 	public Customer getCustomer() {
@@ -48,6 +51,12 @@ public class Contract implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+	public String getContractDescription(){
+		return contractDescription;
+	}
+	public void setContractDescription(String contractDescription){
+		this.contractDescription = contractDescription;
+	}
 	
 }
+	
