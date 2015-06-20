@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
-import org.camunda.bpm.iss.entity.Customer;
+import org.camunda.bpm.iss.entity.Contract;
 
 @Stateless
 @Named
@@ -54,14 +54,14 @@ public class ContractService {
 	    // Remove no longer needed process variables
 	    // delegateExecution.removeVariables(variables.keySet());
 	 
-	    LOGGER.log(Level.INFO, "Add newly created customer id as process variable. It is:" + customerEntity.getId());
+	    LOGGER.log(Level.INFO, "Add newly created contract id as process variable. It is:" + contractEntity.getId());
 	    // Add newly created customer id as process variable
-	    delegateExecution.setVariable("customerId", customerEntity.getId());
+	    delegateExecution.setVariable("contractId", contractEntity.getId());
 	  }
 
-	  public Customer getCustomer(Long customerId) {
+	  public Contract getContract(Long contractId) {
 		  // Load entity from database
-		  return entityManager.find(Customer.class, customerId);
+		  return entityManager.find(Contract.class, contractId);
 	  }
 	  	
 }
