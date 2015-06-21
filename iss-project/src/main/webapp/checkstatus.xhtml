@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core">
+ 
+<ui:composition template="/resources/master.xhtml">
+	<ui:define name="metadata">
+	<f:metadata>   
+		<f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+	</f:metadata>
+	</ui:define>	
+	
+	<ui:define name="title">Submit Project Status</ui:define>
+	<ui:define name="content">
+		<div class="details">	
+			<h2>Project Data</h2>
+			<h:form>
+	 		<h:panelGrid columns="2" columnClasses="form-label, form-label">
+	 			<h:outputLabel value="Contract title" />
+			 	<h:outputLabel value="#{checkstatusController.contractEntity.contractTitle}"/>
+			 	<h:outputLabel value="Project title" />
+			 	<h:outputLabel value="#{checkstatusController.projectEntity.projectTitle}"/>
+	 			<h:outputLabel value="Customer name" />
+			 	<h:outputLabel value="#{checkstatusController.customerEntity.name}"/>
+	 			<h:outputLabel value="Customer address" />
+			 	<h:outputLabel value="#{checkstatusController.customerEntity.address}"/>
+			 	<h:outputLabel value="Customer e-Mail" />
+			 	<h:outputLabel value="#{checkstatusController.customerEntity.eMail}"/>
+			 	<h:outputLabel value="Total project cost:" />
+			 	<h:outputLabel value="#{checkstatusController.projectEntity.cost}"/>
+				 <h:outputLabel value="Comments bill:" />
+			 	<h:outputLabel value="#{checkstatusController.projectEntity.cost}"/>
+		  	</h:panelGrid>
+	  		</h:form>
+	  		
+	  		Payment received
+	  		<h:selectBooleanCheckbox value="#{processVariables['payment']}" />
+	  		
+	  		<h:outputLabel value="Confirm?" /> 
+	   		<h:commandButton id="confirmButton" value="Confirm" action="#{checkstatusController.confirmRequest()}" />
+	   	</div>
+  </ui:define>
+</ui:composition>
+</html>
+		 
