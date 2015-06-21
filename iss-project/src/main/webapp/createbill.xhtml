@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core">
+ 
+<f:view>
+<f:metadata>
+ 
+  <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+</f:metadata>
+<h:head>
+  <title>Create bill</title>
+</h:head>
+<h:body>
+
+		<h2>Project Title: #{createBillController.projectEntity.projectTitle}</h2>
+		
+		<h2>Customer: #{createBillController.customerEntity.name}</h2>
+		<h:form>
+  		<h:panelGrid columns="2" columnClasses="form-label, form-label">
+		  	<<h:outputLabel value="Address" />
+		 	<h:outputLabel value="#{createBillController.customerEntity.address}"/>
+		 	<h:outputLabel value="E-Mail" />
+		 	<h:outputLabel value="#{createBillController.customerEntity.email}"/>
+		 </h:panelGrid>
+		 </h:form>
+		 
+		 <h2>Project Data</h2>
+			<h:form>
+	 		<h:panelGrid columns="2" columnClasses="form-label, form-label">
+	 		<h:outputLabel value="Employees:" />
+			 <h:outputLabel value="#{createBillController.projectEntity.employee}"/>
+			 <h:outputLabel value="Hourly rate:" />
+			 <h:outputLabel value="#{createBillController.projectEntity.hourlyRate}"/>
+			 <h:outputLabel value="Total project cost:" />
+			 <h:outputLabel value="#{createBillController.CusstomerBillEntity.billComments}"/>
+			 </h:panelGrid>
+			 </h:form>
+			 
+	  		<h2>Comments</h2>  
+      		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
+        			<p>
+          				<label for="billComments">Comments</label>
+                    	<h:inputText id="billComments" value="#{processVariables['billComments']}" required="true" />
+                    	<h:message for="billComments" />
+        			</p>
+        	</h:panelGrid>
+        	
+        	<<h:commandButton id="submitBill" value="Submit Bill" action="#{camundaTaskForm.completeProcessInstanceForm()}" /> 	  			   			
+    	</h:form><h:commandButton id="discardBill" value="Discard Bill" onclick="history.go(-1)" />
+	</h:form>		
+</h:body>
+</f:view>
+</html>
+		 
