@@ -30,6 +30,21 @@ xmlns:f="http://java.sun.com/jsf/core">
 		 </h:panelGrid>
 		 </h:form>	
 		 
+		  <h:form enctype="multipart/form-data">
+		        <h:inputFile value="#{uploadBean.file}" />
+		        <h:commandButton value="Post Upload" action="#{uploadBean.upload}" />
+		    </h:form>
+		    <h:form enctype="multipart/form-data">
+		        <h:inputFile value="#{uploadBean.file}" />
+		        <h:commandButton value="Ajax Upload">
+		            <f:ajax listener="#{uploadBean.upload}" execute="@form"
+		                render="countOutput" />
+		        </h:commandButton>
+		    <!-- Counts the uploaded items -->
+		    <h:outputText id="countOutput"
+		        value="Files uploaded #{uploadBean.filesUploaded}" />
+		    </h:form>
+		 
 		<h:form id="submitForm" columns="2" columnClasses="form-label,form-label" footer-Class="form-footer">
 	<h:outputLabel value="Submit meeting minutes?" /> 
 	   	<h:commandButton id="confirmButton" value="Submit meeting minutes" action="#{evaluateAppointmentController.confirmRequest()}" />    
