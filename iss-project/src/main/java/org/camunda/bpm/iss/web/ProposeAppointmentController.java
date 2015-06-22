@@ -1,30 +1,21 @@
 package org.camunda.bpm.iss.web;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
-import org.camunda.bpm.iss.ejb.CustomerRequestService;
 import org.camunda.bpm.iss.ejb.CustomerService;
+import org.camunda.bpm.iss.ejb.ProjectService;
 import org.camunda.bpm.iss.entity.Customer;
-import org.camunda.bpm.iss.entity.CustomerRequest;
+import org.camunda.bpm.iss.entity.Project;
 
 @Named
 @ConversationScoped
@@ -56,7 +47,7 @@ public class ProposeAppointmentController implements Serializable{
 
 	  
 	  public Project getProjectEntity() {
-	    if (customerRequestEntity == null) {
+	    if (projectEntity == null) {
 	      // Load the entity from the database if not already cached
 	      LOGGER.log(Level.INFO, "This is projectId from businessProcess: " + businessProcess.getVariable("projectId")); 
 		  LOGGER.log(Level.INFO, "This is the same casted as Long: " + (Long) businessProcess.getVariable("projectId"));
