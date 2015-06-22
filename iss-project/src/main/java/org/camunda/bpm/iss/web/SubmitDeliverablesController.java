@@ -12,19 +12,19 @@ import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
-import org.camunda.bpm.iss.ejb.ContractService;
 import org.camunda.bpm.iss.ejb.CustomerService;
-import org.camunda.bpm.iss.entity.Contract;
+import org.camunda.bpm.iss.ejb.ProjectService;
 import org.camunda.bpm.iss.entity.Customer;
+import org.camunda.bpm.iss.entity.Project;
 
 @Named
 @ConversationScoped
-public class CheckSendContractController implements Serializable{
+public class SubmitDeliverablesController implements Serializable{
 
 	  private static  final long serialVersionUID = 1L;
 	  
 	  
-	  private static Logger LOGGER = Logger.getLogger(CheckSendContractController.class.getName());
+	  private static Logger LOGGER = Logger.getLogger(SubmitDeliverablesController.class.getName());
 	  // Inject the BusinessProcess to access the process variables
 	  @Inject
 	  private BusinessProcess businessProcess;
@@ -34,18 +34,28 @@ public class CheckSendContractController implements Serializable{
 	  private EntityManager entityManager;
 	 
 	  // Inject the Service 
-
+	  @Inject
+	  private ProjectService projectService;
 	  @Inject
 	  private CustomerService customerService;
-	  @Inject
-	  private ContractService contractService;
-	 
 	 
 	  // Caches the Entities during the conversation
+	  private Project projectEntity;
 	  private Customer customerEntity;
-	  private Contract contractEntity;
 	  
 	  private DelegateExecution delegateExecution;
+
+	  
+	  public Project getProjectEntity() {
+	    if (projectEntity == null) {
+	      // Load the entity from the database if not already cached
+	      LOGGER.log(Level.INFO, "This is projectId from businessProcess: " + businessProcess.getVariable("projectId")); 
+		  LOGGER.log(Level.INFO, "This is the same casted as Long: " + (Long) businessProcess.getVariable("projectId"));
+		  LOGGER.log(Level.INFO, "This is getProject from the Service invoked with it " + projectService.getProject((Long) businessProcess.getVariable("projectId")));
+	      projectEntity = projectService.getProject((Long) businessProcess.getVariable("projectId"));
+	    }
+	    return projectEntity;
+	  }
 	  
 	  
 	  public Customer getCustomerEntity() {
@@ -58,15 +68,4 @@ public class CheckSendContractController implements Serializable{
 		    }
 		    return customerEntity;
 	  }
-	  
-	  public Contract getContractEntity() {
-		  if (contractEntity == null){
-			  LOGGER.log(Level.INFO, "This is contractId from businessProcess: " + businessProcess.getVariable("contractId")); 
-			  LOGGER.log(Level.INFO, "This is the same casted as Long: " + (Long) businessProcess.getVariable("contractId"));
-			  LOGGER.log(Level.INFO, "This is getContract from the Service invoked with it " + contractService.getContract((Long) businessProcess.getVariable("contractId")));
-			    contractEntity = contractService.getContract((Long) businessProcess.getVariable("contractId"));
-			    }
-			    return contractEntity;  
-	  }
-}	 
-	
+}
