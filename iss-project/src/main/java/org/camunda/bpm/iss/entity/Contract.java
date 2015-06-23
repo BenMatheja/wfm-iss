@@ -15,7 +15,7 @@ public class Contract implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	
 	@OneToOne
 	protected Project project;
@@ -27,6 +27,12 @@ public class Contract implements Serializable {
 	protected String contractDescription;	
 	protected int price;
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public Customer getCustomer() {
 		return customer;
 	}
