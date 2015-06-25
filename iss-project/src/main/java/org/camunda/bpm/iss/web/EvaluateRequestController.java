@@ -84,7 +84,9 @@ public class EvaluateRequestController implements Serializable{
 		  
 		  customerRequestEntity.setEvaluated(true);
 		  String mailtext = newline + "your Request '"+customerRequestEntity.getTitle()+"' has been accepted." + newline + "We're looking forward to working with you." +newline+newline;
+		  String subject = "Your request was accepted";
 		  businessProcess.setVariable("mailtext", mailtext);
+		  businessProcess.setVariable("subject", subject);
 		  customerRequestService.mergeAndComplete(customerRequestEntity);
 	  }
 	
@@ -93,7 +95,9 @@ public class EvaluateRequestController implements Serializable{
 		  String newline = System.getProperty("line.separator");
 		  customerRequestEntity.setEvaluated(false);
 		  String mailtext = newline + "your Request '"+customerRequestEntity.getTitle()+"' has been rejected. We are sorry." +newline+newline;
+		  String subject = "Your request was declined";
 		  businessProcess.setVariable("mailtext", mailtext);
+		  businessProcess.setVariable("subject", subject);
 		  customerRequestService.mergeAndComplete(customerRequestEntity);		    	
 	  }
 }

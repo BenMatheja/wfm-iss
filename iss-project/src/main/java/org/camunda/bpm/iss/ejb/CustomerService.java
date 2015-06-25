@@ -77,7 +77,8 @@ public class CustomerService {
 	  
 	  public void mailCustomer(DelegateExecution delegateExecution) {
 		  	Customer customer = getCustomer((Long) delegateExecution.getVariable("customerId"));		  	
-		    String mailtext = (String) delegateExecution.getVariable("mailtext");		  	
+		    String mailtext = (String) delegateExecution.getVariable("mailtext");	
+		    String subject = (String) delegateExecution.getVariable("subject");
 		    String newline = System.getProperty("line.separator");
 		  			  
 		  	LOGGER.log(Level.INFO, "\n\n\nSending Email:\nDear {0}, {1} \n\n\n", new String[]{customer.getName(), mailtext});
@@ -104,7 +105,7 @@ public class CustomerService {
 					message.setFrom(new InternetAddress("contactISSgroup@gmail.com"));
 				message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(customer.getEmail()));
-				message.setSubject("Your request to ISS group");
+				message.setSubject(subject);
 				message.setText("Dear "+customer.getName()+"," 
 					+mailtext
 					+ ""
