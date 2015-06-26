@@ -14,7 +14,6 @@ import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
-import org.camunda.bpm.iss.entity.Employee;
 import org.camunda.bpm.iss.entity.MeetingMinutes;
 
 @Stateless
