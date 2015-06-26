@@ -1,8 +1,8 @@
 package org.camunda.bpm.iss.ejb;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -39,12 +39,21 @@ public class EmployeeService {
 			List<User> users = is.createUserQuery().list();
 			Collection<Employee> employees = getAllEmployees();
 			
-			for(User u:users){
-				for(Employee e:employees){
-					Employee employeeEntity = new Employee(u.getId(),u.getFirstName(),u.getLastName());
-					if(u.getId()==e.getUserId()) employees.add(employeeEntity);
-				    entityManager.persist(employeeEntity);
-				    entityManager.flush();
+			ArrayList<String> employeeId = new ArrayList<String>(); 
+			for(Employee e:employees) employeeId.add(e.getUserId());
+			
+			ArrayList<String> userId = new ArrayList<String>();
+			for(User u:users) userId.add(u.getId());
+			
+			for(String uId:userId){
+				if(!employeeId.contains(uId)){
+					for(User u:users)
+						if(u.getId()==uId){
+							Employee employeeEnt = new Employee(uId,u.getFirstName(),u.getLastName());
+							employees.add(employeeEnt);
+							entityManager.persist(employeeEnt);
+							entityManager.flush();
+						}
 				}
 			}
 
