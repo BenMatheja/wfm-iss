@@ -1,5 +1,6 @@
 package org.camunda.bpm.iss.web;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +15,7 @@ import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.iss.ejb.CustomerService;
 import org.camunda.bpm.iss.entity.Customer;
+
 
 @Named
 @ConversationScoped
@@ -47,5 +49,10 @@ public class NegotiateContractController implements Serializable{
 		    customerEntity = customerService.getCustomer((Long) businessProcess.getVariable("customerId"));
 		    }
 		    return customerEntity;
-	  }	 
+	  }	
+	  
+	  public void confirmRequest() throws IOException {
+		  String contractuser = 
+		  businessProcess.setVariable("contractuser", contractuser);
+	  }
 }

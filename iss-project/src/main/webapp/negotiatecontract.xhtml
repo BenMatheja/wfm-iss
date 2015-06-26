@@ -32,7 +32,7 @@ xmlns:f="http://java.sun.com/jsf/core">
    	</h:form>	  
 	<h:form id="submitForm" columns="2" columnClasses="form-label,form-label" footer-Class="form-footer">
 	<h:outputLabel value="Send for submittal?" /> 
-    	<h:commandButton id="submit_button" value="Ok" action="#{camundaTaskForm.completeProcessInstanceForm()}" /> 	  			   			
+    	<h:commandButton id="submit_button" value="Ok" action="#{negotiateContractController.confirmRequest()}" /> 	  			   			
     	<h:commandButton id="cancel_button" value="Cancel" onclick="history.go(-1)" />
 	</h:form>		
 </h:body>
