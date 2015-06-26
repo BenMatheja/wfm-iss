@@ -1,19 +1,23 @@
 package org.camunda.bpm.iss.ejb;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.logging.Level;
+import java.util.Collection;
+import java.util.List;
 import java.util.logging.Logger;
 
-import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
+import org.camunda.bpm.engine.IdentityService;
+import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.engine.identity.User;
 import org.camunda.bpm.iss.entity.Employee;
 
 
@@ -27,43 +31,35 @@ public class EmployeeService {
 	// Inject task form available through the camunda cdi artifact
 		  @Inject
 		  private TaskForm taskForm;
+		  private Class<Employee> employeeClass;
 		  
-		  private static Logger LOGGER = Logger.getLogger(EmployeeService.class.getName());
 			 
 		  public void persistEmployee(DelegateExecution delegateExecution) {
-		   
-			LOGGER.log(Level.INFO, "Create new customer bill instance");  
-			  // Create new customer instance
-		    Employee employeeEntity = new Employee();
-		 
-		    LOGGER.log(Level.INFO, "Get all process variables");
-		    // Get all process variables
-		    Map<String, Object> variables = delegateExecution.getVariables();
-		 
-		    LOGGER.log(Level.INFO, "Set order attributes");
-		    // Set order attributes
-		    employeeEntity.setName((String) variables.get("name"));
-		    employeeEntity.setHourlyRate((String) variables.get("hourlyRate"));
-		 
-		    /*
-		      Persist customer instance and flush. After the flush the
-		      id of the customer instance is set.
-		    */
-		    LOGGER.log(Level.INFO, " Persist customer bill instance and flush.");
-		    
-		    entityManager.persist(employeeEntity);
-		    entityManager.flush();
-		    
-		    // Remove no longer needed process variables
-		    delegateExecution.removeVariables(variables.keySet());
-		 
-		    // Add newly created id as process variable
-		   	delegateExecution.setVariable("employeeId", employeeEntity.getEmployee());
+			IdentityService is = ProcessEngines.getDefaultProcessEngine().getIdentityService();
+			List<User> users = is.createUserQuery().list();
+			Collection<Employee> employees = getAllEmployees();
+			
+			for(User u:users){
+				for(Employee e:employees){
+					Employee employeeEntity = new Employee(u.getId(),u.getFirstName(),u.getLastName());
+					if(u.getId()==e.getUserId()) employees.add(employeeEntity);
+				    entityManager.persist(employeeEntity);
+				    entityManager.flush();
+				}
+			}
+
 		  }
 		  
 		  public Employee getEmployee(Long employeeId) {
 			  // Load entity from database
 			  return entityManager.find(Employee.class, employeeId);
+		  }
+		  
+		  public Collection<Employee> getAllEmployees(){
+			    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+			    CriteriaQuery<Employee> cq = cb.createQuery(employeeClass);
+			    Root<Employee> rootEntry = cq.from(employeeClass);
+			    return entityManager.createQuery(cq.select(rootEntry)).getResultList();
 		  }
 
 }

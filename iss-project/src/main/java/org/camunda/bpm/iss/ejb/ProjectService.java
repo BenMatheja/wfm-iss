@@ -1,6 +1,6 @@
 package org.camunda.bpm.iss.ejb;
 
-import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
-import org.camunda.bpm.iss.entity.Customer;
+import org.camunda.bpm.iss.entity.Employee;
 import org.camunda.bpm.iss.entity.Project;
 
 @Named
@@ -42,11 +42,11 @@ public class ProjectService {
 	    LOGGER.log(Level.INFO, "Set order attributes");
 	    // Set order attributes
 	    projectEntity.setTitle((String) variables.get("title"));
-	    projectEntity.setEmployee((String) variables.get("employee"));
-	    projectEntity.setindividualTime((Integer) variables.get("individualTime"));
-	    projectEntity.setStatus((Boolean) variables.get("status"));
-	    projectEntity.setDesign((Boolean) variables.get("design"));
-	    projectEntity.setcostEstimate((Integer) variables.get("costEstimate"));
+	    projectEntity.addEmployee((Long) variables.get("employeeId"));
+	    //projectEntity.setIndividualTime(((Integer)variables.get("individualTime")).intValue());
+	    projectEntity.setStatus(((Boolean)variables.get("status")).booleanValue());
+	    projectEntity.setDesign(((Boolean)variables.get("design")).booleanValue());
+	    projectEntity.setCostEstimate(((Integer)variables.get("costEstimate")).intValue());
 	    projectEntity.setProjectStart((Date) variables.get("projectStart"));
 	    projectEntity.setProjectEnd((Date) variables.get("projectEnd"));
 	    projectEntity.setProjectStatusreport((String) variables.get("projectStatusreport"));

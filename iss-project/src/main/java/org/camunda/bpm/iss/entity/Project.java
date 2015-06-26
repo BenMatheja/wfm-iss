@@ -1,6 +1,7 @@
 package org.camunda.bpm.iss.entity;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,7 @@ public class Project implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	
 	@OneToMany
 	protected Collection<Employee> employee;
@@ -23,10 +24,39 @@ public class Project implements Serializable {
 	protected String title;
 	// individualTime: is this ever used throughout the process?
 	protected int[] individualTime;
+	protected int[] individualRate;
 	protected boolean design;
 	protected boolean finished;
 	protected int costEstimate;
+	protected Date projectStart;
+	protected Date projectEnd;
 	
+	
+	
+	public int[] getIndividualRate() {
+		return individualRate;
+	}
+
+	public void setIndividualRate(int[] individualRate) {
+		this.individualRate = individualRate;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public Date getProjectStart() {
+		return projectStart;
+	}
+	public void setProjectStart(Date projectStart) {
+		this.projectStart = projectStart;
+	}
+	public Date getProjectEnd() {
+		return projectEnd;
+	}
+	public void setProjectEnd(Date projectEnd) {
+		this.projectEnd = projectEnd;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -36,9 +66,22 @@ public class Project implements Serializable {
 	public Collection<Employee> getEmployee() {
 		return employee;
 	}
+	
 	public void setEmployee(Collection<Employee> employee) {
 		this.employee = employee;
 	}
+	
+	public void addEmployee(Employee em){
+		this.employee.add();
+	}
+	
+	public Employee getEmployee(Long id){
+		for(Employee e:this.employee){
+			if(e.getId()==id) return e;
+		}
+		throw new IllegalStateException("Employee not found");
+	}
+	
 	public int[] getIndividualTime() {
 		return individualTime;
 	}
@@ -63,5 +106,6 @@ public class Project implements Serializable {
 	public void setCostEstimate(int costEstimate) {
 		this.costEstimate = costEstimate;
 	}
+	
 	
 }

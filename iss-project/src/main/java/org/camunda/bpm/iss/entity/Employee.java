@@ -10,11 +10,17 @@ public class Employee implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	
+	protected String userId;
 	protected String firstName;
 	protected String lastName;
-	protected int hourlyRate;
+	
+	public Employee(String userId, String firstName, String lastName){
+		setUserId(userId);
+		setFirstName(firstName);
+		setLastName(lastName);
+	}
 	
 	public String getFirstName() {
 		return firstName;
@@ -28,12 +34,18 @@ public class Employee implements Serializable {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public int getHourlyRate() {
-		return hourlyRate;
-	}
-	public void setHourlyRate(int hourlyRate) {
-		this.hourlyRate = hourlyRate;
+	
+	public Long getId() {
+		return id;
 	}
 	
+	public String getUserId(){
+		 return this.userId;
+	}
+	
+	public void setUserId(String userId){
+		this.userId = userId;
+	}
 	
 }
+	
