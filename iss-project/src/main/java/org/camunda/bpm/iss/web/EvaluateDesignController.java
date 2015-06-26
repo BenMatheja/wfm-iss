@@ -22,65 +22,65 @@ import org.camunda.bpm.iss.entity.Project;
 @Named
 @ConversationScoped
 public class EvaluateDesignController implements Serializable{
-
-	  private static  final long serialVersionUID = 1L;
-	  
-	  
-	  private static Logger LOGGER = Logger.getLogger(EvaluateDesignController.class.getName());
-	  // Inject the BusinessProcess to access the process variables
-	  @Inject
-	  private BusinessProcess businessProcess;
-	 
-	  // Inject the EntityManager to access the persisted order
-	  @PersistenceContext
-	  private EntityManager entityManager;
-	 
-	  // Inject the Service 
-	  @Inject
-	  private ProjectService projectService;
-	  @Inject
-	  private CustomerService customerService;
-	  @Inject
-	  private ContractService contractService;
-	 
-	  // Caches the Entities during the conversation
-	  private Project projectEntity;
-	  private Customer customerEntity;
-	  private Contract contractEntity;
-	  
-	  private DelegateExecution delegateExecution;
-
-	  
-	  public Project getProjectEntity() {
-	    if (projectEntity == null) {
-	      // Load the entity from the database if not already cached
-	      LOGGER.log(Level.INFO, "This is projectId from businessProcess: " + businessProcess.getVariable("projectId")); 
-		  LOGGER.log(Level.INFO, "This is the same casted as Long: " + (Long) businessProcess.getVariable("projectId"));
-		  LOGGER.log(Level.INFO, "This is getProject from the Service invoked with it " + projectService.getProject((Long) businessProcess.getVariable("projectId")));
-	      projectEntity = projectService.getProject((Long) businessProcess.getVariable("projectId"));
-	    }
-	    return projectEntity;
-	  }
-	  
-	  public Customer getCustomerEntity() {
-		    if (customerEntity == null) {
-		      // Load the entity from the database if not already cached
-		    LOGGER.log(Level.INFO, "This is customerId from businessProcess: " + businessProcess.getVariable("customerId")); 
-		    LOGGER.log(Level.INFO, "This is the same casted as Long: " + (Long) businessProcess.getVariable("customerId"));
-		    LOGGER.log(Level.INFO, "This is getCustomer from the Service invoked with it " + customerService.getCustomer((Long) businessProcess.getVariable("customerId")));
-		    customerEntity = customerService.getCustomer((Long) businessProcess.getVariable("customerId"));
-		    }
-		    return customerEntity;
-	  }
-	  
-	  public Contract getContractEntity() {
-		    if (contractEntity == null) {
-		      // Load the entity from the database if not already cached
-		      LOGGER.log(Level.INFO, "This is contractId from businessProcess: " + businessProcess.getVariable("contractId")); 
-			  LOGGER.log(Level.INFO, "This is the same casted as Long: " + (Long) businessProcess.getVariable("contractId"));
-			  LOGGER.log(Level.INFO, "This is getCustomer from the Service invoked with it " + contractService.getContract((Long) businessProcess.getVariable("contractId")));
-		      contractEntity = contractService.getContract((Long) businessProcess.getVariable("contractId"));
-		    }
-		    return contractEntity;
-		  }
+//
+//	  private static  final long serialVersionUID = 1L;
+//	  
+//	  
+//	  private static Logger LOGGER = Logger.getLogger(EvaluateDesignController.class.getName());
+//	  // Inject the BusinessProcess to access the process variables
+//	  @Inject
+//	  private BusinessProcess businessProcess;
+//	 
+//	  // Inject the EntityManager to access the persisted order
+//	  @PersistenceContext
+//	  private EntityManager entityManager;
+//	 
+//	  // Inject the Service 
+//	  @Inject
+//	  private ProjectService projectService;
+//	  @Inject
+//	  private CustomerService customerService;
+//	  @Inject
+//	  private ContractService contractService;
+//	 
+//	  // Caches the Entities during the conversation
+//	  private Project projectEntity;
+//	  private Customer customerEntity;
+//	  private Contract contractEntity;
+//	  
+//	  private DelegateExecution delegateExecution;
+//
+//	  
+//	  public Project getProjectEntity() {
+//	    if (projectEntity == null) {
+//	      // Load the entity from the database if not already cached
+//	      LOGGER.log(Level.INFO, "This is projectId from businessProcess: " + businessProcess.getVariable("projectId")); 
+//		  LOGGER.log(Level.INFO, "This is the same casted as Long: " + (Long) businessProcess.getVariable("projectId"));
+//		  LOGGER.log(Level.INFO, "This is getProject from the Service invoked with it " + projectService.getProject((Long) businessProcess.getVariable("projectId")));
+//	      projectEntity = projectService.getProject((Long) businessProcess.getVariable("projectId"));
+//	    }
+//	    return projectEntity;
+//	  }
+//	  
+//	  public Customer getCustomerEntity() {
+//		    if (customerEntity == null) {
+//		      // Load the entity from the database if not already cached
+//		    LOGGER.log(Level.INFO, "This is customerId from businessProcess: " + businessProcess.getVariable("customerId")); 
+//		    LOGGER.log(Level.INFO, "This is the same casted as Long: " + (Long) businessProcess.getVariable("customerId"));
+//		    LOGGER.log(Level.INFO, "This is getCustomer from the Service invoked with it " + customerService.getCustomer((Long) businessProcess.getVariable("customerId")));
+//		    customerEntity = customerService.getCustomer((Long) businessProcess.getVariable("customerId"));
+//		    }
+//		    return customerEntity;
+//	  }
+//	  
+//	  public Contract getContractEntity() {
+//		    if (contractEntity == null) {
+//		      // Load the entity from the database if not already cached
+//		      LOGGER.log(Level.INFO, "This is contractId from businessProcess: " + businessProcess.getVariable("contractId")); 
+//			  LOGGER.log(Level.INFO, "This is the same casted as Long: " + (Long) businessProcess.getVariable("contractId"));
+//			  LOGGER.log(Level.INFO, "This is getCustomer from the Service invoked with it " + contractService.getContract((Long) businessProcess.getVariable("contractId")));
+//		      contractEntity = contractService.getContract((Long) businessProcess.getVariable("contractId"));
+//		    }
+//		    return contractEntity;
+//		  }
 }
