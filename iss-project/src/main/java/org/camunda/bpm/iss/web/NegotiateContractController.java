@@ -66,7 +66,7 @@ public class NegotiateContractController implements Serializable{
 	  public void confirmRequest() throws IOException {
 		  Authentication currentAuth = identityService.getCurrentAuthentication();
 		  String contractUser = currentAuth.getUserId();
-		  businessProcess.setVariable("contractuser", contractUser);
+		  businessProcess.setVariable("contractUser", contractUser);
 		  taskForm.completeTask();
 	  }
 }

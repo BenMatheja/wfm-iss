@@ -12,6 +12,10 @@ public class CustomerBill implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	public long getId() {
+		return id;
+	}
+	
 	@OneToOne
 	protected Project project;
 	

@@ -18,7 +18,6 @@ import org.camunda.bpm.iss.ejb.EmployeeService;
 import org.camunda.bpm.iss.ejb.ProjectService;
 import org.camunda.bpm.iss.entity.Customer;
 import org.camunda.bpm.iss.entity.CustomerBill;
-import org.camunda.bpm.iss.entity.Employee;
 import org.camunda.bpm.iss.entity.Project;
 
 @Named

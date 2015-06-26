@@ -33,6 +33,9 @@ public class AppointmentService {
 	@Inject
 	AppointmentService appointmentService;
 	
+	@Inject
+	ProjectService projectService;
+	
 	@PersistenceContext
 	  private EntityManager entityManager;
 	
@@ -58,14 +61,7 @@ public class AppointmentService {
 		    appointmentEntity.setTitle((String) variables.get("title"));
 		    
 		    try{	    	    	
-		    	appointmentEntity.setCustomer(customerService.getCustomer((Long) variables.get("name")));
-		    }catch(EJBException e){
-		    	Throwable cause = e.getCause();
-		    	LOGGER.log(Level.SEVERE, cause.getMessage());
-		    }
-		    
-		    try{	    	    	
-		    	appointmentEntity.setProjectTitle(projectService.getProject((Long) variables.get("projectId")));
+		    	appointmentEntity.setProject(projectService.getProject((Long) variables.get("projectId")));
 		    }catch(EJBException e){
 		    	Throwable cause = e.getCause();
 		    	LOGGER.log(Level.SEVERE, cause.getMessage());
@@ -88,7 +84,7 @@ public class AppointmentService {
 		    // Add newly created id as process variable
 		    delegateExecution.setVariable("customerName", tempCust);
 		    delegateExecution.setVariable("projectId", tempProject);
-		    delegateExecution.setVariable("appointmentId", appointmentEntity.getAppointment());
+		    delegateExecution.setVariable("appointmentId", appointmentEntity.getId());
 		  }
 	  
 	 

@@ -1,6 +1,5 @@
 package org.camunda.bpm.iss.ejb;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,7 +11,6 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.iss.entity.MeetingMinutes;
 
@@ -22,9 +20,8 @@ public class MeetingMinutesService {
 	@PersistenceContext
 	  private EntityManager entityManager;
 	
-	// Inject task form available through the camunda cdi artifact
 		  @Inject
-		  private TaskForm taskForm;
+		  private AppointmentService appointmentService;
 		  
 		  private static Logger LOGGER = Logger.getLogger(MeetingMinutesService.class.getName());
 			 
@@ -55,9 +52,6 @@ public class MeetingMinutesService {
 		    
 		    entityManager.persist(meetingMinutesEntity);
 		    entityManager.flush();
-		    
-		 // Save the customer temporarily 
-		    Object tempAppointment = variables.get("appointmentId");
 		    
 		    // Remove no longer needed process variables
 		    delegateExecution.removeVariables(variables.keySet());

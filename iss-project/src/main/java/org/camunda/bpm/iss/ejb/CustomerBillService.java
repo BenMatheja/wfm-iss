@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.iss.entity.CustomerBill;
+import org.camunda.bpm.iss.entity.Project;
 
 
 @Stateless
@@ -27,6 +28,9 @@ public class CustomerBillService {
 	// Inject task form available through the camunda cdi artifact
 		  @Inject
 		  private TaskForm taskForm;
+		  
+		  @Inject
+		  private ProjectService projectService;
 		  
 		  private static Logger LOGGER = Logger.getLogger(CustomerBillService.class.getName());
 			 
@@ -43,13 +47,7 @@ public class CustomerBillService {
 		    LOGGER.log(Level.INFO, "Set order attributes");
 		    // Set order attributes
 		    try{	    	    	
-			    customerbillEntity.setCustomer(customerService.getCustomer((Long) variables.get("customerId")));
-			    }catch(EJBException e){
-			    	Throwable cause = e.getCause();
-			    	LOGGER.log(Level.SEVERE, cause.getMessage());
-			    }
-		    try{	    	    	
-		    	customerbillEntity.setProject(projectService.getProject((Long) variables.get("projectId")));
+		    	customerbillEntity.setProject((Project) projectService.getProject((Long) variables.get("projectId")));
 			    }catch(EJBException e){
 			    	Throwable cause = e.getCause();
 			    	LOGGER.log(Level.SEVERE, cause.getMessage());
@@ -74,7 +72,7 @@ public class CustomerBillService {
 		    // Add newly created id as process variable
 		    delegateExecution.setVariable("customerId", tempCust);
 		    delegateExecution.setVariable("projectId", tempProject);
-		    delegateExecution.setVariable("customerbillId", customerbillEntity.getCostumerBill());
+		    delegateExecution.setVariable("customerbillId", customerbillEntity.getId());
 		  }
 
 		  public CustomerBill getCostumerBill(Long customerbillId) {
