@@ -43,13 +43,7 @@ public class DeliverableService {
 	    // Set order attributes
 	    deliverableEntity.setTitle((String) variables.get("title"));
 	    deliverableEntity.setDescription((String) variables.get("description"));
-	    try{	    	    	
-	    	deliverableEntity.setCustomer(customerService.getCustomer((Long) variables.get("customerId")));
-		    }catch(EJBException e){
-		    	Throwable cause = e.getCause();
-		    	LOGGER.log(Level.SEVERE, cause.getMessage());
-		    }
-	 
+	    	 
 	    /*
 	      Persist deliverable instance and flush. After the flush the
 	      id of the customer instance is set.
@@ -67,7 +61,7 @@ public class DeliverableService {
 	 
 	    // Add newly created id as process variable
 	    delegateExecution.setVariable("projectId", tempProject);
-	    delegateExecution.setVariable("deliverableId", deliverableEntity.getDeliverable());
+	    delegateExecution.setVariable("deliverableId", deliverableEntity.getId());
 	  }
 	  
 	  

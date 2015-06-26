@@ -17,12 +17,23 @@ public class Appointment implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	public long getId() {
+		return id;
+	}
+	
 	@OneToOne
 	protected Project project;
 	
 	protected Date date;	
 	protected boolean possible;
+	protected String title;
 	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public Date getDate() {
 		return date;
 	}
