@@ -27,7 +27,7 @@ xmlns:f="http://java.sun.com/jsf/core">
 		  		<h:outputLabel value="#{evaluateRequestController.customerRequestEntity.text}" />
 		 </h:panelGrid>
   	  
-	<h:form id="submitForm" columns="2" columnClasses="form-label,form-label" footer-Class="form-footer">
+	<h:form id="submitForm" columns="1" columnClasses="form-label" footer-Class="form-footer">
 	<h:outputLabel value="Accept Request?" /> 
 	   	<h:commandButton id="confirmButton" value="Accept Request" action="#{evaluateRequestController.confirmRequest()}" />    
 	   	<h:commandButton id="declineButton" value="Decline Request" action="#{evaluateRequestController.declineRequest()}" />
