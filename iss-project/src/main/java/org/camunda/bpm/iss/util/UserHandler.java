@@ -23,7 +23,6 @@ public class UserHandler {
 	 * @return 
 	 * @throws EmptyCandidateUserException 
 	 */
-	@SuppressWarnings("all")
 	public LinkedList<String> findDifferentUser(String negId) throws EmptyCandidateUserException {
 		List<User> users = is.createUserQuery().list();
 		User userObj = is.createUserQuery().userId(negId).list().get(0);
