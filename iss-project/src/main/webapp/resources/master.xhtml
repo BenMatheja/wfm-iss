@@ -7,7 +7,7 @@
   <ui:insert name="metadata" />
   <h:head>
     <h:outputStylesheet name="default.css" />
-    set page title by param
+    
     <title>ISS - <ui:insert name="title">Title</ui:insert></title>
   </h:head>
   <h:body>
@@ -17,7 +17,7 @@
       </ui:insert>
     </div>
     <div id="content">
-      Display global error/success messages
+     
       <h:messages id="messages" fatalClass="success" errorClass="error"
         warnClass="warning" infoClass="info" globalOnly="true" />
       <ui:insert name="content"></ui:insert>
