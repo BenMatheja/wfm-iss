@@ -22,10 +22,9 @@ import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
-import org.camunda.bpm.iss.entity.Customer;
 import org.camunda.bpm.iss.entity.Appointment;
-import org.camunda.bpm.iss.entity.CustomerRequest;
-import org.camunda.bpm.iss.entity.Project;
+import org.camunda.bpm.iss.ejb.MeetingMinutesService;
+
 
 @Stateless
 @Named
@@ -89,7 +88,7 @@ public class AppointmentService {
 		    // Add newly created id as process variable
 		    delegateExecution.setVariable("customerName", tempCust);
 		    delegateExecution.setVariable("projectId", tempProject);
-		    delegateExecution.setVariable("appointmentId", appointmentEntity.getId());
+		    delegateExecution.setVariable("appointmentId", appointmentEntity.getAppointment());
 		  }
 	  
 	 

@@ -22,6 +22,7 @@ import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.iss.entity.Customer;
 import org.camunda.bpm.iss.ejb.CustomerRequestService;
+import org.camunda.bpm.iss.ejb.AppointmentService;
 
 @Stateless
 @Named
