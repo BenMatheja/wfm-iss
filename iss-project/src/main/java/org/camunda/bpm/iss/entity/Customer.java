@@ -7,6 +7,7 @@ import javax.persistence.Version;
 
 import java.io.Serializable;
 
+
 @Entity
 public class Customer implements Serializable {
 	 private static  final long serialVersionUID = 1L;
