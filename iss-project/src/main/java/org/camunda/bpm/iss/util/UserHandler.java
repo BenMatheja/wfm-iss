@@ -20,7 +20,6 @@ public class UserHandler {
 	 * user with the corresponding <code>negId</code>.
 	 * @author Shabdiz Ghasemivand 
 	 * @param negId
-	 * @throws NullPointerException
 	 * @return 
 	 * @throws EmptyCandidateUserException 
 	 */
