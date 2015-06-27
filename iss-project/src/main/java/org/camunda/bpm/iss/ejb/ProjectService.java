@@ -14,7 +14,6 @@ import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
-import org.camunda.bpm.iss.entity.Employee;
 import org.camunda.bpm.iss.entity.Project;
 
 @Named
@@ -42,26 +41,13 @@ public class ProjectService {
 	    LOGGER.log(Level.INFO, "Set order attributes");
 	    // Set order attributes
 	    projectEntity.setTitle((String) variables.get("title"));
-	    projectEntity.addEmployee((Long) variables.get("employeeId"));
 	    //projectEntity.setIndividualTime(((Integer)variables.get("individualTime")).intValue());
-	    projectEntity.setStatus(((Boolean)variables.get("status")).booleanValue());
+	    projectEntity.setFinished(false);
 	    projectEntity.setDesign(((Boolean)variables.get("design")).booleanValue());
 	    projectEntity.setCostEstimate(((Integer)variables.get("costEstimate")).intValue());
 	    projectEntity.setProjectStart((Date) variables.get("projectStart"));
 	    projectEntity.setProjectEnd((Date) variables.get("projectEnd"));
-	    projectEntity.setProjectStatusreport((String) variables.get("projectStatusreport"));
-	    
-	    try{	    	    	
-	    	projectEntity.setCustomer(customerService.getCustomer((Long) variables.get("customerId")));
-		    }catch(EJBException e){
-		    	Throwable cause = e.getCause();
-		    	LOGGER.log(Level.SEVERE, cause.getMessage());
-		    }
-	    /*
-	      Persist customer instance and flush. After the flush the
-	      id of the customer instance is set.
-	    */
-	    LOGGER.log(Level.INFO, " Persist project instance and flush.");
+	    projectEntity.setStatusReport((String) variables.get("projectStatusreport"));
 	    
 	    entityManager.persist(projectEntity);
 	    entityManager.flush();
@@ -77,6 +63,10 @@ public class ProjectService {
 	  public Project getProject(Long projectId) {
 		  // Load entity from database
 		  return entityManager.find(Project.class, projectId);
+	  }
+	  
+	  public void addEmployeesToProject(Long id){
+		  
 	  }
 	  
 }

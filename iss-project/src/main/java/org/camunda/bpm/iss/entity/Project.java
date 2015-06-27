@@ -30,9 +30,18 @@ public class Project implements Serializable {
 	protected int costEstimate;
 	protected Date projectStart;
 	protected Date projectEnd;
+	protected String statusReport;
 	
 	
 	
+	public String getStatusReport() {
+		return statusReport;
+	}
+
+	public void setStatusReport(String statusReport) {
+		this.statusReport = statusReport;
+	}
+
 	public int[] getIndividualRate() {
 		return individualRate;
 	}
@@ -72,7 +81,7 @@ public class Project implements Serializable {
 	}
 	
 	public void addEmployee(Employee em){
-		this.employee.add();
+		this.employee.add(em);
 	}
 	
 	public Employee getEmployee(Long id){
