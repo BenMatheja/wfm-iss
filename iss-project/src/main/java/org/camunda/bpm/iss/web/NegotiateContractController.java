@@ -11,12 +11,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.camunda.bpm.engine.IdentityService;
-import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
-import org.camunda.bpm.engine.impl.identity.Authentication;
 import org.camunda.bpm.iss.ejb.CustomerService;
 import org.camunda.bpm.iss.entity.Customer;
 
@@ -33,11 +29,7 @@ public class NegotiateContractController implements Serializable{
 	  @Inject
 	  private BusinessProcess businessProcess;
 	 
-	  @Inject
-	  private ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-	  private IdentityService identityService = processEngine.getIdentityService();
-	  
-	  
+  
 	  @Inject
 	  private TaskForm taskForm;
 	  
@@ -64,8 +56,8 @@ public class NegotiateContractController implements Serializable{
 	  }	
 	  
 	  public void confirmRequest() throws IOException {
-		  Authentication currentAuth = identityService.getCurrentAuthentication();
-		  String contractUser = currentAuth.getUserId();
+		  String contractUser = businessProcess.getTask().getAssignee();
+		  LOGGER.log(Level.INFO, "This task is assigned to: "+contractUser);
 		  businessProcess.setVariable("contractUser", contractUser);
 		  taskForm.completeTask();
 	  }
