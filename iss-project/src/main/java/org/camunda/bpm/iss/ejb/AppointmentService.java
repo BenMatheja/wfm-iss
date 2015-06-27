@@ -30,8 +30,6 @@ import org.camunda.bpm.iss.ejb.MeetingMinutesService;
 @Named
 public class AppointmentService {
 	
-	@Inject
-	AppointmentService appointmentService;
 	
 	@Inject
 	ProjectService projectService;
