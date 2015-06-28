@@ -32,7 +32,7 @@ public class UserHandler {
 	 * @return 
 	 * @throws EmptyCandidateUserException 
 	 */
-	public List<String> findDifferentUser(String negId, String groupId) throws EmptyCandidateUserException {
+	public String findDifferentUser(String negId, String groupId) throws EmptyCandidateUserException {
 		List<User> users = is.createUserQuery().memberOfGroup(groupId).list();		
 		User userObj = is.createUserQuery().userId(negId).list().get(0);
 		if (users.contains(userObj)){
@@ -40,10 +40,10 @@ public class UserHandler {
 		}
 		List<String> userRes = new LinkedList<String>();
 		for(User u:users){
-			userRes.add(u.getFirstName());
+			userRes.add(u.getId());
 		}
 		LOGGER.log(Level.INFO, "Different Users are: "+ userRes.toString());  
 		if (userRes.isEmpty()) throw new EmptyCandidateUserException("Candidate User List is empty");
-		else return userRes;
+		else return userRes.get(0);
 	}
 }

@@ -39,19 +39,15 @@
       			<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
         			<p>
           				<label for="title">Request title</label>
-                    	<br><h:inputText id="title" value="#{processVariables['title']}" required="true" /></br>
+                    	<h:inputText id="title" value="#{processVariables['title']}" required="true" />
                     	<h:message for="title" />
+        			</p>        		       			
+        			<p>	
+        				<label for="text">Request text:</label> 
+        				<h:inputTextarea rows="4" cols="50" placeholder="Enter request text" value="#{processVariables['text']}"/>
+        				<h:message for="text" />
         			</p>
-        			
-        			<p>
-        			<br><label for="text">Request text</label></br>
-        			<br>
-					<textarea rows="4" cols="50" placeholder="Enter request text" required="true" value="#{processVariables['text']}"></textarea>
-					</br>
-					<h:message for="text" />
-          			</p>       			      
-      			</h:panelGrid>       
-    			
+				</h:panelGrid>     			
     			<h:commandButton id="submit_button" value="Submit Request" action="#{camundaTaskForm.completeProcessInstanceForm()}" /> 	  			   			
     	</h:form><h:commandButton id="cancel_button" value="Discard Request" onclick="history.go(-1)" />
   	</div>

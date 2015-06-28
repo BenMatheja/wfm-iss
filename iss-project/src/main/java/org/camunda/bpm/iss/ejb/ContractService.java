@@ -1,5 +1,6 @@
 package org.camunda.bpm.iss.ejb;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,9 +11,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.iss.entity.Contract;
+import org.camunda.bpm.iss.entity.CustomerRequest;
 
 @Stateless
 @Named
@@ -26,6 +29,13 @@ public class ContractService {
 	  private TaskForm taskForm;	  
 	  	  
 	  private static Logger LOGGER = Logger.getLogger(ContractService.class.getName());
+	  
+	  // Inject the BusinessProcess to access the process variables
+	  @Inject
+	  private BusinessProcess businessProcess;
+	  
+	  // Caches the Entities during the conversation
+	  private Contract contractEntity;
 	 
 	  public void persistContract(DelegateExecution delegateExecution) {
 	   
@@ -63,5 +73,15 @@ public class ContractService {
 		  // Load entity from database
 		  return entityManager.find(Contract.class, contractId);
 	  }
+	  
+	  public void updateContract(Long contractId) throws IOException {
+		  Contract contract = getContract(contractId);		 
+		  String contractTitle = businessProcess.getVariable("contractTitle");
+		  String contractDescription = businessProcess.getVariable("contractDescription");
+		  contract.setContractTitle(contractTitle);
+		  contract.setContractDescription(contractDescription);
+		  entityManager.merge(contract);
+	  } 
+	  
 	  	
 }

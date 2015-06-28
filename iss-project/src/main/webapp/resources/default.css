@@ -83,6 +83,10 @@ body {
   padding-left: 5em;
 }
 
+.form-label {
+  font-weight: bold;
+}
+
 .data-table {
   border-collapse: collapse;
 }

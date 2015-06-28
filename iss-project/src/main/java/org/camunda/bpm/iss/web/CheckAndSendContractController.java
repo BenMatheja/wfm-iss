@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.BusinessProcess;
-import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.iss.ejb.ContractService;
 import org.camunda.bpm.iss.ejb.CustomerService;
 import org.camunda.bpm.iss.entity.Contract;
@@ -19,12 +18,23 @@ import org.camunda.bpm.iss.entity.Customer;
 
 @Named
 @ConversationScoped
-public class CheckSendContractController implements Serializable{
+public class CheckAndSendContractController implements Serializable{
 
 	  private static  final long serialVersionUID = 1L;
 	  
+	  private long id;
 	  
-	  private static Logger LOGGER = Logger.getLogger(CheckSendContractController.class.getName());
+	  public long getId() {
+		return id;
+	  }
+
+	  public void setId(long id) {
+		this.id = id;
+	  }
+
+	
+	  
+	  private static Logger LOGGER = Logger.getLogger(CheckAndSendContractController.class.getName());
 	  // Inject the BusinessProcess to access the process variables
 	  @Inject
 	  private BusinessProcess businessProcess;
@@ -43,10 +53,8 @@ public class CheckSendContractController implements Serializable{
 	 
 	  // Caches the Entities during the conversation
 	  private Customer customerEntity;
-	  private Contract contractEntity;
-	  
-	  private DelegateExecution delegateExecution;
-	  
+	  private Contract contractEntity;	  
+	   
 	  
 	  public Customer getCustomerEntity() {
 		    if (customerEntity == null) {
@@ -67,6 +75,7 @@ public class CheckSendContractController implements Serializable{
 			    contractEntity = contractService.getContract((Long) businessProcess.getVariable("contractId"));
 			    }
 			    return contractEntity;  
-	  }
+	  }	  
+	
 }	 
 	

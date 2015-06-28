@@ -6,7 +6,8 @@
  
 <ui:composition template="/resources/master.xhtml">
 	<ui:define name="metadata">
-	<f:metadata>   
+	<f:metadata>
+		<f:viewParam name="id" value="#{checkAndSendContractController.id}"></f:viewParam>   
 		<f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
 	</f:metadata>
 	</ui:define> 
@@ -17,29 +18,24 @@
 		<h2>Customer</h2>
 		<p>Customer Name: #{checkAndSendContractController.customerEntity.name}</p>
 		<p>Customer Address: #{checkAndSendContractController.customerEntity.address}</p>
-		<p>Customer E-Mail: #{checkAndSendContractController.customerEntity.eMail}</p>
+		<p>Customer E-Mail: #{checkAndSendContractController.customerEntity.email}</p>
 		<h2>Contract</h2>
 		<h:form id="submitForm">
 		 <h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
 		 <p>
 		 <label for="contracttitle">Contract Title</label>
-        <h:inputText id="contracttitle" value="#{processVariables['contracttitle']}" required="true" />
+        <h:inputText id="contracttitle" value="#{processVariables['contractTitle']}" required="true" />
                     	<h:message for="contracttitle" />
 		</p>
 		<p>
 		<label for="contractdescription">Contract Description</label>
-        <h:inputText id="contractdescription" value="#{processVariables['contractdescription']}" required="true" />
+        <h:inputText id="contractdescription" value="#{processVariables['contractDescription']}" required="true" />
                     	<h:message for="contractdescription" />
 		</p>
-		<p>
-		<label for="price">Price</label>
-        <h:inputText id="price" value="#{processVariables['price']}" required="true" />
-                    	<h:message for="price" />
-		</p>
 		</h:panelGrid>
-			<h:commandButton id="submit_button" value="Submit [readableFacename]" action="#{camundaTaskForm.completeProcessInstanceForm()}" /> 	  			   			
+			<h:commandButton id="submit_button" value="Submit Contract" action="#{camundaTaskForm.completeProcessInstanceForm()}" /> 	  			   			
     </h:form>
-    <h:commandButton id="cancel_button" value="Discard [readableFacename]" onclick="history.go(-1)" />
+    <h:commandButton id="cancel_button" value="Discard Contract" onclick="history.go(-1)" />
     </div>
 		</ui:define>
 	</ui:composition>
