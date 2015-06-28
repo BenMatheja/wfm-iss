@@ -43,10 +43,13 @@
                     	<h:message for="title" />
         			</p>
         			<p>
-          				<label for="text">Request text</label>
-                   		<h:inputText id="text" value="#{processVariables['text']}" required="true" />
-                   		<h:message for="text" />
-        			</p>        			      
+        			<label for="text">Request text</label>
+        			<textarea rows="4" cols="50">Enter request text</textarea>
+					<textarea rows="4" cols="50" placeholder="Enter request text"></textarea>
+					<textarea rows="4" cols="50" required></textarea> <!-- Textarea needs to be descripted -->
+					<textarea rows="4" cols="50" readonly>#{processVariables['text']}</textarea> <!-- non-editable content -->
+					<textarea rows="4" cols="50"></textarea>
+          			</p>       			      
       			</h:panelGrid>       
     			
     			<h:commandButton id="submit_button" value="Submit Request" action="#{camundaTaskForm.completeProcessInstanceForm()}" /> 	  			   			
