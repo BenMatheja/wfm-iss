@@ -1,5 +1,6 @@
 package org.camunda.bpm.iss.web;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.BusinessProcess;
+import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.iss.ejb.ContractService;
 import org.camunda.bpm.iss.ejb.CustomerService;
 import org.camunda.bpm.iss.entity.Contract;
@@ -22,18 +24,7 @@ public class CheckAndSendContractController implements Serializable{
 
 	  private static  final long serialVersionUID = 1L;
 	  
-	  private long id;
-	  
-	  public long getId() {
-		return id;
-	  }
-
-	  public void setId(long id) {
-		this.id = id;
-	  }
-
 	
-	  
 	  private static Logger LOGGER = Logger.getLogger(CheckAndSendContractController.class.getName());
 	  // Inject the BusinessProcess to access the process variables
 	  @Inject
@@ -49,7 +40,8 @@ public class CheckAndSendContractController implements Serializable{
 	  private CustomerService customerService;
 	  @Inject
 	  private ContractService contractService;
-	 
+	  @Inject
+	  private TaskForm taskForm;
 	 
 	  // Caches the Entities during the conversation
 	  private Customer customerEntity;
@@ -76,6 +68,10 @@ public class CheckAndSendContractController implements Serializable{
 			    }
 			    return contractEntity;  
 	  }	  
+	  
+	  public void confirmRequest() throws IOException {		  
+		  taskForm.completeTask();
+	  }
 	
 }	 
 	
