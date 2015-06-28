@@ -39,16 +39,16 @@
       			<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
         			<p>
           				<label for="title">Request title</label>
-                    	<h:inputText id="title" value="#{processVariables['title']}" required="true" />
+                    	<br><h:inputText id="title" value="#{processVariables['title']}" required="true" /></br>
                     	<h:message for="title" />
         			</p>
+        			
         			<p>
-        			<label for="text">Request text</label>
-        			<textarea rows="4" cols="50">Enter request text</textarea>
-					<textarea rows="4" cols="50" placeholder="Enter request text"></textarea>
-					<textarea rows="4" cols="50" required></textarea> <!-- Textarea needs to be descripted -->
-					<textarea rows="4" cols="50" readonly>#{processVariables['text']}</textarea> <!-- non-editable content -->
-					<textarea rows="4" cols="50"></textarea>
+        			<br><label for="text">Request text</label></br>
+        			<br>
+					<textarea rows="4" cols="50" placeholder="Enter request text" required="true" value="#{processVariables['text']}"></textarea>
+					</br>
+					<h:message for="text" />
           			</p>       			      
       			</h:panelGrid>       
     			
