@@ -16,11 +16,11 @@ public class Employee implements Serializable {
 	protected String firstName;
 	protected String lastName;
 	
-	public Employee(String userId, String firstName, String lastName){
-		setUserId(userId);
-		setFirstName(firstName);
-		setLastName(lastName);
-	}
+//	public Employee(String userId, String firstName, String lastName){
+//		setUserId(userId);
+//		setFirstName(firstName);
+//		setLastName(lastName);
+//	}
 	
 	public String getFirstName() {
 		return firstName;

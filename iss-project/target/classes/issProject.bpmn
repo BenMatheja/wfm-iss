@@ -892,10 +892,10 @@
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_21" bpmnElement="SequenceFlow_21" sourceElement="_BPMNShape_ServiceTask_13" targetElement="_BPMNShape_ServiceTask_12">
         <di:waypoint xsi:type="dc:Point" x="1224.0" y="1161.0"/>
         <di:waypoint xsi:type="dc:Point" x="1071.0" y="1161.0"/>
-        <di:waypoint xsi:type="dc:Point" x="1071.0" y="592.0"/>
-        <di:waypoint xsi:type="dc:Point" x="916.0" y="592.0"/>
+        <di:waypoint xsi:type="dc:Point" x="854.0" y="773.0"/>
+        <di:waypoint xsi:type="dc:Point" x="854.0" y="632.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="6.0" width="6.0" x="1068.0" y="846.0"/>
+          <dc:Bounds height="6.0" width="6.0" x="914.0" y="886.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_29" bpmnElement="SequenceFlow_29" sourceElement="_BPMNShape_UserTask_5" targetElement="_BPMNShape_ServiceTask_13">

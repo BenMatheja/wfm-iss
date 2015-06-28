@@ -80,6 +80,9 @@ public class ContractService {
 		  String contractDescription = businessProcess.getVariable("contractDescription");
 		  contract.setContractTitle(contractTitle);
 		  contract.setContractDescription(contractDescription);
+		  LOGGER.log(Level.INFO, "This is updateContract setting the contract to: "+contract.toString());
+		  LOGGER.log(Level.INFO, "The contract title is now: "+contract.getContractTitle());
+		  LOGGER.log(Level.INFO, "The contract description is now: "+contract.getContractDescription());
 		  entityManager.merge(contract);
 	  } 
 	  
