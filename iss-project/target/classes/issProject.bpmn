@@ -288,7 +288,7 @@
     <bpmn2:sequenceFlow id="SequenceFlow_50" name="No" sourceRef="ExclusiveGateway_3" targetRef="ExclusiveGateway_6">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(false)</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:serviceTask id="ServiceTask_2" camunda:expression="$(CreateVirtualDevEnvironment.create(projectTitle,customerName))" name="Create Virtual Development Environment">
+    <bpmn2:serviceTask id="ServiceTask_2" camunda:expression="$(CreateVirtualDevEnvironment.create(execution))" name="Create Virtual Development Environment">
       <bpmn2:incoming>SequenceFlow_26</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_28</bpmn2:outgoing>
     </bpmn2:serviceTask>
