@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,6 +13,7 @@ import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.iss.entity.Customer;
 import org.camunda.bpm.iss.entity.Project;
 
 @Named
@@ -25,7 +25,11 @@ public class ProjectService {
 	  // Inject task form available through the camunda cdi artifact
 	  @Inject
 	  private TaskForm taskForm;	  
-	  	  
+	  
+	  @Inject
+		CustomerService customerService;
+		
+		  	  
 	  private static Logger LOGGER = Logger.getLogger(ProjectService.class.getName());
 	 
 	  public void persistProject(DelegateExecution delegateExecution) {
@@ -40,15 +44,14 @@ public class ProjectService {
 	 
 	    LOGGER.log(Level.INFO, "Set order attributes");
 	    // Set order attributes
-	    projectEntity.setTitle((String) variables.get("title"));
+	    projectEntity.setTitle((String) variables.get("projectTitle"));
 	    //projectEntity.setIndividualTime(((Integer)variables.get("individualTime")).intValue());
 	    projectEntity.setFinished(false);
 	    projectEntity.setDesign(((Boolean)variables.get("design")).booleanValue());
 	    projectEntity.setCostEstimate(((Integer)variables.get("costEstimate")).intValue());
 	    projectEntity.setProjectStart((Date) variables.get("projectStart"));
 	    projectEntity.setProjectEnd((Date) variables.get("projectEnd"));
-	    projectEntity.setStatusReport((String) variables.get("projectStatusreport"));
-	    
+	   	    
 	    entityManager.persist(projectEntity);
 	    entityManager.flush();
 	 
@@ -58,6 +61,9 @@ public class ProjectService {
 	    LOGGER.log(Level.INFO, "Add newly created project id as process variable. It is:" + projectEntity.getId());
 	    // Add newly created customer id as process variable
 	    delegateExecution.setVariable("projectId", projectEntity.getId());
+	    
+	    Customer customerEntity = customerService.getCustomer((Long) variables.get("customerId"));
+	    delegateExecution.setVariable("customerName",customerEntity.getName());
 	  }
 
 	  public Project getProject(Long projectId) {

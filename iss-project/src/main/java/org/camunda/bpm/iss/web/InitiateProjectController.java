@@ -22,6 +22,7 @@ public class InitiateProjectController implements Serializable{
 
 	  private static  final long serialVersionUID = 1L;
 	  
+	  @Inject
 	  private TaskForm taskForm;
 	  
 	  private static Logger LOGGER = Logger.getLogger(InitiateProjectController.class.getName());
