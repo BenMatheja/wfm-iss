@@ -1,10 +1,17 @@
 package org.camunda.bpm.iss.util;
 import java.io.File;
+import java.util.Map;
+
+import org.camunda.bpm.engine.delegate.DelegateExecution;
 
 public class CreateVirtualDevEnvironment {
-		
-	    public static void create(String projectTitle, String customerName) {	
-	    	File files = new File("C:\\"+projectTitle+"\\"+customerName);
+
+	
+	    public static void create(DelegateExecution delegateExecution) {
+	    	
+	    	Map<String, Object> variables = delegateExecution.getVariables();
+	    	
+	    	File files = new File("C:\\Projects\\"+variables.get("customerId")+"\\"+variables.get("projectId"));
 	    	if (files.exists()) {
 	    		if (files.mkdirs()) {
 	    			System.out.println("Directories are created!");
