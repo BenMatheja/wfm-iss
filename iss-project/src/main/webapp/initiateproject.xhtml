@@ -59,7 +59,7 @@
                     	<h:message for="costEstimate" />
         			</p>
         	</h:panelGrid>		
-		  	<h:commandButton id="initateProject" value="Initiate project" action="#{camundaTaskForm.completeProcessInstanceForm()}" /> 	  			   			
+		  	<h:commandButton id="initateProject" value="Initiate project" action="#{initiateProjectController.confirmRequest()}" /> 	  			   			
     	</h:form><h:commandButton id="discardProject" value="Discard project" onclick="history.go(-1)" />
   	</div>
   </ui:define>
