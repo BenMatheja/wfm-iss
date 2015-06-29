@@ -51,7 +51,7 @@ public class ProjectService {
 	    // Set order attributes
 	    projectEntity.setTitle((String) variables.get("projectTitle"));
 	    //projectEntity.setIndividualTime(((Integer)variables.get("individualTime")).intValue());
-	    projectEntity.setFinished(false);
+	    projectEntity.setProjectStatus(false);
 	    projectEntity.setDesign(((Boolean)variables.get("design")).booleanValue());
 	    projectEntity.setCostEstimate(((Integer)variables.get("costEstimate")).intValue());
 	    projectEntity.setProjectStart((Date) variables.get("projectStart"));
