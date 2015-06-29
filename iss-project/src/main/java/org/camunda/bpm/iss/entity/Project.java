@@ -26,7 +26,7 @@ public class Project implements Serializable {
 	protected int[] individualTime;
 	protected int[] individualRate;
 	protected boolean design;
-	protected boolean finished;
+	protected boolean projectStatus;
 	protected int costEstimate;
 	protected Date projectStart;
 	protected Date projectEnd;
@@ -103,11 +103,11 @@ public class Project implements Serializable {
 	public void setDesign(boolean design) {
 		this.design = design;
 	}
-	public boolean isFinished() {
-		return finished;
+	public boolean getProjectStatus() {
+		return projectStatus;
 	}
-	public void setFinished(boolean finished) {
-		this.finished = finished;
+	public void setProjectStatus(boolean projectStatus) {
+		this.projectStatus = projectStatus;
 	}
 	public int getCostEstimate() {
 		return costEstimate;
