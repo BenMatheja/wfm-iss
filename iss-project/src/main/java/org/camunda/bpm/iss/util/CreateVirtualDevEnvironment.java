@@ -36,18 +36,17 @@ public class CreateVirtualDevEnvironment {
 	    	
 	    	Project project = projectService.getProject(projectId);
 	    	Customer customer = customerService.getCustomer(customerId);
+	    	LOGGER.log(Level.INFO, project.getTitle());
+	    	LOGGER.log(Level.INFO, customer.getName()); 
 	    	
 	    	File files = new File("C:\\Projects\\"+customer.getName()+"\\"+project.getTitle());
-	    	if (files.exists()) {
-	    		LOGGER.log(Level.INFO, "files.exists() was true"); 
-	    		if (files.mkdirs()) {
-	    			System.out.println("Directories are created!");
-	    			 LOGGER.log(Level.INFO, "Directories created"); 
+	    	LOGGER.log(Level.INFO, "This is files: "+files.toString());
+	    	if (files.mkdirs()) {
+	    			LOGGER.log(Level.INFO, "Directories created"); 
 	    		} else {
-	    			System.out.println("Failed to create directories!");
 	    			LOGGER.log(Level.INFO, "Failed to create Directories"); 
-	    		}
-	    	}	 
+    		}
+	    	
 	    }
 	}
 
