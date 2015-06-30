@@ -1,13 +1,12 @@
 package org.camunda.bpm.iss.entity;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Project implements Serializable {
@@ -18,9 +17,16 @@ public class Project implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@OneToMany
-	protected Collection<Employee> employee;
+	// @OneToMany
+	protected LinkedList<String> employee;
 	
+	public LinkedList<String> getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(LinkedList<String> employee) {
+		this.employee = employee;
+	}
 	protected String title;
 	// individualTime: is this ever used throughout the process?
 	protected int[] individualTime;
@@ -50,7 +56,7 @@ public class Project implements Serializable {
 		this.individualRate = individualRate;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -72,25 +78,6 @@ public class Project implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Collection<Employee> getEmployee() {
-		return employee;
-	}
-	
-	public void setEmployee(Collection<Employee> employee) {
-		this.employee = employee;
-	}
-	
-	public void addEmployee(Employee em){
-		this.employee.add(em);
-	}
-	
-	public Employee getEmployee(Long id){
-		for(Employee e:this.employee){
-			if(e.getId()==id) return e;
-		}
-		throw new IllegalStateException("Employee not found");
-	}
-	
 	public int[] getIndividualTime() {
 		return individualTime;
 	}
@@ -115,6 +102,6 @@ public class Project implements Serializable {
 	public void setCostEstimate(int costEstimate) {
 		this.costEstimate = costEstimate;
 	}
-	
+
 	
 }

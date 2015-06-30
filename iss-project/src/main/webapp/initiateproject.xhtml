@@ -2,7 +2,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core">
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
  
 <ui:composition template="/resources/master.xhtml">
 	<ui:define name="metadata">
@@ -30,36 +31,40 @@
       		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
         			<p>
           				<label for="projectTitle">Project title</label>
-                    	<h:inputText id="projectTitle" value="#{processVariables['projectTitle']}" required="true" />
+                    	<h:inputText id="projectTitle" value="#{initiateProjectController.project.title}" required="true" />
                     	<h:message for="projectTitle" />
         			</p>
         			<p>
           				<label for="projectStart">Project start</label>
-                    	<h:inputText id="projectStart" value="#{processVariables['projectStart']}" required="true" />
+                    	<h:inputText id="projectStart" value="#{initiateProjectController.project.projectStart}" required="true" p:placeholder="e.g. 2015-06-30">
+                    		<f:convertDateTime pattern="yyyy-MM-dd"/>
+                    	</h:inputText>
                     	<h:message for="projectStart" />
         			</p>
          			<p>
           				<label for="projectEnd">Project end</label>
-                    	<h:inputText id="projectEnd" value="#{processVariables['projectEnd']}" required="true" />
+                    	<h:inputText id="projectEnd" value="#{initiateProjectController.project.projectEnd}" required="true" p:placeholder="e.g. 2015-06-30">
+                    		<f:convertDateTime pattern="yyyy-MM-dd"/>
+                    	</h:inputText>
                     	<h:message for="projectEnd" />
         			</p>        			
       		</h:panelGrid>
       		Employees
-      		<h:selectManyListbox value="#{processVariables['employee']}">
+      		<h:selectManyListbox value="#{initiateProjectController.employeeHelper}">
 	   			<f:selectItem itemValue="bernhard-becks" itemLabel="Bernhard Becks" />
 	   			<f:selectItem itemValue="erika-erdinger" itemLabel="Erika Erdinger" />
 	   			<f:selectItem itemValue="frieda-franziskaner" itemLabel="Frieda Franziskaner" />
 	   		</h:selectManyListbox>
 	  		Design required
-	  		<h:selectBooleanCheckbox value="#{processVariables['design']}" />
+	  		<h:selectBooleanCheckbox value="#{initiateProjectController.project.design}" />
 	   		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
         			<p>
           				<label for="costEstimate">Cost estimation</label>
-                    	<h:inputText id="costEstimate" value="#{processVariables['costEstimate']}" required="true" />
+                    	<h:inputText id="costEstimate" value="#{initiateProjectController.project.costEstimate}" required="true" />
                     	<h:message for="costEstimate" />
         			</p>
         	</h:panelGrid>		
-		  	<h:commandButton id="initateProject" value="Initiate project" action="#{initiateProjectController.confirmRequest()}" /> 	  			   			
+		  	<h:commandButton id="initateProject" value="Initiate project" action="#{initiateProjectController.persist}" /> 	  			   			
     	</h:form><h:commandButton id="discardProject" value="Discard project" onclick="history.go(-1)" />
   	</div>
   </ui:define>

@@ -2,6 +2,7 @@ package org.camunda.bpm.iss.web;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,13 +15,15 @@ import javax.persistence.PersistenceContext;
 import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.iss.ejb.CustomerService;
+import org.camunda.bpm.iss.ejb.ProjectService;
 import org.camunda.bpm.iss.entity.Customer;
+import org.camunda.bpm.iss.entity.Project;
 
 @Named
 @ConversationScoped
 public class InitiateProjectController implements Serializable{
-
-	  private static  final long serialVersionUID = 1L;
+	
+	private static  final long serialVersionUID = 1L;
 	  
 	  @Inject
 	  private TaskForm taskForm;
@@ -37,9 +40,28 @@ public class InitiateProjectController implements Serializable{
 	  // Inject the Service 
 	  @Inject
 	  private CustomerService customerService;
-	 
-	  // Caches the Entities during the conversation
+	  
+	  @Inject
+	  private ProjectService projectService;
+	  
+	  private Project project = new Project();
+	  private LinkedList<String> employeeHelper;
+ 	 
+	  
+	public LinkedList<String> getEmployeeHelper() {
+		return employeeHelper;
+	}
+
+	public void setEmployeeHelper(LinkedList<String> employeeHelper) {
+		this.employeeHelper = employeeHelper;
+	}
+
+	// Caches the Entities during the conversation
 	  private Customer customerEntity;
+	  
+	  public Project getProject() {
+		  return project;
+	  }
 	  
 	  public Customer getCustomerEntity() {
 		    if (customerEntity == null) {
@@ -52,7 +74,22 @@ public class InitiateProjectController implements Serializable{
 		    return customerEntity;
 	  }	 
 	  
-	  public void confirmRequest() throws IOException {		  
+	  public void persist() throws IOException {		  
+		  project.setEmployee(employeeHelper);
+		  project = projectService.create(project);
+		  businessProcess.setVariable("projectId", project.getId());
+		  LOGGER.log(Level.INFO, "This is projectid in the business process: " + businessProcess.getVariable("projectId"));
+		  
+		  Project persistedProject = projectService.getProject(project.getId());
+		  LOGGER.log(Level.INFO, "This is the persisted Project: ");
+		  LOGGER.log(Level.INFO, " toString: "+ persistedProject.toString());
+		  LOGGER.log(Level.INFO, " costEstimate: "+ persistedProject.getCostEstimate());
+		  LOGGER.log(Level.INFO, " Title: "+ persistedProject.getTitle());
+		  LOGGER.log(Level.INFO, " Employees: "+ persistedProject.getEmployee().toString());
+		  LOGGER.log(Level.INFO, " Start Date: "+ persistedProject.getProjectStart());
+		  LOGGER.log(Level.INFO, " End Date: "+ persistedProject.getProjectEnd());
+		  LOGGER.log(Level.INFO, " Design: "+ persistedProject.isDesign());
+		  
 		  taskForm.completeTask();
 	  }
 }
