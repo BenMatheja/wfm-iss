@@ -13,7 +13,9 @@ xmlns:f="http://java.sun.com/jsf/core">
 <ui:define name="title">Graphics Design Requirements</ui:define>
     <ui:define name="content">
 		<div class="details">
-		<h2>Project: #{inputgraphicsdesignController.projectEntity.title}</h2>  		
+		<h2>Project: #{inputgraphicsdesignController.projectEntity.title}</h2>  
+		
+		<h2>Customer: #{inputgraphicsdesignController.customerEntity.name}</h2>
  			  	
 	  	<h:form id="submitForm">
 					<h2>Enter design details</h2>
@@ -27,13 +29,20 @@ xmlns:f="http://java.sun.com/jsf/core">
 							<h:message for="designTitle" />
 						</p>
 						<p>
-							<label for="designDescription">Contract Description</label>
+							<label for="designDescription">Requirements Description</label>
 							<h:inputText id="designDescription"
 								value="#{processVariables['designDescription']}"
 								required="true" />
 							<h:message for="designDescription" />
 						</p>
+						
+					<h3>Select designs</h3>
+					<h:selectManyListbox value="#{inputgraphicsdesignController.requirementsHelper}">
+	   				<f:selectItems value="#{inputgraphicsdesignController.requirementsList}" />
+	   				</h:selectManyListbox>
+	   		
 					</h:panelGrid>
+      		
 					<h:outputLabel value="Send for submittal?" />
 					<h:commandButton id="submit_button" value="Ok"
 						action="#{inputgraphicsdesignController.confirmRequest()}" />

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core">
+ 
+<ui:composition template="/resources/master.xhtml">
+  <ui:define name="metadata">
+  <f:metadata>   
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+  </f:metadata>
+  </ui:define>
+<ui:define name="title">Request additional information from customer</ui:define>
+    <ui:define name="content">
+		<div class="details">
+		
+		<h2>Project: #{requestinfocustomerController.projectEntity.title}</h2>  
+		
+		<h2>Customer: #{requestinfocustomerController.customerEntity.name}</h2>
+			<h:panelGrid columns="2" columnClasses="form-label, form-label">
+				<h:outputLabel value="Address" />
+			 	<h:outputLabel value="#{requestinfocustomerController.customerEntity.address}"/>
+			 	<h:outputLabel value="E-Mail" />
+			 	<h:outputLabel value="#{requestinfocustomerController.customerEntity.email}"/>
+	 		</h:panelGrid>
+		
+		
+		<h2>Insert Request</h2>
+      			<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
+        			<p>
+          				<label for="title">Request title</label>
+                    	<h:inputText id="title" value="#{processVariables['title']}" required="true" />
+                    	<h:message for="title" />
+        			</p>        		       			
+        			<p>	
+        				<label for="text">Request text:</label> 
+        				<h:inputTextarea rows="4" cols="50" placeholder="Enter request text" value="#{processVariables['text']}"/>
+        				<h:message for="text" />
+        			</p>
+				</h:panelGrid> 
+				
+		<h:commandButton id="submit_button" value="Submit Requirements" action="#{requestinfocustomerController.confirmRequest()}" /> 	  			   			
+    </h:form>
+    <h:commandButton id="cancel_button" value="Discard Requirements" onclick="history.go(-1)" />
+    </div>
+		</ui:define>
+	</ui:composition>
+</html>
