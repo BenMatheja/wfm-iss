@@ -51,9 +51,7 @@
       		</h:panelGrid>
       		Employees
       		<h:selectManyListbox value="#{initiateProjectController.employeeHelper}">
-	   			<f:selectItem itemValue="bernhard-becks" itemLabel="Bernhard Becks" />
-	   			<f:selectItem itemValue="erika-erdinger" itemLabel="Erika Erdinger" />
-	   			<f:selectItem itemValue="frieda-franziskaner" itemLabel="Frieda Franziskaner" />
+	   			<f:selectItems value="#{initiateProjectController.userList}" />
 	   		</h:selectManyListbox>
 	  		Design required
 	  		<h:selectBooleanCheckbox value="#{initiateProjectController.project.design}" />

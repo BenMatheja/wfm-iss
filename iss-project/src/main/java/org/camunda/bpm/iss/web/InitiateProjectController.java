@@ -2,11 +2,15 @@ package org.camunda.bpm.iss.web;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ConversationScoped;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -15,8 +19,10 @@ import javax.persistence.PersistenceContext;
 import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.iss.ejb.CustomerService;
+import org.camunda.bpm.iss.ejb.EmployeeService;
 import org.camunda.bpm.iss.ejb.ProjectService;
 import org.camunda.bpm.iss.entity.Customer;
+import org.camunda.bpm.iss.entity.Employee;
 import org.camunda.bpm.iss.entity.Project;
 
 @Named
@@ -44,10 +50,23 @@ public class InitiateProjectController implements Serializable{
 	  @Inject
 	  private ProjectService projectService;
 	  
+	  @Inject
+	  private EmployeeService employeeService;
+	  
 	  private Project project = new Project();
 	  private LinkedList<String> employeeHelper;
- 	 
+ 	  private List<SelectItem> userList = new ArrayList<SelectItem>(); 
 	  
+	public List<SelectItem> getUserList() {
+		Collection<Employee> allEmployees = employeeService.getAllEmployees();
+		for (Employee e:allEmployees) {
+			if (e.getUserId() != "demo") {
+				userList.add(new SelectItem(e.getId(), e.getFirstName()+" "+e.getLastName()));
+			}
+		}		
+		return userList;
+	}
+
 	public LinkedList<String> getEmployeeHelper() {
 		return employeeHelper;
 	}
