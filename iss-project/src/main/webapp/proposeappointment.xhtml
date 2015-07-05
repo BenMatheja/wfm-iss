@@ -2,7 +2,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core">
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:c="http://java.sun.com/jsp/jstl/core">
  
 <ui:composition template="/resources/master.xhtml">
 	<ui:define name="metadata">
@@ -18,37 +19,34 @@
 			<h:form>
 	 		<h:panelGrid columns="2" columnClasses="form-label, form-label">
 	 			<h:outputLabel value="Project title" />
-			 	<h:outputLabel value="#{initiateProjectController.projectEntity.projectTitle}"/>
+			 	<h:outputLabel value="#{proposeAppointmentController.projectEntity.title}"/>
 	 			<h:outputLabel value="Customer name" />
-			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.name}"/>
+			 	<h:outputLabel value="#{proposeAppointmentController.customerEntity.name}"/>
 	 			<h:outputLabel value="Project start" />
-			 	<h:outputLabel value="#{initiateProjectController.projectEntity.projectStart}"/>
+			 	<h:outputLabel value="#{proposeAppointmentController.projectEntity.projectStart}"/>
 			 	<h:outputLabel value="Project end" />
-			 	<h:outputLabel value="#{initiateProjectController.projectEntity.projectEnd}"/>
-			 	<h:outputLabel value="Employees" />
-			 	<h:outputLabel value="#{initiateProjectController.projectEntity.employee}"/>
+			 	<h:outputLabel value="#{proposeAppointmentController.projectEntity.projectEnd}"/>
+			 	<ui:repeat
+					value="#{proposeAppointmentController.projectEntity.employee}"
+					var="emp">
+					<h:outputText value="#{emp.firstName}" />
+					<h:outputText value="#{emp.lastName}" />
+				</ui:repeat>
 		  	</h:panelGrid>
 	  		</h:form>
-	  		<h2>Appointment proposal</h2>
+	  		<c:if test="#{not empty processVariables['appointmentId']}">
+	  			Yo man, appointment was declined, bitches
+	  		</c:if>	  		
+	  		<h2>Appointment proposal #{proposeAppointmentController.appointment.title}</h2>
 	  		<h:form>    		
       		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
         			<p>
-          				<label for="appointmentTitle">Appointment title</label>
-                    	<h:inputText id="appointmentTitle" value="#{processVariables['appointmentTitle']}" required="true" />
-                    	<h:message for="appointmentTitle" />
-        			</p>
-        			<p>
-          				<label for="appointmentDescription">Appointment description</label>
-                    	<h:inputText id="appointmentDescription" value="#{processVariables['appointmentDescription']}" required="true" />
-                    	<h:message for="appointmentDescription" />
-        			</p>
-         			<p>
           				<label for="date">Date</label>
-                    	<h:inputText id="date" value="#{processVariables['date']}" required="true" />
+                    	<h:inputText id="date" value="#{proposeAppointmentController.appointment.date}" required="true" />
                     	<h:message for="date" />
         			</p>        			
       		</h:panelGrid>
- 		  	<h:commandButton id="proposeAppointment" value="Propose Appointment" action="#{camundaTaskForm.completeProcessInstanceForm()}" /> 	  			   			
+ 		  	<h:commandButton id="proposeAppointment" value="Propose Appointment" action="#{proposeAppointmentController.persist}" /> 	  			   			
     	</h:form><h:commandButton id="discardAppointment" value="Discard Appointment" onclick="history.go(-1)" />
   	</div>
   </ui:define>

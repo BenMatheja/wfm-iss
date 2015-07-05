@@ -23,6 +23,7 @@ import javax.persistence.PersistenceContext;
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.iss.entity.Appointment;
+import org.camunda.bpm.iss.entity.Project;
 import org.camunda.bpm.iss.ejb.MeetingMinutesService;
 
 
@@ -43,46 +44,10 @@ public class AppointmentService {
 		  
 	 private static Logger LOGGER = Logger.getLogger(AppointmentService.class.getName());
 	 
-	  public void persistAppointment(DelegateExecution delegateExecution) {
-		  
-		  
-		  	LOGGER.log(Level.INFO, "Create new appointment instance");  
-		    // Create new instance
-		    Appointment appointmentEntity = new Appointment();
-		 
-		    LOGGER.log(Level.INFO, "Get all process variables");
-		    // Get all process variables
-		    Map<String, Object> variables = delegateExecution.getVariables();
-		    
-		    LOGGER.log(Level.INFO, "Set appointment attributes");
-		 // Set attributes
-		    appointmentEntity.setTitle((String) variables.get("title"));
-		    
-		    try{	    	    	
-		    	appointmentEntity.setProject(projectService.getProject((Long) variables.get("projectId")));
-		    }catch(EJBException e){
-		    	Throwable cause = e.getCause();
-		    	LOGGER.log(Level.SEVERE, cause.getMessage());
-		    }
-		    
-		    /*
-		      Persist instance and flush. After the flush the
-		      id of the instance is set.
-		    */
-		    entityManager.persist(appointmentEntity);
-		    entityManager.flush();
-		    
-		    // Save the customer temporarily 
-		    Object tempCust = variables.get("customerName");
-		    Object tempProject = variables.get("projectId");
-		    
-		 // Remove no longer needed process variables
-		    delegateExecution.removeVariables(variables.keySet());
-		    
-		    // Add newly created id as process variable
-		    delegateExecution.setVariable("customerName", tempCust);
-		    delegateExecution.setVariable("projectId", tempProject);
-		    delegateExecution.setVariable("appointmentId", appointmentEntity.getId());
+	  public Appointment create (Appointment appointment) {	   
+			entityManager.persist(appointment);
+			// entityManager.flush();
+			return appointment;	 
 		  }
 	  
 	 
@@ -91,7 +56,7 @@ public class AppointmentService {
 		  return entityManager.find(Appointment.class, appointmentId);
 	  }
 	  
-	  public void mergeAndComplete_App(Appointment appointment) {
+	  public void mergeAndComplete(Appointment appointment) {
 		  // Merge detached appointment entity with current persisted state
 		 
 		  entityManager.merge(appointment);		  			

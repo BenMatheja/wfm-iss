@@ -59,7 +59,7 @@
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
     </bpmn2:startEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="StartEvent_1" targetRef="UserTask_1"/>
-    <bpmn2:userTask id="UserTask_1" camunda:candidateGroups="project-manager" camunda:formKey="app:inputgraphicsdesign" name="Input Graphics Design Requirements">
+    <bpmn2:userTask id="UserTask_1" camunda:candidateGroups="project-manager" camunda:formKey="app:inputgraphicsdesign.jsf" name="Input Graphics Design Requirements">
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:userTask>

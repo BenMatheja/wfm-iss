@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core">
+ 
+<ui:composition template="/resources/master.xhtml">
+  <ui:define name="metadata">
+  <f:metadata>   
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+  </f:metadata>
+  </ui:define>
+<ui:define name="title">Graphics Design Requirements</ui:define>
+    <ui:define name="content">
+		<div class="details">
+		<h2>Project: #{inputgraphicsdesignController.projectEntity.title}</h2>  		
+ 			  	
+	  	<h:form id="submitForm">
+					<h2>Enter design details</h2>
+					<h:panelGrid columns="3"
+						columnClasses="form-label,form-input,form-message error"
+						footerClass="form-footer">
+						<p>
+							<label for="designTitle">Design Title</label>
+							<h:inputText id="designTitle"
+								value="#{designRequestDTO.designTitle}" required="true" />
+							<h:message for="designTitle" />
+						</p>
+						<p>
+							<label for="designDescription">Contract Description</label>
+							<h:inputText id="designDescription"
+								value="#{processVariables['designDescription']}"
+								required="true" />
+							<h:message for="designDescription" />
+						</p>
+					</h:panelGrid>
+					<h:outputLabel value="Send for submittal?" />
+					<h:commandButton id="submit_button" value="Ok"
+						action="#{inputgraphicsdesignController.confirmRequest()}" />
+					<h:commandButton id="cancel_button" value="Cancel"
+						onclick="history.go(-1)" />
+			</h:form>
+	</div>		
+  </ui:define>
+</ui:composition>
+</html>
