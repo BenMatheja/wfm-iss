@@ -54,35 +54,41 @@ public class InitiateProjectController implements Serializable{
 	  private EmployeeService employeeService;
 	  
 	  private Project project = new Project();
-	  private LinkedList<String> employeeHelper;
+	  
+	  //no matter what we type in here, the selectmanylistbox always returns String
+	  private List<Long> employeeHelper = new ArrayList<Long>();
+	  
  	  private List<SelectItem> userList = new ArrayList<SelectItem>(); 
 	  
-	public List<SelectItem> getUserList() {
-		Collection<Employee> allEmployees = employeeService.getAllEmployees();
-		for (Employee e:allEmployees) {
-			if (e.getUserId() != "demo") {
-				userList.add(new SelectItem(e.getId(), e.getFirstName()+" "+e.getLastName()));
-			}
-		}		
-		return userList;
-	}
-
-	public LinkedList<String> getEmployeeHelper() {
-		return employeeHelper;
-	}
-
-	public void setEmployeeHelper(LinkedList<String> employeeHelper) {
-		this.employeeHelper = employeeHelper;
-	}
-
-	// Caches the Entities during the conversation
+	  // Caches the Entities during the conversation
 	  private Customer customerEntity;
 	  
 	  public Project getProject() {
 		  return project;
 	  }
 	  
-	  public Customer getCustomerEntity() {
+	  public List<SelectItem> getUserList() {
+			Collection<Employee> allEmployees = employeeService.getAllEmployees();
+			for (Employee e:allEmployees) {
+				if (e.getUserId() != "demo") {
+					userList.add(new SelectItem(e.getId(), e.getFirstName()+" "+e.getLastName()));
+				}
+			}		
+			return userList;
+		}
+	  
+		
+
+
+	public List<Long> getEmployeeHelper() {
+		return employeeHelper;
+	}
+
+	public void setEmployeeHelper(List<Long> employeeHelper) {
+		this.employeeHelper = employeeHelper;
+	}
+
+	public Customer getCustomerEntity() {
 		    if (customerEntity == null) {
 		      // Load the entity from the database if not already cached
 		    LOGGER.log(Level.INFO, "This is customerId from businessProcess: " + businessProcess.getVariable("customerId")); 
@@ -94,7 +100,13 @@ public class InitiateProjectController implements Serializable{
 	  }	 
 	  
 	  public void persist() throws IOException {		  
-		  project.setEmployee(employeeHelper);
+		  projectService.addEmployeesToProject(project, employeeHelper);
+		  
+		  // Make sure that design is "false" instead of NULL
+		  if (!project.isDesign()) {
+			  project.setDesign(false);
+		  }
+		  
 		  project = projectService.create(project);
 		  businessProcess.setVariable("projectId", project.getId());
 		  LOGGER.log(Level.INFO, "This is projectid in the business process: " + businessProcess.getVariable("projectId"));

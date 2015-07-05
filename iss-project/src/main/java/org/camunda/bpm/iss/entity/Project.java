@@ -1,12 +1,13 @@
 package org.camunda.bpm.iss.entity;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Project implements Serializable {
@@ -17,16 +18,9 @@ public class Project implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	// @OneToMany
-	protected LinkedList<String> employee;
-	
-	public LinkedList<String> getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(LinkedList<String> employee) {
-		this.employee = employee;
-	}
+	@OneToMany
+	protected Collection<Employee> employee;
+		
 	protected String title;
 	// individualTime: is this ever used throughout the process?
 	protected int[] individualTime;
@@ -101,6 +95,14 @@ public class Project implements Serializable {
 	}
 	public void setCostEstimate(int costEstimate) {
 		this.costEstimate = costEstimate;
+	}
+
+	public Collection<Employee> getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Collection<Employee> employee) {
+		this.employee = employee;
 	}
 
 	

@@ -1,8 +1,8 @@
 package org.camunda.bpm.iss.ejb;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,8 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.BusinessProcess;
-import org.camunda.bpm.engine.delegate.DelegateExecution;
-import org.camunda.bpm.iss.entity.Customer;
+import org.camunda.bpm.iss.entity.Employee;
 import org.camunda.bpm.iss.entity.Project;
 
 @Named
@@ -25,6 +24,9 @@ public class ProjectService {
 	  
 	  @Inject
 		CustomerService customerService;
+	  
+	  @Inject
+		EmployeeService employeeService;
 	  
 	  @Inject
 	  private BusinessProcess businessProcess;
@@ -43,8 +45,19 @@ public class ProjectService {
 		  return entityManager.find(Project.class, projectId);
 	  }
 	  
-	  public void addEmployeesToProject(Long id){
-		  
+	  public void addEmployeesToProject(Project project, List<Long> employeeIds){
+		  List<Employee> employeeList = new ArrayList<Employee>();
+		  LOGGER.log(Level.INFO, "This is addEmployeesToProject. The first employee id is: "+employeeIds.get(0));
+		  for (Long e:employeeIds) {
+			  for (Employee emp:employeeService.getAllEmployees()) {
+				  LOGGER.log(Level.INFO, "The employee-user ids are: "+emp.getId());
+				  if (e == emp.getId().longValue()) {
+					  employeeList.add(emp);
+				  }
+			  }
+		  }
+		  LOGGER.log(Level.INFO, "Finally, the first element of employeeList is: "+employeeList.get(0));
+		  project.setEmployee(employeeList);
 	  }
 	  
 	  public void updateProject(Long projectId) throws IOException {
