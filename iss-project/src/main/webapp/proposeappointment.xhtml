@@ -3,7 +3,8 @@
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:c="http://java.sun.com/jsp/jstl/core">
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
  
 <ui:composition template="/resources/master.xhtml">
 	<ui:define name="metadata">
@@ -19,13 +20,17 @@
 			<h:form>
 	 		<h:panelGrid columns="2" columnClasses="form-label, form-label">
 	 			<h:outputLabel value="Project title" />
-			 	<h:outputLabel value="#{proposeAppointmentController.projectEntity.title}"/>
+			 	<h:outputText value="#{proposeAppointmentController.projectEntity.title}"/>
 	 			<h:outputLabel value="Customer name" />
-			 	<h:outputLabel value="#{proposeAppointmentController.customerEntity.name}"/>
+			 	<h:outputText value="#{proposeAppointmentController.customerEntity.name}"/>
 	 			<h:outputLabel value="Project start" />
-			 	<h:outputLabel value="#{proposeAppointmentController.projectEntity.projectStart}"/>
+			 	<h:outputText value="#{proposeAppointmentController.projectEntity.projectStart}">
+			 		<f:convertDateTime pattern="yyyy-MM-dd"/>
+		 		</h:outputText>
 			 	<h:outputLabel value="Project end" />
-			 	<h:outputLabel value="#{proposeAppointmentController.projectEntity.projectEnd}"/>
+			 	<h:outputText value="#{proposeAppointmentController.projectEntity.projectEnd}">
+			 		<f:convertDateTime pattern="yyyy-MM-dd"/>
+			 	</h:outputText>
 			 	<ui:repeat
 					value="#{proposeAppointmentController.projectEntity.employee}"
 					var="emp">
@@ -37,14 +42,21 @@
 	  		<c:if test="#{not empty processVariables['appointmentId']}">
 	  			Yo man, appointment was declined, bitches
 	  		</c:if>	  		
-	  		<h2>Appointment proposal #{proposeAppointmentController.appointment.title}</h2>
+	  		<h2>Appointment proposal</h2>
 	  		<h:form>    		
       		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
         			<p>
+          				<label for="title">Appointment Title</label>
+                    	<h:inputText id="title" value="#{proposeAppointmentController.appointment.title}" required="true" />
+                    	<h:message for="title" />
+        			</p>
+        			<p>
           				<label for="date">Date</label>
-                    	<h:inputText id="date" value="#{proposeAppointmentController.appointment.date}" required="true" />
+                    	<h:inputText id="date" value="#{proposeAppointmentController.appointment.date}" required="true" p:placeholder="e.g. 2015-06-30">
+                    		<f:convertDateTime pattern="yyyy-MM-dd"/>
+                    	</h:inputText>
                     	<h:message for="date" />
-        			</p>        			
+        			</p>	
       		</h:panelGrid>
  		  	<h:commandButton id="proposeAppointment" value="Propose Appointment" action="#{proposeAppointmentController.persist}" /> 	  			   			
     	</h:form><h:commandButton id="discardAppointment" value="Discard Appointment" onclick="history.go(-1)" />

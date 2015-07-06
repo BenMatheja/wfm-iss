@@ -24,8 +24,7 @@ import org.camunda.bpm.iss.entity.Project;
 @ConversationScoped
 public class EvaluateAppointmentController implements Serializable{
 
-	  private static  final long serialVersionUID = 1L;
-	  
+	  private static final long serialVersionUID = 1L;
 	  
 	  private static Logger LOGGER = Logger.getLogger(EvaluateAppointmentController.class.getName());
 	  // Inject the BusinessProcess to access the process variables
@@ -98,7 +97,7 @@ public class EvaluateAppointmentController implements Serializable{
 	
 	  public void declineRequest() throws IOException{
 		  //Decline Request and forward
-		  appointmentEntity.setPossible(true);		  
+		  appointmentEntity.setPossible(false);		  
 		  appointmentService.mergeAndComplete(appointmentEntity);	    	
 	  }
 }
