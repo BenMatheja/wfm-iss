@@ -39,12 +39,9 @@ xmlns:f="http://java.sun.com/jsf/core">
 		    <h:form enctype="multipart/form-data">
 		        <h:inputFile value="#{submitMeetingMinutesController.meetingMinutes.meetingMinutes}" />
 		        <h:commandButton value="Ajax Upload">
-		            <f:ajax listener="#{uploadBean.upload}" execute="@form"
+		            <f:ajax listener="#{submitMeetingMinutesController.meetingMinutes.upload}" execute="@form"
 		                render="countOutput" />
 		        </h:commandButton>
-		    <!-- Counts the uploaded items -->
-		    <h:outputText id="countOutput"
-		        value="Files uploaded #{uploadBean.filesUploaded}" />
 		    </h:form>
 		    
  		</h:form>

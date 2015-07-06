@@ -30,41 +30,6 @@ public class MeetingMinutesService {
 			  return meetingMinutes;
 		  }
 		  
-		  public void persistMeetingMinutes(DelegateExecution delegateExecution) {
-		   
-			LOGGER.log(Level.INFO, "Create new meeting minutes instance");  
-			  // Create new customer instance
-		    MeetingMinutes meetingMinutesEntity = new MeetingMinutes();
-		 
-		    LOGGER.log(Level.INFO, "Get all process variables");
-		    // Get all process variables
-		    Map<String, Object> variables = delegateExecution.getVariables();
-		 
-		    LOGGER.log(Level.INFO, "Set order attributes");
-		    // Set order attributes
-		    try{	    	    	
-		    	meetingMinutesEntity.setAppointment(appointmentService.getAppointment((Long) variables.get("appointmentId")));
-			    }catch(EJBException e){
-			    	Throwable cause = e.getCause();
-			    	LOGGER.log(Level.SEVERE, cause.getMessage());
-			    }
-		 
-		    /*
-		      Persist meeting minutes instance and flush. After the flush the
-		      id of the meeting minutes instance is set.
-		    */
-		    LOGGER.log(Level.INFO, " Persist meeting minutes instance and flush.");
-		    
-		    entityManager.persist(meetingMinutesEntity);
-		    entityManager.flush();
-		    
-		    // Remove no longer needed process variables
-		    delegateExecution.removeVariables(variables.keySet());
-		 
-		    // Add newly created id as process variable
-		   	delegateExecution.setVariable("meetingMinutesId", meetingMinutesEntity.getMeetingMinutes());
-		  }
-		  
 		  public MeetingMinutes getMeetingMinutes(Long meetingMinutesId) {
 			  // Load entity from database
 			  return entityManager.find(MeetingMinutes.class, meetingMinutesId);
