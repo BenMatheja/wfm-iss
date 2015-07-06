@@ -1,10 +1,12 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
- 
+  xmlns:p="http://primefaces.org/ui">
+                
 <ui:composition template="/resources/master.xhtml">
 	<ui:define name="metadata">
 	<f:metadata>   
@@ -14,6 +16,8 @@
 	
 	<ui:define name="title">Initiate Project</ui:define>
 	<ui:define name="content">
+	<script name="jquery/jquery.js" library="primefaces"></script>
+	
 		<div class="details">	
 			<h2>Customer Data</h2>
 			<h:form>
@@ -26,6 +30,7 @@
 			 	<h:outputLabel value="#{initiateProjectController.customerEntity.email}"/>
 		  	</h:panelGrid>
 	  		</h:form>
+	  	
 	  	<h:form id="submitForm">
 	  		<h2>Project Data</h2>    		
       		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
@@ -34,21 +39,25 @@
                     	<h:inputText id="projectTitle" value="#{initiateProjectController.project.title}" required="true" />
                     	<h:message for="projectTitle" />
         			</p>
-        			<p>
-          				<label for="projectStart">Project start</label>
-                    	<h:inputText id="projectStart" value="#{initiateProjectController.project.projectStart}" required="true" p:placeholder="e.g. 2015-06-30">
-                    		<f:convertDateTime pattern="yyyy-MM-dd"/>
-                    	</h:inputText>
-                    	<h:message for="projectStart" />
-        			</p>
-         			<p>
-          				<label for="projectEnd">Project end</label>
-                    	<h:inputText id="projectEnd" value="#{initiateProjectController.project.projectEnd}" required="true" p:placeholder="e.g. 2015-06-30">
-                    		<f:convertDateTime pattern="yyyy-MM-dd"/>
-                    	</h:inputText>
-                    	<h:message for="projectEnd" />
-        			</p>        			
-      		</h:panelGrid>
+        			</h:panelGrid>
+        			</h:form>
+        			
+				<h:form id="Dates">
+ 					<p:messages/>
+	  				<strong>Start Date</strong>       			
+        			<p:calendar 
+        			value="#{initiateProjectController.project.projectStart}" 
+        			pattern="yyyy-MM-dd"
+        			required="true" 
+        			requiredMessage="Start date required"/>
+        			<strong>End Date</strong>
+        			<p:calendar
+        			value="#{initiateProjectController.project.projectEnd}"
+        			pattern="yyyy-MM-dd"
+        			required="true"
+        			requiredMessage="End date required"/>
+        		</h:form>		      	    		
+         	<br></br>		
       		Employees
       		<h:selectManyListbox value="#{initiateProjectController.employeeHelper}">
 	   			<f:selectItems value="#{initiateProjectController.userList}" />
@@ -63,7 +72,7 @@
         			</p>
         	</h:panelGrid>		
 		  	<h:commandButton id="initateProject" value="Initiate project" action="#{initiateProjectController.persist}" /> 	  			   			
-    	</h:form><h:commandButton id="discardProject" value="Discard project" onclick="history.go(-1)" />
+    	<h:commandButton id="discardProject" value="Discard project" onclick="history.go(-1)" />
   	</div>
   </ui:define>
 </ui:composition>

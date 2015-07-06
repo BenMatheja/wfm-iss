@@ -2,50 +2,59 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core">
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
  
-<ui:composition template="/resources/master.xhtml">
+<ui:composition template="/resources/master2.xhtml">
   <ui:define name="metadata">
   <f:metadata>   
     <f:event type="preRenderView" listener="#{camundaTaskForm.startProcessInstanceByKeyForm()}" />
   </f:metadata>
   </ui:define>
-  
-  <ui:define name="title">Customer Request</ui:define>
+ 
+ <h1>Customer Request 
+        <span>Please fill all fields.</span>
+    </h1>
+ 
   
   <ui:define name="content">
   	<div class="details">
   	    <h:form id="submitForm">
   	    	<h2>Insert Customer Data</h2>    		
-      			<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
+      			<h:panelGrid style="width: 100%" footerClass="form-footer">
         			<p>
-          				<label for="name">Customer name</label>
-                    	<h:inputText id="name" value="#{processVariables['name']}" required="true" />
-                    	<h:message for="name" />
-        			</p>
+          				<label> 
+                    	<p:inputText id="name" value="#{processVariables['name']}" required="true" placeholder="Customer name"/>
+                    	</label>
+                    	<p:message for="name" />
+                    	</p>
         			<p>
-          				<label for="address">Customer address</label>
-                    	<h:inputText id="address" value="#{processVariables['address']}" required="true" />
-                    	<h:message for="address" />
-        			</p>
+          				<label>
+          				<p:inputText id="address" value="#{processVariables['address']}" required="true" placeholder="Customer Address"/>
+                		</label>
+                		<p:message for="address" />
+                    </p>
          			<p>
-          				<label for="email">Customer eMail</label>
-                    	<h:inputText id="email" value="#{processVariables['email']}" required="true" />
-                    	<h:message for="email" />
-        			</p>        			
-      			</h:panelGrid>
+          				<label>
+                    	<p:inputText id="email" value="#{processVariables['email']}" required="true" placeholder="Customer eMail"/>
+                    	</label>
+                    	<p:message for="email" />
+                    </p>    			        			
+      			
       
       		<h2>Insert Request</h2>
-      			<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
+      			
         			<p>
-          				<label for="title">Request title</label>
-                    	<h:inputText id="title" value="#{processVariables['title']}" required="true" />
-                    	<h:message for="title" />
+          				<label>
+                    	<p:inputText id="title" value="#{processVariables['title']}" required="true" placeholder="Request title"/>
+                    	</label>
+                    	<p:message for="title" />
         			</p>        		       			
         			<p>	
-        				<label for="text">Request text:</label> 
-        				<h:inputTextarea rows="4" cols="50" placeholder="Enter request text" value="#{processVariables['text']}"/>
-        				<h:message for="text" />
+        				<label> 
+        				<p:inputTextarea id="text" rows="4" cols="50" value="#{processVariables['text']}" required="true" placeholder="Request text"/>
+        				</label>
+        				<p:message for="text" />
         			</p>
 				</h:panelGrid>     			
     			<h:commandButton id="submit_button" value="Submit Request" action="#{camundaTaskForm.completeProcessInstanceForm()}" /> 	  			   			
