@@ -56,7 +56,7 @@ public class InitiateProjectController implements Serializable{
 	  private Project project = new Project();
 	  
 	  //no matter what we type in here, the selectmanylistbox always returns String
-	  private List<Long> employeeHelper = new ArrayList<Long>();
+	  private List<String> employeeHelper = new ArrayList<String>();
 	  
  	  private List<SelectItem> userList = new ArrayList<SelectItem>(); 
 	  
@@ -71,20 +71,18 @@ public class InitiateProjectController implements Serializable{
 			Collection<Employee> allEmployees = employeeService.getAllEmployees();
 			for (Employee e:allEmployees) {
 				if (e.getUserId() != "demo") {
-					userList.add(new SelectItem(e.getId(), e.getFirstName()+" "+e.getLastName()));
+					userList.add(new SelectItem(e.getId().toString(),e.getFirstName()+" "+e.getLastName()));
 				}
 			}		
 			return userList;
 		}
 	  
 		
-
-
-	public List<Long> getEmployeeHelper() {
+	public List<String> getEmployeeHelper() {
 		return employeeHelper;
 	}
 
-	public void setEmployeeHelper(List<Long> employeeHelper) {
+	public void setEmployeeHelper(List<String> employeeHelper) {
 		this.employeeHelper = employeeHelper;
 	}
 
@@ -106,6 +104,7 @@ public class InitiateProjectController implements Serializable{
 		  if (!project.isDesign()) {
 			  project.setDesign(false);
 		  }
+		  LOGGER.log(Level.INFO, "Does the original project still have employees? "+ !project.getEmployee().isEmpty());
 		  
 		  project = projectService.create(project);
 		  businessProcess.setVariable("projectId", project.getId());
@@ -116,7 +115,6 @@ public class InitiateProjectController implements Serializable{
 		  LOGGER.log(Level.INFO, " toString: "+ persistedProject.toString());
 		  LOGGER.log(Level.INFO, " costEstimate: "+ persistedProject.getCostEstimate());
 		  LOGGER.log(Level.INFO, " Title: "+ persistedProject.getTitle());
-		  LOGGER.log(Level.INFO, " Employees: "+ persistedProject.getEmployee().toString());
 		  LOGGER.log(Level.INFO, " Start Date: "+ persistedProject.getProjectStart());
 		  LOGGER.log(Level.INFO, " End Date: "+ persistedProject.getProjectEnd());
 		  LOGGER.log(Level.INFO, " Design: "+ persistedProject.isDesign());

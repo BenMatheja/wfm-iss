@@ -1,7 +1,12 @@
 package org.camunda.bpm.iss.entity;
 import java.io.Serializable;
+import java.util.Collection;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Employee implements Serializable {
@@ -16,6 +21,7 @@ public class Employee implements Serializable {
 	protected String firstName;
 	protected String lastName;
 	
+		
 //	public Employee(String userId, String firstName, String lastName){
 //		setUserId(userId);
 //		setFirstName(firstName);

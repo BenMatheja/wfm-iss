@@ -45,19 +45,23 @@ public class ProjectService {
 		  return entityManager.find(Project.class, projectId);
 	  }
 	  
-	  public void addEmployeesToProject(Project project, List<Long> employeeIds){
+	  public void addEmployeesToProject(Project project, List<String> employeeIds){
 		  List<Employee> employeeList = new ArrayList<Employee>();
 		  LOGGER.log(Level.INFO, "This is addEmployeesToProject. The first employee id is: "+employeeIds.get(0));
-		  for (Long e:employeeIds) {
+		  for (String e:employeeIds) {
 			  for (Employee emp:employeeService.getAllEmployees()) {
 				  LOGGER.log(Level.INFO, "The employee-user ids are: "+emp.getId());
-				  if (e == emp.getId().longValue()) {
+				  if (e.equals(emp.getId().toString())) {
 					  employeeList.add(emp);
+					  LOGGER.log(Level.INFO, "Equal! "+ e + " = " + emp.getId().toString());
+				  } else {
+					  LOGGER.log(Level.INFO, "Not equal: "+ e + " != " + emp.getId().toString());
 				  }
 			  }
 		  }
 		  LOGGER.log(Level.INFO, "Finally, the first element of employeeList is: "+employeeList.get(0));
 		  project.setEmployee(employeeList);
+		  
 	  }
 	  
 	  public void updateProject(Long projectId) throws IOException {
