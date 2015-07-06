@@ -17,6 +17,10 @@ public class MeetingMinutes implements Serializable {
 	
 	protected byte[] meetingMinutes;
 	
+	public Long getId(){
+		return this.id;
+	}
+	
 	public Appointment getAppointment() {
 		return appointment;
 	}

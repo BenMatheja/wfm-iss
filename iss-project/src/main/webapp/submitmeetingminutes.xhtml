@@ -10,32 +10,34 @@ xmlns:f="http://java.sun.com/jsf/core">
   <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
 </f:metadata>
 <h:head>
-  <title>Submit meeting minutes</title>
+  <title>Submit Meeting Minutes</title>
 </h:head>
 <h:body>
 		
-		<h2>Customer: #{submitmeetingminutesController.customerEntity.name}</h2>
+		<h2>Customer: #{submitMeetingMinutesController.customerEntity.name}</h2>
 		
-		<h2>Project Title: #{submitmeetingminutesController.projectEntity.projectTitle}</h2>
+		<h2>Project Title: #{submitMeetingMinutesController.projectEntity.projectTitle}</h2>
 		<h:form>
   		<h:panelGrid columns="2" columnClasses="form-label, form-label">
 		  	<h:outputLabel value="Project start:" />
-		  	<h:outputLabel value="#{submitmeetingminutesController.projectEntity.projectStart}" />
+		  	<h:outputLabel value="#{submitMeetingMinutesController.projectEntity.projectStart}" />
 		  	<h:outputLabel value="Project end:" />
-		  	<h:outputLabel value="#{submitmeetingminutesController.projectEntity.projectEnd}" />
+		  	<h:outputLabel value="#{submitMeetingMinutesController.projectEntity.projectEnd}" />
 		  	<h:outputLabel value="Emplyoees:" />
-		  	<h:outputLabel value="#{submitmeetingminutesController.employeeEntity.employee}" />
-		  	<h:outputLabel value="Date:" />
-		  	<h:outputLabel value="#{submitmeetingminutesController.appointmentEntity.date}" />
-		 </h:panelGrid>
-		 </h:form>	
-		 
+		  	<ui:repeat
+					value="#{submitMeetingMinutesController.projectEntity.employee}"
+					var="emp">
+					<h:outputText value="#{emp.firstName}" />
+					<h:outputText value="#{emp.lastName}" />
+			</ui:repeat>
+		  	<h:outputLabel value="#{submitMeetingMinutesController.appointmentEntity.date}" />
+		 </h:panelGrid>	
 		  <h:form enctype="multipart/form-data">
 		        <h:inputFile value="#{uploadBean.file}" />
 		        <h:commandButton value="Post Upload" action="#{uploadBean.upload}" />
 		    </h:form>
 		    <h:form enctype="multipart/form-data">
-		        <h:inputFile value="#{uploadBean.file}" />
+		        <h:inputFile value="#{submitMeetingMinutesController.meetingMinutes.meetingMinutes}" />
 		        <h:commandButton value="Ajax Upload">
 		            <f:ajax listener="#{uploadBean.upload}" execute="@form"
 		                render="countOutput" />
@@ -44,11 +46,12 @@ xmlns:f="http://java.sun.com/jsf/core">
 		    <h:outputText id="countOutput"
 		        value="Files uploaded #{uploadBean.filesUploaded}" />
 		    </h:form>
-		 
+		    
+ 		</h:form>
 		<h:form id="submitForm" columns="2" columnClasses="form-label,form-label" footer-Class="form-footer">
-	<h:outputLabel value="Submit meeting minutes?" /> 
-	   	<h:commandButton id="confirmButton" value="Submit meeting minutes" action="#{evaluateAppointmentController.confirmRequest()}" />    
-	   	<h:commandButton id="declineButton" value="Discard meeting minutes" action="#{evaluateAppointmentController.declineRequest()}" />
+	<h:outputLabel value="Submit Meeting Minutes?" /> 
+	   	<h:commandButton id="confirmButton" value="Submit meeting minutes" action="#{submitMeetingMinuetsController.persist}" />    
+	   	<h:commandButton id="declineButton" value="Discard meeting minutes"  onclick="history.go(-1)" />
 	</h:form>		
 </h:body>
 </f:view>

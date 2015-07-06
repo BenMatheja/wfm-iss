@@ -25,6 +25,11 @@ public class MeetingMinutesService {
 		  
 		  private static Logger LOGGER = Logger.getLogger(MeetingMinutesService.class.getName());
 			 
+		  public MeetingMinutes create(MeetingMinutes meetingMinutes){
+			  entityManager.persist(meetingMinutes);
+			  return meetingMinutes;
+		  }
+		  
 		  public void persistMeetingMinutes(DelegateExecution delegateExecution) {
 		   
 			LOGGER.log(Level.INFO, "Create new meeting minutes instance");  

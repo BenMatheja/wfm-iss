@@ -18,7 +18,6 @@
         <bpmn2:flowNodeRef>ExclusiveGateway_5</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>UserTask_EvaluateRequest</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>ExclusiveGateway_3</bpmn2:flowNodeRef>
-        <bpmn2:flowNodeRef>UpdateProjectStatus</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>UserTask_InitiateProject</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>ServiceTask_5</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>ServiceTask_2</bpmn2:flowNodeRef>
@@ -86,7 +85,7 @@
       <bpmn2:outgoing>SequenceFlow_53</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="SequenceFlow_53" name="" sourceRef="ExclusiveGateway_6" targetRef="ParallelGateway_3"/>
-    <bpmn2:sendTask id="SendTask_3" camunda:expression="$(true)" name="Invite Customer Representatives">
+    <bpmn2:sendTask id="SendTask_3" camunda:expression="${customerService.mailCustomer(execution)}" name="Invite Customer Representatives">
       <bpmn2:incoming>SequenceFlow_13</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_14</bpmn2:outgoing>
     </bpmn2:sendTask>
@@ -117,10 +116,10 @@
     </bpmn2:userTask>
     <bpmn2:userTask id="UserTask_3" name="Submit Project Status">
       <bpmn2:incoming>SequenceFlow_60</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_27</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_19</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:exclusiveGateway id="ExclusiveGateway_5">
-      <bpmn2:incoming>SequenceFlow_31</bpmn2:incoming>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_5" name="project Finished?">
+      <bpmn2:incoming>SequenceFlow_19</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_22</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_23</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
@@ -146,17 +145,17 @@
       <bpmn2:outgoing>SequenceFlow_13</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="SequenceFlow_11" name="not possible" sourceRef="ExclusiveGateway_2" targetRef="UserTask_1">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(false)</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${not appointmentService. getAppointment(appointmentId).isPossible()}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_13" name="possible" sourceRef="ExclusiveGateway_2" targetRef="SendTask_3">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(true)</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${appointmentService. getAppointment(appointmentId).isPossible()}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:userTask id="UserTask_4" name="Submit Meeting Minutes">
+    <bpmn2:userTask id="UserTask_4" camunda:formKey="app:submitmeetingminutes.jsf" camunda:candidateGroups="project-team" name="Submit Meeting Minutes">
       <bpmn2:incoming>SequenceFlow_14</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_46</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_46" name="" sourceRef="UserTask_4" targetRef="UserTask_5"/>
-    <bpmn2:userTask id="UserTask_5" name="Submit Deliverables">
+    <bpmn2:userTask id="UserTask_5" camunda:formKey="app:submitdeliverables.jsf" name="Submit Deliverables">
       <bpmn2:incoming>SequenceFlow_46</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_60</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -305,12 +304,6 @@
     </bpmn2:serviceTask>
     <bpmn2:sequenceFlow id="SequenceFlow_21" name="" sourceRef="ServiceTask_6" targetRef="ServiceTask_5"/>
     <bpmn2:sequenceFlow id="SequenceFlow_29" name="" sourceRef="UserTask_SendContract" targetRef="ServiceTask_6"/>
-    <bpmn2:serviceTask id="UpdateProjectStatus" camunda:expression="$(projectService.updateProject(projectStatus))" name="Update Project Status">
-      <bpmn2:incoming>SequenceFlow_27</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_31</bpmn2:outgoing>
-    </bpmn2:serviceTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_27" name="" sourceRef="UserTask_3" targetRef="UpdateProjectStatus"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_31" name="" sourceRef="UpdateProjectStatus" targetRef="ExclusiveGateway_5"/>
     <bpmn2:userTask id="UserTask_InitiateProject" camunda:formKey="app:initiateproject.jsf" camunda:candidateGroups="project-manager" name="Initiate Project">
       <bpmn2:incoming>SequenceFlow_15</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_48</bpmn2:outgoing>
@@ -335,6 +328,7 @@
     <bpmn2:sequenceFlow id="SequenceFlow_9" name="" sourceRef="ParallelGateway_1" targetRef="UserTask_1"/>
     <bpmn2:sequenceFlow id="SequenceFlow_16" name="" sourceRef="UserTask_1" targetRef="UserTask_2"/>
     <bpmn2:serviceTask id="ServiceTask_7" camunda:expression="$(true)" name="Create Project Team"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_19" name="" sourceRef="UserTask_3" targetRef="ExclusiveGateway_5"/>
     <bpmn2:textAnnotation id="TextAnnotation_1">
       <bpmn2:text>Different User</bpmn2:text>
     </bpmn2:textAnnotation>
@@ -873,21 +867,6 @@
           <dc:Bounds height="6.0" width="6.0" x="1235.0" y="1225.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_16" bpmnElement="UpdateProjectStatus">
-        <dc:Bounds height="80.0" width="125.0" x="2104.0" y="580.0"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_27" bpmnElement="SequenceFlow_27" sourceElement="_BPMNShape_UserTask_23" targetElement="_BPMNShape_ServiceTask_16">
-        <di:waypoint xsi:type="dc:Point" x="2092.0" y="623.0"/>
-        <di:waypoint xsi:type="dc:Point" x="2098.0" y="623.0"/>
-        <di:waypoint xsi:type="dc:Point" x="2098.0" y="620.0"/>
-        <di:waypoint xsi:type="dc:Point" x="2104.0" y="620.0"/>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_31" bpmnElement="SequenceFlow_31" sourceElement="_BPMNShape_ServiceTask_16" targetElement="_BPMNShape_ExclusiveGateway_36">
-        <di:waypoint xsi:type="dc:Point" x="2228.0" y="620.0"/>
-        <di:waypoint xsi:type="dc:Point" x="2230.0" y="620.0"/>
-        <di:waypoint xsi:type="dc:Point" x="2230.0" y="622.0"/>
-        <di:waypoint xsi:type="dc:Point" x="2232.0" y="622.0"/>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_48" bpmnElement="SequenceFlow_48" sourceElement="_BPMNShape_UserTask_6" targetElement="_BPMNShape_ServiceTask_8">
         <di:waypoint xsi:type="dc:Point" x="1010.0" y="380.0"/>
         <di:waypoint xsi:type="dc:Point" x="1010.0" y="405.0"/>
@@ -932,6 +911,15 @@
       <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_17" bpmnElement="ServiceTask_7">
         <dc:Bounds height="80.0" width="125.0" x="1013.0" y="579.0"/>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_19" bpmnElement="SequenceFlow_19" sourceElement="_BPMNShape_UserTask_23" targetElement="_BPMNShape_ExclusiveGateway_36">
+        <di:waypoint xsi:type="dc:Point" x="2092.0" y="623.0"/>
+        <di:waypoint xsi:type="dc:Point" x="2183.0" y="624.0"/>
+        <di:waypoint xsi:type="dc:Point" x="2231.0" y="624.0"/>
+        <di:waypoint xsi:type="dc:Point" x="2232.0" y="624.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="2159.0" y="624.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn2:definitions>
