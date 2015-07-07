@@ -59,15 +59,15 @@ public class InputGraphicsDesignController implements Serializable{
 	  
 	  public void submit() throws IOException {	
 		  // Create JSON
-		  ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		  String json = ow.writeValueAsString(designRequest);
-		  // Create url
-		  String url = URL_API_PB_RECEIVE_DESIGN_REQUEST;
-		  
-		  //Send 
-		  SendThread sendThread = new SendThread(json,url,0,"Create Send Thread for designRequest");
-		  sendThread.run();
-		  
+//		  ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+//		  String json = ow.writeValueAsString(designRequest);
+//		  // Create url
+//		  String url = URL_API_PB_RECEIVE_DESIGN_REQUEST;
+//		  
+//		  //Send 
+//		  SendThread sendThread = new SendThread(json,url,0,"Create Send Thread for designRequest");
+//		  sendThread.run();
+//		  
 		  
 		  /**
 		  designRequest = designRequestService.create(designRequest);
