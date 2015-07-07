@@ -19,29 +19,33 @@ public class MeetingMinutes implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-//	@OneToOne
-//	protected Appointment appointment;
-//	
-//	protected Part meetingMinutes;
-//	protected String meetingMinutesContent;
-//	
+	@OneToOne
+	protected Appointment appointment;
+	
+	protected byte[] meetingMinutes;
+	
 	public Long getId(){
 		return this.id;
 	}
-//	
-//	public Appointment getAppointment() {
-//		return appointment;
-//	}
-//	public void setAppointment(Appointment appointment) {
-//		this.appointment = appointment;
-//	}
+	
+	public Appointment getAppointment() {
+		return appointment;
+	}
+	public void setAppointment(Appointment appointment) {
+		this.appointment = appointment;
+	}
 //	public Part getMeetingMinutes() {
 //		return meetingMinutes;
 //	}
+	
+	public void setMeetingMinutes(byte[] meetingMinutes) {
+		this.meetingMinutes = meetingMinutes;
+	}
+
 //	public void setMeetingMinutes(Part meetingMinutes) {
 //		this.meetingMinutes = meetingMinutes;
 //	}
-//	
+	
 //	public void upload() {
 //	    try {
 //	    	meetingMinutesContent = new Scanner(meetingMinutes.getInputStream())
@@ -50,6 +54,6 @@ public class MeetingMinutes implements Serializable {
 //	      // Error handling
 //	    }
 //	  }
-//	 
+	 
 	
 }
