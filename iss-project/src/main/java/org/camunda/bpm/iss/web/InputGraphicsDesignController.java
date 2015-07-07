@@ -13,11 +13,8 @@ import javax.persistence.PersistenceContext;
 
 import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
-import org.camunda.bpm.iss.api.mock.SendThread;
 import org.camunda.bpm.iss.ejb.ProjectService;
 import org.camunda.bpm.iss.entity.Project;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.ObjectWriter;
 
 @Named
 @ConversationScoped

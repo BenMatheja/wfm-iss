@@ -94,13 +94,13 @@ public class SubmitMeetingMinutesController implements Serializable{
 		  }
 	  
 	  public void persist() throws IOException{
-		  meetingMinutes.setAppointment(appointmentEntity);
-		  meetingMinutes = meetingMinutesService.create(meetingMinutes);
-		  businessProcess.setVariable("meetingMinutestId", meetingMinutes.getId());
-		  
-		  MeetingMinutes persistedMeetingMinutes = meetingMinutesService.getMeetingMinutes(meetingMinutes.getId());
-		  LOGGER.log(Level.INFO, "These are the persisted MeetingMinutes: ");		  
-		  LOGGER.log(Level.INFO, " Id: "+ persistedMeetingMinutes.getId());
+//		  meetingMinutes.setAppointment(appointmentEntity);
+//		  meetingMinutes = meetingMinutesService.create(meetingMinutes);
+//		  businessProcess.setVariable("meetingMinutestId", meetingMinutes.getId());
+//		  
+//		  MeetingMinutes persistedMeetingMinutes = meetingMinutesService.getMeetingMinutes(meetingMinutes.getId());
+//		  LOGGER.log(Level.INFO, "These are the persisted MeetingMinutes: ");		  
+//		  LOGGER.log(Level.INFO, " Id: "+ persistedMeetingMinutes.getId());
 		  		  
 		  taskForm.completeTask();
 	  }

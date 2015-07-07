@@ -8,8 +8,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.camunda.bpm.iss.entity.util.GlobalDefinitions;
-
 public class SendThread implements Runnable {
 
 	private Logger LOGGER;
