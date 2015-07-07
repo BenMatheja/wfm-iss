@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.http.Part;
 
 import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
@@ -56,7 +57,21 @@ public class SubmitMeetingMinutesController implements Serializable{
 	  private Customer customerEntity;
 	  private Appointment appointmentEntity;
 	  private MeetingMinutes meetingMinutes = new MeetingMinutes();
+	  private Part file;
+	  private byte[] fileByte;
 	  private DelegateExecution delegateExecution;
+		  
+	  
+	  public Part getFile() {
+		return file;
+	}
+
+
+	public void setFile(Part file) {
+		this.file = file;
+	}
+
+
 
 	  
 	  public Project getProjectEntity() {
@@ -93,6 +108,26 @@ public class SubmitMeetingMinutesController implements Serializable{
 		    return appointmentEntity;
 		  }
 	  
+	  public void upload() {
+			if (file == null || file.getSize() == 0) {
+				throw new IllegalStateException();
+			}
+			try {
+				String fileName;
+				String contentType;
+				fileByte = new byte[(int)file.getSize()];
+				file.getInputStream().read(fileByte);
+				fileName = file.getSubmittedFileName();
+				contentType = file.getContentType();
+				meetingMinutes.setFile(fileByte);
+				meetingMinutes.setFileContent(contentType);
+				meetingMinutes.setFileName(fileName);
+				} catch (IOException e) {
+					// Error handling
+					throw new IllegalStateException();
+				}
+		}
+	  
 	  public void persist() throws IOException{
 //		  meetingMinutes.setAppointment(appointmentEntity);
 //		  meetingMinutes = meetingMinutesService.create(meetingMinutes);
@@ -102,6 +137,11 @@ public class SubmitMeetingMinutesController implements Serializable{
 //		  LOGGER.log(Level.INFO, "These are the persisted MeetingMinutes: ");		  
 //		  LOGGER.log(Level.INFO, " Id: "+ persistedMeetingMinutes.getId());
 		  		  
+		  MeetingMinutes persistedMeetingMinutes = meetingMinutesService.create(meetingMinutes);
+		  LOGGER.log(Level.INFO, "These are the Infos for MeetingMinutes:");
+		  LOGGER.log(Level.INFO, "ID:  "+ persistedMeetingMinutes.getId());
+		  LOGGER.log(Level.INFO, "appointmentID:  "+ persistedMeetingMinutes.getAppointment().getId());
+		  LOGGER.log(Level.INFO, "FileName:  "+ persistedMeetingMinutes.getFileName());
 		  taskForm.completeTask();
 	  }
 }

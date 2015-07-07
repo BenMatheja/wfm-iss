@@ -1,55 +1,59 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core">
- 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
 <f:view>
-<f:metadata>
- 
-  <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
-</f:metadata>
-<h:head>
-  <title>Submit Meeting Minutes</title>
-</h:head>
-<h:body>
-		
-		<h2>Customer: #{submitMeetingMinutesController.customerEntity.name}</h2>
-		
-		<h2>Project Title: #{submitMeetingMinutesController.projectEntity.projectTitle}</h2>
+	<f:metadata>
+
+		<f:event type="preRenderView"
+			listener="#{camundaTaskForm.startTaskForm()}" />
+	</f:metadata>
+	<h:head>
+		<title>Submit Meeting Minutes</title>
+	</h:head>
+	<h:body>
+
+		<h2>Customer:
+			#{submitMeetingMinutesController.customerEntity.name}</h2>
+
+		<h2>Project Title:
+			#{submitMeetingMinutesController.projectEntity.projectTitle}</h2>
 		<h:form>
-  		<h:panelGrid columns="2" columnClasses="form-label, form-label">
-		  	<h:outputLabel value="Project start:" />
-		  	<h:outputLabel value="#{submitMeetingMinutesController.projectEntity.projectStart}" />
-		  	<h:outputLabel value="Project end:" />
-		  	<h:outputLabel value="#{submitMeetingMinutesController.projectEntity.projectEnd}" />
-		  	<h:outputLabel value="Emplyoees:" />
-		  	<ui:repeat
+			<h:panelGrid columns="2" columnClasses="form-label, form-label">
+				<h:outputLabel value="Project start:" />
+				<h:outputLabel
+					value="#{submitMeetingMinutesController.projectEntity.projectStart}" />
+				<h:outputLabel value="Project end:" />
+				<h:outputLabel
+					value="#{submitMeetingMinutesController.projectEntity.projectEnd}" />
+				<h:outputLabel value="Emplyoees:" />
+				<ui:repeat
 					value="#{submitMeetingMinutesController.projectEntity.employee}"
 					var="emp">
 					<h:outputText value="#{emp.firstName}" />
 					<h:outputText value="#{emp.lastName}" />
-			</ui:repeat>
-		  	<h:outputLabel value="#{submitMeetingMinutesController.appointmentEntity.date}" />
-		 </h:panelGrid>	
-		  <h:form enctype="multipart/form-data">
-		        <h:inputFile value="#{uploadBean.file}" />
-		        <h:commandButton value="Post Upload" action="#{uploadBean.upload}" />
-		    </h:form>
-		    <h:form enctype="multipart/form-data">
-		        <h:inputFile value="#{submitMeetingMinutesController.meetingMinutes.meetingMinutes}" />
-		        <h:commandButton value="Ajax Upload">
-		            <f:ajax listener="#{submitMeetingMinutesController.meetingMinutes.upload}" execute="@form"
-		                render="countOutput" />
-		        </h:commandButton>
-		    </h:form>
-		    
- 		</h:form>
-		<h:form id="submitForm" columns="2" columnClasses="form-label,form-label" footer-Class="form-footer">
-	<h:outputLabel value="Submit Meeting Minutes?" /> 
-	   	<h:commandButton id="confirmButton" value="Submit meeting minutes" action="#{submitMeetingMinuetsController.persist}" />    
-	   	<h:commandButton id="declineButton" value="Discard meeting minutes"  onclick="history.go(-1)" />
-	</h:form>		
-</h:body>
+				</ui:repeat>
+				<h:outputLabel
+					value="#{submitMeetingMinutesController.appointmentEntity.date}" />
+			</h:panelGrid>
+			<h:form enctype="multipart/form-data">
+				<h:inputFile id="file"
+					value="#{submitMeetingMinutesController.file}">
+				</h:inputFile>
+				<h:commandButton value="Post Upload"
+					action="#{submitMeetingMinutesControllers.upload}" />
+			</h:form>
+			<h:form id="submitForm" columns="2"
+				columnClasses="form-label,form-label" footer-Class="form-footer">
+				<h:outputLabel value="Submit Meeting Minutes?" />
+				<h:commandButton id="confirmButton" value="Submit meeting minutes"
+					action="#{submitMeetingMinuetsController.persist}" />
+				<h:commandButton id="declineButton" value="Discard meeting minutes"
+					onclick="history.go(-1)" />
+			</h:form>
+		</h:form>
+	</h:body>
 </f:view>
 </html>

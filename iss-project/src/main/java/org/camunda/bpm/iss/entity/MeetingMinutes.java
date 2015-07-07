@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.servlet.http.Part;
 
 @Entity
 public class MeetingMinutes implements Serializable {
@@ -22,8 +21,34 @@ public class MeetingMinutes implements Serializable {
 	@OneToOne
 	protected Appointment appointment;
 	
-	protected byte[] meetingMinutes;
+	private byte[] file;
+	private String fileContent;
+	private String fileName;
 	
+	public byte[] getFile() {
+		return file;
+	}
+
+	public void setFile(byte[] file) {
+		this.file = file;
+	}
+
+	public String getFileContent() {
+		return fileContent;
+	}
+
+	public void setFileContent(String fileContent) {
+		this.fileContent = fileContent;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	public Long getId(){
 		return this.id;
 	}
@@ -33,27 +58,6 @@ public class MeetingMinutes implements Serializable {
 	}
 	public void setAppointment(Appointment appointment) {
 		this.appointment = appointment;
-	}
-//	public Part getMeetingMinutes() {
-//		return meetingMinutes;
-//	}
-	
-	public void setMeetingMinutes(byte[] meetingMinutes) {
-		this.meetingMinutes = meetingMinutes;
-	}
-
-//	public void setMeetingMinutes(Part meetingMinutes) {
-//		this.meetingMinutes = meetingMinutes;
-//	}
-	
-//	public void upload() {
-//	    try {
-//	    	meetingMinutesContent = new Scanner(meetingMinutes.getInputStream())
-//	          .useDelimiter("\\A").next();
-//	    } catch (IOException e) {
-//	      // Error handling
-//	    }
-//	  }
-	 
+	}	 
 	
 }

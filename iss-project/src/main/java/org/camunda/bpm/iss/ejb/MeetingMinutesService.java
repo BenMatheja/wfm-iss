@@ -17,23 +17,23 @@ import org.camunda.bpm.iss.entity.MeetingMinutes;
 @Stateless
 @Named
 public class MeetingMinutesService {
-//	@PersistenceContext
-//	  private EntityManager entityManager;
-//	
-//		  @Inject
-//		  private AppointmentService appointmentService;
-//		  
-//		  private static Logger LOGGER = Logger.getLogger(MeetingMinutesService.class.getName());
-//			 
-//		  public MeetingMinutes create(MeetingMinutes meetingMinutes){
-//			  entityManager.persist(meetingMinutes);
-//			  return meetingMinutes;
-//		  }
-//		  
-//		  public MeetingMinutes getMeetingMinutes(Long meetingMinutesId) {
-//			  // Load entity from database
-//			  return entityManager.find(MeetingMinutes.class, meetingMinutesId);
-//		  }
+	@PersistenceContext
+	  private EntityManager entityManager;
+	
+		  @Inject
+		  private AppointmentService appointmentService;
+		  
+		  private static Logger LOGGER = Logger.getLogger(MeetingMinutesService.class.getName());
+			 
+		  public MeetingMinutes create(MeetingMinutes meetingMinutes){
+			  entityManager.persist(meetingMinutes);
+			  return meetingMinutes;
+		  }
+		  
+		  public MeetingMinutes getMeetingMinutes(Long meetingMinutesId) {
+			  // Load entity from database
+			  return entityManager.find(MeetingMinutes.class, meetingMinutesId);
+		  }
 
 
 }
