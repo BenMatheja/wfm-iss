@@ -64,7 +64,7 @@
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="UserTask_1" targetRef="SendTask_1"/>
-    <bpmn2:sendTask id="SendTask_1" camunda:expression="$(true)" name="Send requirements to Pink Blob">
+    <bpmn2:sendTask id="SendTask_1" camunda:expression="${jobIdHandler.create()}" name="Send requirements to Pink Blob">
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_37</bpmn2:outgoing>
     </bpmn2:sendTask>

@@ -29,6 +29,8 @@ public class GlobalDefinitions {
 	public static final String TRANSITION_ADDITIONAL_INFO_RECEIVED_AFTER = "F_ICME_AddInfoReceived_To_XJ";
 
 	public static final String TRANSITION_DESIGN_DECISION_AFTER = "F_ICME_Decision_To_ServT_CheckDecisionReceived";
+	
+	public static long JOB_ID;
 
 
 	public static String getPbBaseURL(){
@@ -38,6 +40,16 @@ public class GlobalDefinitions {
 	public static String getIssBaseURL(){
 		return (USE_MOCK_SOLUTION_ISS) ? URL_ISS_BASE_MOCK : URL_ISS_BASE;
 	}
+
+	public static long getJOB_ID() {
+		return JOB_ID;
+	}
+
+	public static void setJOB_ID(long jOB_ID) {
+		JOB_ID = jOB_ID;
+	}
+	
+	
 
 	
 }

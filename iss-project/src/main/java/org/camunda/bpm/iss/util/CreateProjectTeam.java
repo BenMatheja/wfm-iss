@@ -4,6 +4,9 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.Stateless;
+import javax.inject.Named;
+
 import org.camunda.bpm.engine.IdentityService;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
@@ -11,7 +14,8 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.iss.ejb.ContractService;
 
 
-
+@Stateless
+@Named
 public class CreateProjectTeam {
 	
 	private ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();

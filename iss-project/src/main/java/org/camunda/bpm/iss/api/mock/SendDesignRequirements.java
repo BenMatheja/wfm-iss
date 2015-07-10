@@ -1,6 +1,5 @@
 package org.camunda.bpm.iss.api.mock;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -11,10 +10,9 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.iss.DTO.out.JobIdDTO;
 import org.camunda.bpm.iss.ejb.JobIdService;
-import org.camunda.bpm.iss.entity.JobId;
+import org.camunda.bpm.iss.entity.util.GlobalDefinitions;
 
 @Named
 public class SendDesignRequirements implements Runnable {
@@ -23,13 +21,10 @@ public class SendDesignRequirements implements Runnable {
 	
 	private String url;
 	
-	private long waitTime;
+	private long waitTime = 3000;
 
 	@Inject
 	JobIdService jobIdService;
-
-	@Inject
-	private BusinessProcess businessProcess;
 
 	private static Logger LOGGER = Logger
 			.getLogger(SendDesignRequirements.class.getName());
@@ -43,7 +38,7 @@ public class SendDesignRequirements implements Runnable {
 
 	public void run() {
 		JobIdDTO jobIdDTO = new JobIdDTO();
-		Object entity = new Object();
+		
 		try {
 			//Wait 10 seconds in order to let the other side process the answer the Webservice request
 			Thread.sleep(waitTime);
@@ -71,17 +66,9 @@ public class SendDesignRequirements implements Runnable {
 	        
 	        LOGGER.info("JobIdDTO to String: "+ jobIdDTO.toString());
 	        LOGGER.info("jobIdDTO JobId: " + jobIdDTO.getJobId());
-	        
-			// Looks complicated, but is easy: We set the Id from the DTO to a new entity called "jobIdEntity"
-	        JobId jobIdEntity = new JobId();
-			jobIdEntity.setJobId(jobIdDTO.getJobId());
-			
-			LOGGER.info("jobIdEntity JobId: " +jobIdEntity.getJobId());
-			// Now we persist "jobIdEntity"
-			jobIdEntity = jobIdService.create(jobIdEntity);
-			
-			businessProcess.setVariable("jobId", jobIdEntity.getId());
-			LOGGER.log(Level.INFO, "This is jobId in the business process: " + businessProcess.getVariable("jobId"));
+	       
+			// Now we save the jobId into a global var
+			GlobalDefinitions.JOB_ID = jobIdDTO.getJobId();
 			  
 		} catch (Exception e) {
 			e.printStackTrace();	       
