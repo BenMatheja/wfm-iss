@@ -16,16 +16,12 @@ public class JobId implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private long JobId;
+	protected long JobId;
 	
 	
-	public long getId() {
+	public Long getId() {
 		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	}	
 
 	public long getJobId() {
 		return JobId;

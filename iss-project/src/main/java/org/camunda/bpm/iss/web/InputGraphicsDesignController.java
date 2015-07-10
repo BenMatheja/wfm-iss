@@ -17,8 +17,10 @@ import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.iss.DTO.in.DesignRequestDTO;
 import org.camunda.bpm.iss.api.mock.SendDesignRequirements;
 import org.camunda.bpm.iss.ejb.CustomerService;
+import org.camunda.bpm.iss.ejb.JobIdService;
 import org.camunda.bpm.iss.ejb.ProjectService;
 import org.camunda.bpm.iss.entity.Customer;
+import org.camunda.bpm.iss.entity.JobId;
 import org.camunda.bpm.iss.entity.Project;
 import org.camunda.bpm.iss.entity.util.GlobalDefinitions;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -44,7 +46,8 @@ public class InputGraphicsDesignController implements Serializable{
 	  private ProjectService projectService;
 	  @Inject
 	  private CustomerService customerService;
-	  
+	  @Inject
+	  private JobIdService jobIdService;
 	  
 	  @Inject
 	  private TaskForm taskForm;
@@ -108,7 +111,7 @@ public class InputGraphicsDesignController implements Serializable{
 		// Send
 		Runnable sendDesignRequirements = new SendDesignRequirements(
 				jsonToSend, url, 0, "Create Send Thread for designRequest");
-		new Thread(sendDesignRequirements).start();
+		new Thread(sendDesignRequirements).start();		
 		  
 		  /**
 		  designRequest = designRequestService.create(designRequest);

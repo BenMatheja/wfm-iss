@@ -7,7 +7,6 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.camunda.bpm.iss.api.mock.SendDesignRequirements;
 import org.camunda.bpm.iss.entity.JobId;
 
 @Named
@@ -18,7 +17,7 @@ public class JobIdService {
 	private EntityManager entityManager;
 
 	private static Logger LOGGER = Logger
-			.getLogger(SendDesignRequirements.class.getName());
+			.getLogger(JobIdService.class.getName());
 
 	public JobId create(JobId jobId) {
 		LOGGER.info("This is create JobId");

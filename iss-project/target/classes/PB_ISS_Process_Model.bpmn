@@ -20,6 +20,7 @@
         <bpmn2:flowNodeRef>ParallelGateway_1</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>SendTask_7</bpmn2:flowNodeRef>
         <bpmn2:flowNodeRef>SendTask_8</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>IntermediateCatchEvent_1</bpmn2:flowNodeRef>
       </bpmn2:lane>
       <bpmn2:lane id="Lane_ProjectTeam" name="Project Team">
         <bpmn2:flowNodeRef>IntermediateCatchEvent_3</bpmn2:flowNodeRef>
@@ -63,9 +64,9 @@
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="UserTask_1" targetRef="SendTask_1"/>
-    <bpmn2:sendTask id="SendTask_1" camunda:expression="$(true)" name="Send requirements to Pink Blob">
-      <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="UserTask_1" targetRef="IntermediateCatchEvent_1"/>
+    <bpmn2:sendTask id="SendTask_1" camunda:expression="${jobIdHandler.create()}" name="Send requirements to Pink Blob">
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_37</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:sequenceFlow id="SequenceFlow_37" name="" sourceRef="SendTask_1" targetRef="EventBasedGateway_1"/>
@@ -183,6 +184,14 @@
       <bpmn2:messageEventDefinition id="MessageEventDefinition_6" messageRef="Message_4"/>
     </bpmn2:intermediateCatchEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_19" name="" sourceRef="IntermediateCatchEvent_4" targetRef="UserTask_6"/>
+    <bpmn2:intermediateCatchEvent id="IntermediateCatchEvent_1" name="Wait for JobId Response">
+      <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+      <bpmn2:timerEventDefinition id="TimerEventDefinition_1">
+        <bpmn2:timeDuration xsi:type="bpmn2:tFormalExpression">P0DT0H0M5S</bpmn2:timeDuration>
+      </bpmn2:timerEventDefinition>
+    </bpmn2:intermediateCatchEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="IntermediateCatchEvent_1" targetRef="SendTask_1"/>
   </bpmn2:process>
   <bpmn2:process id="Process_2" isExecutable="true"/>
   <bpmn2:message id="Message_1" name="addinf_request"/>
@@ -413,11 +422,13 @@
           <dc:Bounds height="6.0" width="6.0" x="178.0" y="438.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="_BPMNShape_UserTask_15" targetElement="_BPMNShape_SendTask_2">
-        <di:waypoint xsi:type="dc:Point" x="281.0" y="438.0"/>
-        <di:waypoint xsi:type="dc:Point" x="313.0" y="438.0"/>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="_BPMNShape_UserTask_15" targetElement="_BPMNShape_IntermediateCatchEvent_37">
+        <di:waypoint xsi:type="dc:Point" x="231.0" y="478.0"/>
+        <di:waypoint xsi:type="dc:Point" x="231.0" y="498.0"/>
+        <di:waypoint xsi:type="dc:Point" x="282.0" y="498.0"/>
+        <di:waypoint xsi:type="dc:Point" x="282.0" y="518.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="6.0" width="6.0" x="294.0" y="438.0"/>
+          <dc:Bounds height="6.0" width="6.0" x="228.0" y="494.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_UserTask_16" bpmnElement="UserTask_2">
@@ -537,6 +548,18 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds height="6.0" width="6.0" x="1917.0" y="958.0"/>
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_IntermediateCatchEvent_37" bpmnElement="IntermediateCatchEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="264.0" y="518.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="282.0" y="559.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="_BPMNShape_IntermediateCatchEvent_37" targetElement="_BPMNShape_SendTask_2">
+        <di:waypoint xsi:type="dc:Point" x="300.0" y="536.0"/>
+        <di:waypoint xsi:type="dc:Point" x="306.0" y="536.0"/>
+        <di:waypoint xsi:type="dc:Point" x="306.0" y="438.0"/>
+        <di:waypoint xsi:type="dc:Point" x="313.0" y="438.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
