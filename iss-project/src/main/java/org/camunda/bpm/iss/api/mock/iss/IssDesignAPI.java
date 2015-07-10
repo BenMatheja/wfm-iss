@@ -10,7 +10,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.map.ObjectMapper;
-
+import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.ProcessEngines;
+import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.iss.entity.util.GlobalDefinitions;
 import org.camunda.bpm.iss.DTO.in.DesignFeedbackDTO;
 import org.camunda.bpm.iss.DTO.out.DesignDTO;
@@ -22,11 +24,17 @@ public class IssDesignAPI {
 
 	private final static Logger LOGGER = Logger.getLogger("ISS-DESIGN-API");
 	
+	private ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+	
+	private RuntimeService rs = processEngine.getRuntimeService();
+	
 	@POST
 	@Path("/receive")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response receiveAdditionalInformation(DesignDTO design){
 		LOGGER.info("Webservice called!");
+		
+		rs.correlateMessage("design");	  
  
 		// specify the REST web service to interact with
 		String baseUrl = GlobalDefinitions.getPbBaseURL();

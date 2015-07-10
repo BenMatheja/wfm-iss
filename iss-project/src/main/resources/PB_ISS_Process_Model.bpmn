@@ -70,7 +70,7 @@
       <bpmn2:outgoing>SequenceFlow_37</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:sequenceFlow id="SequenceFlow_37" name="" sourceRef="SendTask_1" targetRef="EventBasedGateway_1"/>
-    <bpmn2:userTask id="UserTask_4" name="Consider Status Update">
+    <bpmn2:userTask id="UserTask_4" camunda:formKey="app:statusUpdate.jsf" camunda:candidateGroups="project-manager" name="Consider Status Update">
       <bpmn2:incoming>SequenceFlow_14</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
     </bpmn2:userTask>
