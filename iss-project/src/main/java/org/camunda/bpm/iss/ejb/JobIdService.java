@@ -10,27 +10,28 @@ import javax.persistence.PersistenceContext;
 import org.camunda.bpm.iss.api.mock.SendDesignRequirements;
 import org.camunda.bpm.iss.entity.JobId;
 
-@Stateless
 @Named
+@Stateless
 public class JobIdService {
-	
-		 @PersistenceContext
-		  private EntityManager entityManager;
-		 
-		 private static Logger LOGGER = Logger
-					.getLogger(SendDesignRequirements.class.getName());
-		 
-		 public JobId getJobId(Long jobIdId) {
-			  // Load entity from database
-			  return entityManager.find(JobId.class, jobIdId);
-		  }
-		 
-		 public JobId create (JobId jobId) {	   
-			 	LOGGER.info("This is create JobId"); 
-			 	entityManager.persist(jobId);
-				// entityManager.flush();
-				LOGGER.info("Created the JobId with Id: " + jobId.getId() + "and jobId: "+ jobId.getJobId());
-				return jobId;	 
-			  }
-		  
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	private static Logger LOGGER = Logger
+			.getLogger(SendDesignRequirements.class.getName());
+
+	public JobId create(JobId jobId) {
+		LOGGER.info("This is create JobId");
+		entityManager.persist(jobId);
+		// entityManager.flush();
+		LOGGER.info("Created the JobId with Id: " + jobId.getId()
+				+ "and jobId: " + jobId.getJobId());
+		return jobId;
+	}
+
+	public JobId getJobId(Long jobIdId) {
+		// Load entity from database
+		return entityManager.find(JobId.class, jobIdId);
+	}
+
 }

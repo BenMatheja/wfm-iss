@@ -1,18 +1,22 @@
 package org.camunda.bpm.iss.api.mock;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.iss.DTO.out.JobIdDTO;
 import org.camunda.bpm.iss.ejb.JobIdService;
 import org.camunda.bpm.iss.entity.JobId;
 
+@Named
 public class SendDesignRequirements implements Runnable {
 
 	private String jsonToSend;
@@ -20,13 +24,16 @@ public class SendDesignRequirements implements Runnable {
 	private String url;
 	
 	private long waitTime;
-	
+
 	@Inject
 	JobIdService jobIdService;
-	
+
+	@Inject
+	private BusinessProcess businessProcess;
+
 	private static Logger LOGGER = Logger
 			.getLogger(SendDesignRequirements.class.getName());
-		
+
 	public SendDesignRequirements(String json, String url, long waitTime,String logInfo) {
 	       this.jsonToSend = json;
 	       this.url = url;
@@ -71,8 +78,11 @@ public class SendDesignRequirements implements Runnable {
 			
 			LOGGER.info("jobIdEntity JobId: " +jobIdEntity.getJobId());
 			// Now we persist "jobIdEntity"
-			jobIdService.create(jobIdEntity);
-					
+			jobIdEntity = jobIdService.create(jobIdEntity);
+			
+			businessProcess.setVariable("jobId", jobIdEntity.getId());
+			LOGGER.log(Level.INFO, "This is jobId in the business process: " + businessProcess.getVariable("jobId"));
+			  
 		} catch (Exception e) {
 			e.printStackTrace();	       
 	  	}
