@@ -2,7 +2,7 @@ package org.camunda.bpm.iss.api.mock;
 
 import java.util.logging.Logger;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -21,7 +21,7 @@ public class SendDesignRequirements implements Runnable {
 	
 	private long waitTime;
 	
-	@EJB
+	@Inject
 	JobIdService jobIdService;
 	
 	private static Logger LOGGER = Logger
@@ -36,7 +36,6 @@ public class SendDesignRequirements implements Runnable {
 
 	public void run() {
 		JobIdDTO jobIdDTO = new JobIdDTO();
-		JobId jobIdEntity = new JobId();
 		Object entity = new Object();
 		try {
 			//Wait 10 seconds in order to let the other side process the answer the Webservice request
@@ -58,20 +57,19 @@ public class SendDesignRequirements implements Runnable {
 	        
 			// this is the most important part for the first interface
 			// we get the id for the remaining process communication
-	        LOGGER.info("Does the response have the entity at all?" + response.hasEntity());
-	        LOGGER.info("This is the plain response: " + response.toString());
-	        String header = new String();
-	        response.getHeaderString(header);
-	        LOGGER.info("Header: " + header);
-	        entity = response.getEntity();
-	        if (entity == null) LOGGER.info("Entity is null!");
-	        LOGGER.info("What are you?" + entity.toString());
-	        jobIdDTO = (JobIdDTO) entity;
-	        LOGGER.info("Does jobIdDTO exist? (Casting successfull?)" + jobIdDTO.toString());
-			LOGGER.info("This is the jobId from the DTO:" + jobIdDTO.getJobId());
+	        
+	        jobIdDTO = response.readEntity(JobIdDTO.class);
+	       
+	        if (jobIdDTO == null) LOGGER.info("jobIdDTO is Null, dude!");
+	        
+	        LOGGER.info("JobIdDTO to String: "+ jobIdDTO.toString());
+	        LOGGER.info("jobIdDTO JobId: " + jobIdDTO.getJobId());
+	        
 			// Looks complicated, but is easy: We set the Id from the DTO to a new entity called "jobIdEntity"
+	        JobId jobIdEntity = new JobId();
 			jobIdEntity.setJobId(jobIdDTO.getJobId());
 			
+			LOGGER.info("jobIdEntity JobId: " +jobIdEntity.getJobId());
 			// Now we persist "jobIdEntity"
 			jobIdService.create(jobIdEntity);
 					

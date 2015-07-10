@@ -26,7 +26,8 @@ public class JobIdService {
 		  }
 		 
 		 public JobId create (JobId jobId) {	   
-				entityManager.persist(jobId);
+			 	LOGGER.info("This is create JobId"); 
+			 	entityManager.persist(jobId);
 				// entityManager.flush();
 				LOGGER.info("Created the JobId with Id: " + jobId.getId() + "and jobId: "+ jobId.getJobId());
 				return jobId;	 
