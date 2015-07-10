@@ -6,7 +6,7 @@
     background: #F7F7F7;
     padding: 25px 15px 25px 10px;
     font: 12px Georgia, "Times New Roman", Times, serif;
-    color: #888;
+    color: #000;
     text-shadow: 1px 1px 1px #FFF;
     border:1px solid #E4E4E4;
 }
@@ -15,16 +15,27 @@
     padding: 0px 0px 10px 20px;
     display: block;
     border-bottom:1px solid #E4E4E4;
+<<<<<<< HEAD
     margin: -10px -15px 15px -10px;;
     color: #888;
+=======
+    margin: -10px -15px 30px -10px;;
+    color: #000;
+>>>>>>> origin/master
 }
 .basic-grey h2 {
     font-size: 25px;
     text-align:center;
     padding: 0px 0px 10px 0px;
     display: block;
+<<<<<<< HEAD
     margin: 0px -15px 10px -10px;
     color: #888;
+=======
+    border-bottom:1px solid #E4E4E4;
+    margin: -10px -15px 30px -10px;
+    color: #000;
+>>>>>>> origin/master
 }
 .basic-grey h3 {
     font-size: 14px;
@@ -32,8 +43,13 @@
     display: block;
     border-top:1px solid #E4E4E4;
     border-bottom:1px solid #E4E4E4;
+<<<<<<< HEAD
     margin: -10px -15px 10px -10px;;
     color: #888;
+=======
+    margin: -10px -15px 30px -10px;;
+    color: #000;
+>>>>>>> origin/master
 }
 .basic-grey h1>span {
     display: block;

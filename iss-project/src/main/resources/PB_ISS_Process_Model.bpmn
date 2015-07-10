@@ -159,12 +159,15 @@
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(false)</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:intermediateCatchEvent id="IntermediateCatchEvent_2" name="Receive request">
+      <bpmn2:extensionElements>
+        <camunda:executionListener class="IssAdditionalInformationAPI" event="start"/>
+      </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_42</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
       <bpmn2:messageEventDefinition id="MessageEventDefinition_4" messageRef="Message_1"/>
     </bpmn2:intermediateCatchEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_5" name="" sourceRef="IntermediateCatchEvent_2" targetRef="UserTask_2"/>
-    <bpmn2:userTask id="UserTask_2" name="Analyse request">
+    <bpmn2:userTask id="UserTask_2" camunda:candidateGroups="project-team" camunda:formKey="app:" name="Analyse request">
       <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
     </bpmn2:userTask>
