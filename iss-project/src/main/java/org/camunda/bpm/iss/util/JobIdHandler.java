@@ -29,19 +29,6 @@ public class JobIdHandler {
 		LOGGER.log(Level.INFO, "This is jobIdHandler Create");
 		JobId jobIdEntity = new JobId();
 		
-		try {
-			wait(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		jobIdEntity.setJobId(GlobalDefinitions.JOB_ID);
 		jobIdEntity = jobIdService.create(jobIdEntity);
 
