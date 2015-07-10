@@ -40,9 +40,9 @@ public class SendThread implements Runnable {
 	        	return;
 	        }
 	        //Check, if status is "ok"
-	        if (response.getStatus() != 200) {
-	        	throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
-	        }	
+//	        if (response.getStatus() != 200) {
+//	        	throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
+//	        }	
 	        
 		} catch (Exception e) {
 			e.printStackTrace();	       
