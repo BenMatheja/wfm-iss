@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/resources/master2.xhtml">
+  <ui:define name="metadata">
+  <f:metadata>     
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+  </f:metadata>
+  </ui:define>
+  <ui:define name="content">
+  
+  	<h:form id="submitForm" class="basic-grey">
+  	
+  	<h1>ISS 
+        <span>We reach for the stars</span>
+        </h1>
+     
+  	<h2>Analyze Request</h2>
+  	<div class="details">
+  	    	<h3>Project data</h3>    		
+      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+				<h:outputLabel value="Project Title:" />
+			 	<h:outputLabel value="#{inputGraphicsDesignController.projectEntity.projectTitle}"/>
+				<h:outputLabel value="Request ID:" />
+			 	<h:outputLabel value="#{inputGraphicsDesignController.projectEntity.requestID}"/>
+				</h:panelGrid> 	        			     			
+  			<div class="details">      
+      		<h3>Design details</h3></div>
+  	    	<h3>Project data</h3>    		
+      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+				<h:outputLabel value="Design title:" />
+			 	<h:outputLabel value="#{xyzController.employeeEntity.designTitle}"/>
+				<h:outputLabel value="Design description:" />
+			 	<h:outputLabel value="#{xyzController.employeeEntity.designText}"/>	
+				<h:outputLabel value="Deadline:" />
+			 	<h:outputLabel value="#{xyzController.customerBillEntity.designDate}"/>		
+			 	<h:outputLabel value="Request description:" />
+			 	<h:outputLabel value="#{xyzController.customerBillEntity.requestText}"/>
+			 	<h:outputLabel value="Download attachment:" />
+			 	<h:outputLabel value="Attachment to be downloaded"/>
+			 	<h:outputLabel value="Request information unavailable?" />
+			    <h:selectBooleanCheckbox value="#{analyseRequestController.design.availableInformation}" />				 	 
+		  		<h:outputLabel value="Accept request?" />
+		  		</h:panelGrid>   
+		  		<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
+        			<p>
+          				<label> 
+                    	<p:inputText id="requestAnswer" value="#{processVariables['requestAnswer']}" required="true" placeholder="Answer to request:"/>
+                    	</label>
+                    	<p:message for="requestAnswer" />
+                    	</p>
+        			<p>
+          				<label>
+          				<p:inputText id="customerComment" value="#{processVariables['customerComment']}" required="true" placeholder="Additional information for customer" style="margin: -10px 0px 0px 20px"/>
+                		</label>
+                		<p:message for="customerComment" />
+                    </p>
+                </h:panelGrid> 
+    			<h:commandButton id="submit_button" value="Submit Response" action="#{camundaTaskForm.completeProcessInstanceForm()}"  style="margin: 0px 0px 0px 25px"/> 	  			   			
+    			<h:commandButton id="cancel_button" value="Discard response" onclick="history.go(-1)" />   			
+  	</div>
+  	</h:form>
+  </ui:define>
+</ui:composition>
+</html>
