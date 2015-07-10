@@ -25,13 +25,13 @@ xmlns:f="http://java.sun.com/jsf/core">
 						<p>
 							<label for="designTitle">Design Title</label>
 							<h:inputText id="designTitle"
-								value="#{designRequestDTO.designTitle}" required="true" />
+								value="#{inputGraphicsDesignController.designRequestDTO.designTitle}" required="true" />
 							<h:message for="designTitle" />
 						</p>
 						<p>
 							<label for="designDescription">Requirements Description</label>
 							<h:inputText id="designDescription"
-								value="#{designRequestDTO.designDescription}"
+								value="#{inputGraphicsDesignController.designRequestDTO.additionalInformation}"
 								required="true" />
 							<h:message for="designDescription" />
 						</p>
