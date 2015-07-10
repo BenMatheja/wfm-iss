@@ -1,26 +1,18 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-<<<<<<< HEAD
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:p="http://primefaces.org/ui">
-=======
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.org/ui">
->>>>>>> origin/master
- 
+
 <ui:composition template="/resources/master2.xhtml">
   <ui:define name="metadata">
   <f:metadata>     
     <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
   </f:metadata>
   </ui:define>
-  
   <ui:define name="content">
-<<<<<<< HEAD
+  
   	<h:form id="submitForm" class="basic-grey">
   	
   	<h1>ISS 
@@ -52,37 +44,4 @@ xmlns:p="http://primefaces.org/ui">
   	</h:form>
   </ui:define>
 </ui:composition>
-=======
-  <h:form id="submitForm" class="basic-grey">
-	<h1>ISS 
-        <span>We reach for the stars</span>
-        </h1> 	
-  <h2>Evaluate Request</h2>
-		<div class="details">
-
-  			<h:panelGrid columns="2">
-				<h:outputLabel value="Customer: " style="font-weight:bold"/>
-				<h:outputLabel value="#{evaluateRequestController.customerEntity.name}" style="font-weight:bold"/>
-				<h:outputLabel value="Request: " style="font-weight:bold"/>
-				<h:outputLabel value="#{evaluateRequestController.customerRequestEntity.title}" style="font-weight:bold"/>
-				<h:outputLabel value="Address: " />
-				<h:outputLabel value="#{evaluateRequestController.customerEntity.address}"/>
-			 	<h:outputLabel value="E-Mail: " />
-			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.email}"/>
-	 			<h:outputLabel value="Description: " />
-		  		<h:outputLabel value="#{evaluateRequestController.customerRequestEntity.text}" />
-		 	</h:panelGrid>
-	
-	<h3>Accept Request?</h3> 
-	<br/>	
-	<h:panelGrid columns="3">	
-	   	<h:commandButton id="confirmButton" value="Accept Request" action="#{evaluateRequestController.confirmRequest()}" />    
-	   	<h:commandButton id="declineButton" value="Decline Request" action="#{evaluateRequestController.declineRequest()}" />
-	   	<h:commandButton id="postpone_button" value="Postpone Task" onclick="history.go(-1)" />
-	</h:panelGrid>
-	</div>
-	</h:form>		
-	</ui:define>
-	</ui:composition>
->>>>>>> origin/master
 </html>
