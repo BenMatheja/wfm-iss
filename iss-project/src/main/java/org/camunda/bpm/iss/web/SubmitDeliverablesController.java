@@ -29,32 +29,32 @@ public class SubmitDeliverablesController implements Serializable{
 	private byte[] fileByte;
 	
 	
-	public void upload() {
-		if (file == null || file.getSize() == 0) {
-			throw new IllegalStateException();
-		}
-		try {
-			String fileName;
-			String contentType;
-			InputStream is = file.getInputStream();
-			fileByte = new byte[(int) file.getSize()];
-			is.read(fileByte);
-			fileName = file.getSubmittedFileName();
-			contentType = file.getContentType();
-			deliverable.setExecutableVersion(fileByte);
-			deliverable.setFileContent(contentType);
-			deliverable.setFileName(fileName);
-			is.close();
-			LOGGER.log(Level.INFO, "This is the uploaded File:" + fileName);
-			LOGGER.log(Level.INFO, "This is the file content type:"
-					+ contentType);
-
-			file.getInputStream().close();
-		} catch (IOException e) {
-			// Error handling
-			throw new IllegalStateException();
-		}
-	}
+//	public void upload() {
+//		if (file == null || file.getSize() == 0) {
+//			throw new IllegalStateException();
+//		}
+//		try {
+//			String fileName;
+//			String contentType;
+//			InputStream is = file.getInputStream();
+//			fileByte = new byte[(int) file.getSize()];
+//			is.read(fileByte);
+//			fileName = file.getSubmittedFileName();
+//			contentType = file.getContentType();
+//			deliverable.setExecutableVersion(fileByte);
+//			deliverable.setFileContent(contentType);
+//			deliverable.setFileName(fileName);
+//			is.close();
+//			LOGGER.log(Level.INFO, "This is the uploaded File:" + fileName);
+//			LOGGER.log(Level.INFO, "This is the file content type:"
+//					+ contentType);
+//
+//			file.getInputStream().close();
+//		} catch (IOException e) {
+//			// Error handling
+//			throw new IllegalStateException();
+//		}
+//	}
 	
 	public void persist(){
 		
