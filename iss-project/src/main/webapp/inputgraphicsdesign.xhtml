@@ -19,28 +19,36 @@ xmlns:f="http://java.sun.com/jsf/core">
  			  	
 	  	<h:form id="submitForm">
 					<h2>Enter design details</h2>
-					<h:panelGrid columns="3"
-						columnClasses="form-label,form-input,form-message error"
-						footerClass="form-footer">
-						<p>
-							<label for="designTitle">Design Title</label>
-							<h:inputText id="designTitle"
-								value="#{inputGraphicsDesignController.designRequestDTO.designTitle}" required="true" />
-							<h:message for="designTitle" />
-						</p>
-						<p>
-							<label for="designDescription">Requirements Description</label>
-							<h:inputText id="designDescription"
-								value="#{inputGraphicsDesignController.designRequestDTO.additionalInformation}"
-								required="true" />
-							<h:message for="designDescription" />
-						</p>
-						
-					<h3>Select designs</h3>					
-	   		
-					</h:panelGrid>
-      		
-					<h:outputLabel value="Send for submittal?" />
+				<h:panelGrid columns="3"
+					columnClasses="form-label,form-input,form-message error"
+					footerClass="form-footer">
+					<p>
+						<label for="designTitle">Design Title</label>
+						<h:inputText id="designTitle"
+							value="#{inputGraphicsDesignController.designRequestDTO.designTitle}"
+							required="true" />
+						<h:message for="designTitle" />
+					</p>
+					<p>
+						<label for="designDescription">Requirements Description</label>
+						<h:inputText id="designDescription"
+							value="#{inputGraphicsDesignController.designRequestDTO.additionalInformation}"
+							required="true" />
+						<h:message for="designDescription" />
+					</p>
+
+					<h3>Select designs</h3>
+					<h:outputLabel for="artType" value="Art Type" />
+					<h:selectOneMenu id="artType"
+						value="#{inputGraphicsDesignController.designRequestDTO.artType}">
+						<f:selectItem itemLabel="Website" itemValue="website" />
+						<f:selectItem itemLabel="Logo" itemValue="logo" />
+						<f:selectItem itemLabel="Flyer" itemValue="flyer" />
+						<f:selectItem itemLabel="Slogon" itemValue="slogan"/>
+					</h:selectOneMenu>
+				</h:panelGrid>
+
+				<h:outputLabel value="Send for submittal?" />
 					<h:commandButton id="submit_button" value="Ok"
 						action="#{inputGraphicsDesignController.submit()}" />
 					<h:commandButton id="cancel_button" value="Cancel"
