@@ -1,45 +1,54 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core">
- 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
 <ui:composition template="/resources/master.xhtml">
-  <ui:define name="metadata">
-  <f:metadata>   
-    <f:event type="preRenderView" listener="#{camundaTaskForm.startProcessInstanceByKeyForm()}" />
-  </f:metadata>
-  </ui:define>
-  
-  <ui:define name="title">Status Update</ui:define>
-  
-  <ui:define name="content">
-  	<div class="details">
-  	
-  	<h2>Customer: #{statusUpdateController.customerEntity.name}</h2>
-  	<h2>Project: #{statusUpdateController.projectEntity.title}</h2>
-  	
-  	<h:form id="submitForm">
-		<h2>Update Status</h2>
-  		<h:selectBooleanCheckbox value="#{statusUpdateController.project.projectstatus}" />
-  		<h:panelGrid columns="2"
-						columnClasses="form-label,form-input,form-message error"
-						footerClass="form-footer">
-						<p>
-							<label for="statusDescription">Status Description</label>
-							<h:inputText id="statusDescription"
-								value="#{processVariables['statusDescription']}"
-								required="true" />
-							<h:message for="statusDescription" />
-						</p>
-			</h:panelGrid>
-			<h:outputLabel value="Send for submittal?" />
-					<h:commandButton id="submit_button" value="Ok"
-						action="#{statusUpdateController.confirmRequest()}" />
-					<h:commandButton id="cancel_button" value="Cancel"
-						onclick="history.go(-1)" />
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{camundaTaskForm.startProcessInstanceByKeyForm()}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="title">Status Update</ui:define>
+
+	<ui:define name="content">
+		<div class="details">
+
+			<h2>Customer: #{statusUpdateController.customerEntity.name}</h2>
+			<h2>Project: #{statusUpdateController.ProjectTitle}</h2>
+
+			<h:form id="submitForm">
+				<h2>Update Status</h2>
+				<h:panelGrid columns="2"
+					columnClasses="form-label,form-output"
+					footerClass="form-footer">
+					<p>
+						<label for="statusUpdateDate">Update From:</label>
+						<h:outputText id="statusUpdateDate" 
+							value="#{considerStatusUpdateController.Date"/>
+							<f:convertDateTime pattern="yyyy-MM-dd" timeZone="Europe/Berlin"/>
+					</p>
+					<p>
+						<label for="designRequestTitle">Design Title:</label>
+						<h:outputText id="designRequestTitle"
+							value="#{considerStatusUpdateController.DesignRequestTitle}"/>
+					</p>
+					<p>
+						<label for="statusDescription">Status Description</label>
+						<h:outputText id="statusDescription"
+							value="#{considerStatusUpdateController.Message}"/>
+					</p>
+				</h:panelGrid>
+				<h:outputLabel value="Send for submittal?" />
+				<h:commandButton id="submit_button" value="Ok"
+					action="#{statusUpdateController.confirmRequest()}" />
+				<h:commandButton id="cancel_button" value="Cancel"
+					onclick="history.go(-1)" />
 			</h:form>
-	</div>		
-  </ui:define>
+		</div>
+	</ui:define>
 </ui:composition>
 </html>

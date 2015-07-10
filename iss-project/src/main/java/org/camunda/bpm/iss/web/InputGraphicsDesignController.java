@@ -20,7 +20,6 @@ import org.camunda.bpm.iss.ejb.CustomerService;
 import org.camunda.bpm.iss.ejb.JobIdService;
 import org.camunda.bpm.iss.ejb.ProjectService;
 import org.camunda.bpm.iss.entity.Customer;
-import org.camunda.bpm.iss.entity.JobId;
 import org.camunda.bpm.iss.entity.Project;
 import org.camunda.bpm.iss.entity.util.GlobalDefinitions;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -113,6 +112,8 @@ public class InputGraphicsDesignController implements Serializable{
 				jsonToSend, url, 0, "Create Send Thread for designRequest");
 		new Thread(sendDesignRequirements).start();		
 		  
+		businessProcess.setVariable("designRequestTitle", getDesignRequestDTO().getDesignTitle());
+		
 		  /**
 		  designRequest = designRequestService.create(designRequest);
 		  businessProcess.setVariable("designRequestId", designRequest.getId());

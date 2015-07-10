@@ -9,12 +9,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.codehaus.jackson.map.ObjectMapper;
-
-import org.camunda.bpm.iss.entity.util.GlobalDefinitions;
+import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.ProcessEngines;
+import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.iss.DTO.in.AddInfoResponseDTO;
 import org.camunda.bpm.iss.DTO.out.AddInfoRequestDTO;
 import org.camunda.bpm.iss.api.mock.SendThread;
+import org.camunda.bpm.iss.entity.util.GlobalDefinitions;
+import org.codehaus.jackson.map.ObjectMapper;
 
 @WebService
 @Path("/iss/additionalInformation")
@@ -22,11 +24,17 @@ public class IssAdditionalInformationAPI{
 
 	private final static Logger LOGGER = Logger.getLogger("ISS-ADDITITIONALINFORMATION-API");
 	
+	private ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+	
+	private RuntimeService rs = processEngine.getRuntimeService();
+	
 	@POST
 	@Path("/request")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response receiveAdditionalInformation(AddInfoRequestDTO infoRequest){
 		LOGGER.info("Webservice called!");
+		
+		rs.correlateMessage("addinf_request");	    
  
 		// specify the REST web service to interact with
 		String baseUrl = GlobalDefinitions.getPbBaseURL();
@@ -53,9 +61,10 @@ public class IssAdditionalInformationAPI{
         }    
        
         //Send next API call in new thread, which delays the call
-        Runnable sendThread = new SendThread(jsonToSend, url, 5000, "SendAddInfo");
-        new Thread(sendThread).start();
+        Runnable sendThread = new SendThread(jsonToSend, url, 0, "SendAddInfo");
+        new Thread(sendThread).start();        
         
+        LOGGER.info("Successfully reached the end of IssAdditionalInformationAPI!");
         //Return result with statusCode 200
       	return Response.ok().build(); 
 	}
