@@ -1,5 +1,6 @@
 package org.camunda.bpm.iss.api.mock.iss;
 
+import java.util.Calendar;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -44,7 +45,7 @@ public class IssStatusUpdateAPI {
 	public Response receiveStatusUpdateDraft(StatusDraftStartedDTO statusDTO) {
 		LOGGER.info("Webservice called!");
 
-		rs.correlateMessage("status_update");
+		//rs.correlateMessage("status_update");
 
 		try {
 			// Instantiate JSON mapper
@@ -65,6 +66,8 @@ public class IssStatusUpdateAPI {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response receiveStatusUpdateDesign(StatusDesignStartedDTO statusDTO) {
 		LOGGER.info("Webservice called!");
+		
+		rs.correlateMessage("status_update");
 
 		String jsonToSend = null;
 		try {
@@ -78,12 +81,22 @@ public class IssStatusUpdateAPI {
 		}
 		StatusUpdate su = new StatusUpdate();
 		su.setMessage(statusDTO.getMessage());
+		
+		// 1) create a java calendar instance
+		Calendar calendar = Calendar.getInstance();
+		 
+		// 2) get a java.util.Date from the calendar instance.
+		//    this date will represent the current instant, or "now".
+		java.util.Date now = calendar.getTime();
+		
+		su.setDate(now);
+	
 		StatusUpdate persistedStatusUpdate = statusUpdateService.create(su);
-		LOGGER.info("StatusUpdate persisted:" + persistedStatusUpdate.getId());
-		LOGGER.info("id:" + persistedStatusUpdate.getId());
+		LOGGER.info("StatusUpdate persisted id:" + persistedStatusUpdate.getId());
+		LOGGER.info("Date:" + persistedStatusUpdate.getDate());
 		LOGGER.info("message:" + persistedStatusUpdate.getMessage());
 
-		businessProcess.setVariable("statusUpdateID",
+		businessProcess.setVariable("statusUpdateId",
 				persistedStatusUpdate.getId());
 		LOGGER.info("Set Process Variable for Status Update ID:"
 				+ businessProcess.getVariable("statusUpdateId"));
