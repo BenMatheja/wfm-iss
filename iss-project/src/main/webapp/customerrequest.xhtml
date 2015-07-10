@@ -20,10 +20,10 @@
         <span>We reach for the stars</span>
         </h1>
      
-  	<h2 align="center">Customer Request</h2>
+  	<h2>Customer Request</h2>
   	<div class="details">
   	    	<h3>Insert Customer Data</h3>    		
-      			<h:panelGrid style="width: 100%" footerClass="form-footer">
+      			<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
         			<p>
           				<label> 
                     	<p:inputText id="name" value="#{processVariables['name']}" required="true" placeholder="Customer name"/>
@@ -32,23 +32,23 @@
                     	</p>
         			<p>
           				<label>
-          				<p:inputText id="address" value="#{processVariables['address']}" required="true" placeholder="Customer Address"/>
+          				<p:inputText id="address" value="#{processVariables['address']}" required="true" placeholder="Customer Address" style="margin: -10px 0px 0px 20px"/>
                 		</label>
                 		<p:message for="address" />
                     </p>
          			<p>
           				<label>
-                    	<p:inputText id="email" value="#{processVariables['email']}" required="true" placeholder="Customer eMail"/>
+                    	<p:inputText id="email" value="#{processVariables['email']}" required="true" placeholder="Customer eMail" style="margin: -10px 0px 10px 20px"/>
                     	</label>
                     	<p:message for="email" />
                     </p>    			        			
       			
-      
-      		<h3>Insert Request</h3>
+  			<div class="details">      
+      		<h3>Insert Request</h3></div>
       			
         			<p>
           				<label>
-                    	<p:inputText id="title" value="#{processVariables['title']}" required="true" placeholder="Request title"/>
+                    	<p:inputText id="title" value="#{processVariables['title']}" required="true" placeholder="Request title" style="margin: 0px 0px 0px 20px"/>
                     	</label>
                     	<p:message for="title" />
         			</p>        		       			
@@ -59,7 +59,7 @@
         				<p:message for="text" />
         			</p>
 				</h:panelGrid>     			
-    			<h:commandButton id="submit_button" value="Submit Request" action="#{camundaTaskForm.completeProcessInstanceForm()}" /> 	  			   			
+    			<h:commandButton id="submit_button" value="Submit Request" action="#{camundaTaskForm.completeProcessInstanceForm()}"  style="margin: 0px 0px 0px 25px"/> 	  			   			
     			<h:commandButton id="cancel_button" value="Discard Request" onclick="history.go(-1)" />
   	</div>
   	</h:form>
