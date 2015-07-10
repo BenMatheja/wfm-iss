@@ -19,7 +19,7 @@ public class StatusUpdate implements Serializable {
 	
 	private String message;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	// @Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	
 	public long getId(){
@@ -37,5 +37,10 @@ public class StatusUpdate implements Serializable {
 	public Date getDate(){
 		return date;
 	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
 	
 }
