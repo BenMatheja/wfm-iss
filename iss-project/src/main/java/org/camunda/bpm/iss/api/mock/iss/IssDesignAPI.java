@@ -2,6 +2,7 @@ package org.camunda.bpm.iss.api.mock.iss;
 
 import java.util.logging.Logger;
 
+import javax.inject.Inject;
 import javax.jws.WebService;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -9,14 +10,16 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.RuntimeService;
-import org.camunda.bpm.iss.entity.util.GlobalDefinitions;
+import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.iss.DTO.in.DesignFeedbackDTO;
 import org.camunda.bpm.iss.DTO.out.DesignDTO;
-import org.camunda.bpm.iss.api.mock.SendThread;
+import org.camunda.bpm.iss.ejb.DesignService;
+import org.camunda.bpm.iss.entity.Design;
+import org.camunda.bpm.iss.entity.util.GlobalDefinitions;
+import org.codehaus.jackson.map.ObjectMapper;
 
 @WebService
 @Path("/iss/design")
@@ -27,6 +30,12 @@ public class IssDesignAPI {
 	private ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 	
 	private RuntimeService rs = processEngine.getRuntimeService();
+	
+	@Inject
+	DesignService designService;
+	
+	@Inject
+	BusinessProcess businessProcess;
 	
 	@POST
 	@Path("/receive")
@@ -60,10 +69,24 @@ public class IssDesignAPI {
         	e.printStackTrace();
         	return Response.serverError().build();
         }    
+        
+        Design designEntity = new Design();
+        designEntity.setJobId(design.getJobId());
+        designEntity.setDesignZIP(design.getDesignZIP());
+        
+        Design persistedDesign = designService.create(designEntity);
+		LOGGER.info("Design persisted id: " + persistedDesign.getId());
+		LOGGER.info("Job Id: " + persistedDesign.getJobId());
+		LOGGER.info("ZIP: " + persistedDesign.getDesignZIP());
+		
+		businessProcess.setVariable("designId",
+				persistedDesign.getId());
+		LOGGER.info("Set Process Variable for Design ID:"
+				+ businessProcess.getVariable("designId"));
        
         //Send next API call in new thread, which delays the call
-        Runnable sendThread = new SendThread(jsonToSend, url, 5000, "SendDesignFeedback");
-        new Thread(sendThread).start();
+//        Runnable sendThread = new SendThread(jsonToSend, url, 5000, "SendDesignFeedback");
+//        new Thread(sendThread).start();
         
         //Return result with statusCode 200
       	return Response.ok().build(); 
