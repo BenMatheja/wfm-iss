@@ -1,8 +1,7 @@
 package org.camunda.bpm.iss.entity;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.Scanner;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,9 +20,12 @@ public class MeetingMinutes implements Serializable {
 	@OneToOne
 	protected Appointment appointment;
 	
+	@Column(length=1000000000)
 	private byte[] file;
+	
 	private String fileContent;
 	private String fileName;
+	
 	
 	public byte[] getFile() {
 		return file;

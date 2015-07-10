@@ -1,7 +1,12 @@
 package org.camunda.bpm.iss.entity;
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -19,6 +24,7 @@ public class Deliverable implements Serializable {
 	@ManyToOne
 	protected Project project;
 	
+	@Column(length=999999999)
 	protected byte[] executableVersion;
 	
 	protected String title;

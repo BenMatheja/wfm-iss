@@ -19,8 +19,8 @@
 			#{submitMeetingMinutesController.customerEntity.name}</h2>
 
 		<h2>Project Title:
-			#{submitMeetingMinutesController.projectEntity.projectTitle}</h2>
-		<h:form>
+			#{submitMeetingMinutesController.projectEntity.title}</h2>
+		<h:form enctype="multipart/form-data">
 			<h:panelGrid columns="2" columnClasses="form-label, form-label">
 				<h:outputLabel value="Project start:" />
 				<h:outputLabel
@@ -29,27 +29,29 @@
 				<h:outputLabel
 					value="#{submitMeetingMinutesController.projectEntity.projectEnd}" />
 				<h:outputLabel value="Emplyoees:" />
+				<div>
 				<ui:repeat
 					value="#{submitMeetingMinutesController.projectEntity.employee}"
 					var="emp">
-					<h:outputText value="#{emp.firstName}" />
+					<h:outputText value="#{emp.firstName} " /> 
 					<h:outputText value="#{emp.lastName}" />
+					<br/>
 				</ui:repeat>
+				</div>
 				<h:outputLabel
 					value="#{submitMeetingMinutesController.appointmentEntity.date}" />
 			</h:panelGrid>
-			<h:form enctype="multipart/form-data">
-				<h:inputFile id="file"
-					value="#{submitMeetingMinutesController.file}">
-				</h:inputFile>
-				<h:commandButton value="Post Upload"
-					action="#{submitMeetingMinutesControllers.upload}" />
-			</h:form>
+			<p>
+			<h:inputFile id="file" value="#{submitMeetingMinutesController.file}">
+			</h:inputFile>
+			<h:commandButton value="Post Upload"
+				action="#{submitMeetingMinutesController.upload}" />
+			</p>
 			<h:form id="submitForm" columns="2"
 				columnClasses="form-label,form-label" footer-Class="form-footer">
 				<h:outputLabel value="Submit Meeting Minutes?" />
 				<h:commandButton id="confirmButton" value="Submit meeting minutes"
-					action="#{submitMeetingMinuetsController.persist}" />
+					action="#{submitMeetingMinutesController.persist}" />
 				<h:commandButton id="declineButton" value="Discard meeting minutes"
 					onclick="history.go(-1)" />
 			</h:form>
