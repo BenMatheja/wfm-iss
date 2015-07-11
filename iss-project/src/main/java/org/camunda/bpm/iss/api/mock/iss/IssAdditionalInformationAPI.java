@@ -82,13 +82,15 @@ public class IssAdditionalInformationAPI{
         Map<String,Object> correlationKeys = new HashMap<String,Object>();
 		Map<String,Object> processVariables = new HashMap<String,Object>();
 		
-//		correlationKeys.put("addInfoId", infoRequest.getJobId());
-//		LOGGER.info("Put jobId: " + infoRequest.getJobId() + "into correlationKeys");
+		correlationKeys.put("jobId", infoRequest.getJobId());
+		LOGGER.info("Put jobId: " + infoRequest.getJobId() + "into correlationKeys");
 		
-		processVariables.put("addInfoRequestId",infoRequest.getAddtitionalInfoId());
-		LOGGER.info("Put addInfoRequestId: " + infoRequest.getAddtitionalInfoId() + "into process variables");
+		processVariables.put("addInfoRequestPbId",infoRequest.getAddtitionalInfoId());
+		processVariables.put("addInfoRequestId",persistedAddInfoRequest.getId());
+		LOGGER.info("Put addInfoRequestPbId: " + infoRequest.getAddtitionalInfoId() + "into process variables");
+		LOGGER.info("Put addInfoRequestId: " + persistedAddInfoRequest.getId() + "into process variables");
 		
-		rs.correlateMessage("status_update", correlationKeys, processVariables);
+		rs.correlateMessage("addinf_request", correlationKeys, processVariables);
         
         LOGGER.info("Successfully reached the end of IssAdditionalInformationAPI!");
         //Return result with statusCode 200

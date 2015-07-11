@@ -5,6 +5,8 @@ public class AddInfoRequestDTO {
 	private long addtitionalInfoId;
 	
 	private String question;
+	
+	private long jobId;
 
 	public long getAddtitionalInfoId() {
 		return addtitionalInfoId;
@@ -21,5 +23,15 @@ public class AddInfoRequestDTO {
 	public void setQuestion(String question) {
 		this.question = question;
 	}
+
+	public long getJobId() {
+		return jobId;
+	}
+
+	public void setJobId(long jobId) {
+		this.jobId = jobId;
+	}
+	
+	
 
 }

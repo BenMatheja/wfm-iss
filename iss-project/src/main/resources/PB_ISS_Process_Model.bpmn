@@ -154,10 +154,10 @@
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="SequenceFlow_34" name="Yes" sourceRef="ExclusiveGateway_5" targetRef="ExclusiveGateway_1">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(true)</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${addInfoRequestService.getAddInfoRequest(addInfoRequestId).available}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_7" name="No" sourceRef="ExclusiveGateway_5" targetRef="UserTask_3">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">$(false)</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${not addInfoRequestService.getAddInfoRequest(addInfoRequestId).available}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:intermediateCatchEvent id="IntermediateCatchEvent_2" name="Receive request">
       <bpmn2:incoming>SequenceFlow_42</bpmn2:incoming>

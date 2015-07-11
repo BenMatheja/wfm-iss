@@ -51,7 +51,7 @@ public class AnalyseRequestController implements Serializable{
 	  // Caches the Entities during the conversation
 	  private Project projectEntity;
 	  private AddInfoRequest addInfoRequestEntity;
-	  private AddInfoResponseDTO addInfoResp;
+	  private AddInfoResponseDTO addInfoResp = new AddInfoResponseDTO();
 	  private String designTitle;
 	 
 	  
@@ -80,7 +80,17 @@ public class AnalyseRequestController implements Serializable{
 			return businessProcess.getVariable("designRequestTitle");
 		}
 	  
-	  public void response() throws IOException {
+	  
+	  
+	  public AddInfoResponseDTO getAddInfoResp() {
+		return addInfoResp;
+	}
+
+	public void setAddInfoResp(AddInfoResponseDTO addInfoResp) {
+		this.addInfoResp = addInfoResp;
+	}
+
+	public void response() throws IOException {
 		  // respond to PB
 		  addInfoRequestEntity.setAvailable(true);
 		  addInfoRequestService.mergeAndComplete(addInfoRequestEntity);
