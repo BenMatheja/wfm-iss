@@ -37,6 +37,7 @@ public class IssTrigger{
         AddInfoRequestDTO requestDTO = new AddInfoRequestDTO();
         requestDTO.setAddtitionalInfoId(1);
         requestDTO.setQuestion("Automatically generated question by " + this.getClass().getName());
+        requestDTO.setJobId(1);
         
         String jsonToSend = null;
         try {    
