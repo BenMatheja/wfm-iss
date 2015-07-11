@@ -65,12 +65,12 @@
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="UserTask_1" targetRef="IntermediateCatchEvent_1"/>
-    <bpmn2:sendTask id="SendTask_1" camunda:expression="${jobIdHandler.create()}" name="Send requirements to Pink Blob">
+    <bpmn2:sendTask id="SendTask_1" camunda:expression="${jobIdHandler.create(execution)}" name="Send requirements to Pink Blob">
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_37</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:sequenceFlow id="SequenceFlow_37" name="" sourceRef="SendTask_1" targetRef="EventBasedGateway_1"/>
-    <bpmn2:userTask id="UserTask_4" camunda:formKey="app:statusUpdate.jsf" camunda:candidateGroups="project-manager" name="Consider Status Update">
+    <bpmn2:userTask id="UserTask_4" camunda:formKey="app:considerstatusupdate.jsf" camunda:candidateGroups="project-manager" name="Consider Status Update">
       <bpmn2:incoming>SequenceFlow_14</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
     </bpmn2:userTask>

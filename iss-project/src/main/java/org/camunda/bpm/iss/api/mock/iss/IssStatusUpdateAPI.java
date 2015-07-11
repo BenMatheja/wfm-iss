@@ -1,6 +1,8 @@
 package org.camunda.bpm.iss.api.mock.iss;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -67,8 +69,6 @@ public class IssStatusUpdateAPI {
 	public Response receiveStatusUpdateDesign(StatusDesignStartedDTO statusDTO) {
 		LOGGER.info("Webservice called!");
 		
-		rs.correlateMessage("status_update");
-
 		String jsonToSend = null;
 		try {
 			// Instantiate JSON mapper
@@ -96,10 +96,18 @@ public class IssStatusUpdateAPI {
 		LOGGER.info("Date:" + persistedStatusUpdate.getDate());
 		LOGGER.info("message:" + persistedStatusUpdate.getMessage());
 
-		businessProcess.setVariable("statusUpdateId",
-				persistedStatusUpdate.getId());
-		LOGGER.info("Set Process Variable for Status Update ID:"
-				+ businessProcess.getVariable("statusUpdateId"));
+		
+		Map<String,Object> correlationKeys = new HashMap<String,Object>();
+		Map<String,Object> processVariables = new HashMap<String,Object>();
+		
+		correlationKeys.put("jobId", statusDTO.getJobId());
+		LOGGER.info("Put jobId: " + statusDTO.getJobId() + "into correlationKeys");
+		
+		processVariables.put("statusUpdateId",persistedStatusUpdate.getId());
+		LOGGER.info("Put statusUpdateId: " + persistedStatusUpdate.getId() + "into process variables");
+		
+		rs.correlateMessage("status_update", correlationKeys, processVariables);
+		
 		// Return result with statusCode 200
 		return Response.ok().build();
 	}
