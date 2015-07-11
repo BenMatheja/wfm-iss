@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
+  
+  <ui:composition template="/resources/master2.xhtml">
+  <ui:define name="metadata">
+  
+  <f:metadata>     
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+  </f:metadata>
+  </ui:define>
+  
+  <ui:define name="title">Conduct Payment</ui:define>
+  <ui:define name="content">
+  
+  <h:form id="submitForm" class="basic-grey">
+  	
+  	<h1>ISS 
+        <span>We reach for the stars</span>
+        </h1>
+     
+  	<h2>Conduct Payment</h2>
+  	<div class="details">
+  	    	<h3>Project data</h3>    		
+      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+				<h:outputLabel value="Project title:                                 " />
+			 	<h:outputLabel value="#{initiateProjectController.project.title}"/>
+				<h:outputLabel value="Request ID:" />
+			 	<h:outputLabel value="#{analyseRequestController.customerBillEntity.requestID}"/>
+				</h:panelGrid> 	        			     			
+  			<div class="details">      
+      		<h3>Payment details</h3></div>
+      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 0px 10px;" footerClass="form-footer">
+				</h:panelGrid>    			
+    			<h:commandButton id="submit_button" value="Confirm Settlement" action="#{camundaTaskForm.completeProcessInstanceForm()}"  style="margin: 0px 0px 0px 25px"/> 	  			   			
+    			<h:commandButton id="cancel_button" value="Discard Settlement" onclick="history.go(-1)" />
+  	</div>
+  	</h:form>
+  </ui:define>
+</ui:composition>
+</html>

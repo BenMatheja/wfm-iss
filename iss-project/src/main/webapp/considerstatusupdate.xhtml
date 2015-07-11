@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
+  
+  <ui:composition template="/resources/master2.xhtml">
+  <ui:define name="metadata">
+  
+  <f:metadata>     
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+  </f:metadata>
+  </ui:define>
+  
+  <ui:define name="title">Consider Status update</ui:define>
+  <ui:define name="content">
+  
+  <h:form id="submitForm" class="basic-grey">
+  	
+  	<h1>ISS 
+        <span>We reach for the stars</span>
+        </h1>
+     
+  	<h2>Project data</h2>
+  	<div class="details">
+  	    	<h3>Customer data</h3>    		
+      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+				<h:outputLabel value="Project title:                                 " />
+			 	<h:outputLabel value="#{initiateProjectController.project.title}"/>
+				<h:outputLabel value="Request ID:" />
+			 	<h:outputLabel value="#{analyseRequestController.customerBillEntity.requestID}"/>
+			 	<h:outputLabel value="Design title:" />
+			 	<h:outputLabel value="#{analyseRequestController.customerBillEntity.designTitle}"/>	
+			 	<h:outputLabel value="Status update:" />
+			 	<h:outputLabel value="#{xyzController.customerBillEntity.statusText}"/>	
+				</h:panelGrid> 	        			     			
+    			<h:commandButton id="submit_button" value="Confirm status update" action="#{camundaTaskForm.completeProcessInstanceForm()}"  style="margin: 0px 0px 0px 25px"/> 	  			   			  
+  	</div>
+  	</h:form>
+  </ui:define>
+</ui:composition>
+</html>
