@@ -1,26 +1,29 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/resources/master.xhtml">
-	<ui:define name="metadata">
-		<f:metadata>
-			<f:event type="preRenderView"
-				listener="#{camundaTaskForm.startTaskForm()}" />
-		</f:metadata>
-	</ui:define>
-
-	<ui:define name="title">Initiate Project</ui:define>
-	<ui:define name="content">
-		<script name="jquery/jquery.js" library="primefaces"></script>
-
-		<div class="details">
-			<h2>Customer Data</h2>
-			<h:form>
-				<h:panelGrid columns="2" columnClasses="form-label, form-label">
+<ui:composition template="/resources/master2.xhtml">
+  <ui:define name="metadata">
+  <f:metadata>     
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+  </f:metadata>
+  </ui:define>
+  <ui:define name="title">Initiate Project</ui:define>
+  <ui:define name="content">
+  <script name="jquery/jquery.js" library="primefaces"></script>
+  	<h:form id="submitForm" class="basic-grey">
+  	
+  	<h1>ISS 
+        <span>We reach for the stars</span>
+        </h1>
+     
+  	<h2>Initiate Project</h2>
+  	<div class="details">
+  	    	<h3>Customer data</h3>    		
+      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
 					<h:outputLabel value="Customer name" />
 					<h:outputLabel
 						value="#{initiateProjectController.customerEntity.name}" />
@@ -30,14 +33,10 @@
 					<h:outputLabel value="E-Mail" />
 					<h:outputLabel
 						value="#{initiateProjectController.customerEntity.email}" />
-				</h:panelGrid>
-			</h:form>
-
-			<h:form id="submitForm">
-				<h2>Project Data</h2>
-				<h:panelGrid columns="3"
-					columnClasses="form-label,form-input,form-message error"
-					footerClass="form-footer">
+				</h:panelGrid>  			     			
+  			<div class="details">      
+      		<h3>Project Data</h3></div>
+  			<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
 					<p>
 						<label for="projectTitle">Project title</label>
 						<h:inputText id="projectTitle"
@@ -45,33 +44,25 @@
 							required="true" />
 						<h:message for="projectTitle" />
 					</p>
-				</h:panelGrid>
-
-
-
-				<p:messages />
-				<strong>Start Date</strong>
-				<p:calendar
-					value="#{initiateProjectController.project.projectStart}"
-					pattern="yyyy-MM-dd" required="true"
-					requiredMessage="Start date required" />
-				<strong>End Date</strong>
-				<p:calendar value="#{initiateProjectController.project.projectEnd}"
-					pattern="yyyy-MM-dd" required="true"
-					requiredMessage="End date required" />
-
-				<br></br>		
-      		Employees
-      		<h:selectManyListbox
-					value="#{initiateProjectController.employeeHelper}">
-					<f:selectItems value="#{initiateProjectController.userList}" />
-				</h:selectManyListbox>
-	  		Design required
-	  		<h:selectBooleanCheckbox
-					value="#{initiateProjectController.project.design}" />
-				<h:panelGrid columns="3"
-					columnClasses="form-label,form-input,form-message error"
-					footerClass="form-footer">
+			</h:panelGrid>  
+      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+					<h:outputLabel value="Start Date" />
+					<p:calendar
+						value="#{initiateProjectController.project.projectStart}"
+						pattern="yyyy-MM-dd" required="true"
+						requiredMessage="Start date required" />
+					<h:outputLabel value="End Date" />
+					<p:calendar value="#{initiateProjectController.project.projectEnd}"
+						pattern="yyyy-MM-dd" required="true"
+						requiredMessage="End date required" />
+					<h:outputLabel value="Employees" />
+					<h:selectManyListbox value="#{initiateProjectController.employeeHelper}">
+						<f:selectItems value="#{initiateProjectController.userList}" />
+					</h:selectManyListbox>
+					<h:outputLabel value="Design required" />
+					<h:selectBooleanCheckbox value="#{initiateProjectController.project.design}" />			
+				</h:panelGrid>  			  			
+  			<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
 					<p>
 						<label for="costEstimate">Cost estimation</label>
 						<h:inputText id="costEstimate"
@@ -80,12 +71,10 @@
 						<h:message for="costEstimate" />
 					</p>
 				</h:panelGrid>
-				<h:commandButton id="initateProject" value="Initiate project"
-					action="#{initiateProjectController.persist}" />
-				<h:commandButton id="discardProject" value="Discard project"
-					onclick="history.go(-1)" />
-			</h:form>
-		</div>
+				<h:commandButton id="initateProject" value="Initiate project" action="#{initiateProjectController.persist}"  style="margin: 0px 0px 0px 25px"/>
+				<h:commandButton id="discardProject" value="Discard project" onclick="history.go(-1)" />
+			</div>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

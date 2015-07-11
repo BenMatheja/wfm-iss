@@ -1,41 +1,58 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core">
- 
-<ui:composition template="/resources/master.xhtml">
-	<ui:define name="metadata">
-	<f:metadata>
-		<f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
-	</f:metadata>
-	</ui:define> 
-	
-	<ui:define name="title">Check and Send Contract</ui:define>
-	<ui:define name="content">
-		<div class="details">
-		<h2>Customer</h2>
-		<p>Customer Name: #{checkAndSendContractController.customerEntity.name}</p>
-		<p>Customer Address: #{checkAndSendContractController.customerEntity.address}</p>
-		<p>Customer E-Mail: #{checkAndSendContractController.customerEntity.email}</p>
-		<h2>Contract</h2>
-		<h:form id="submitForm">
-		 <h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
-		 <p>
-		 <label for="contracttitle">Contract Title</label>
-        <h:inputText id="contracttitle" value="#{processVariables['contractTitle']}" required="true" />
-                    	<h:message for="contracttitle" />
-		</p>
-		<p>
-		<label for="contractdescription">Contract Description</label>
-        <h:inputText id="contractdescription" value="#{processVariables['contractDescription']}" required="true" />
-                    	<h:message for="contractdescription" />
-		</p>
-		</h:panelGrid>
-			<h:commandButton id="submit_button" value="Submit Contract" action="#{checkAndSendContractController.confirmRequest()}" /> 	  			   			
-    </h:form>
-    <h:commandButton id="cancel_button" value="Discard Contract" onclick="history.go(-1)" />
-    </div>
-		</ui:define>
-	</ui:composition>
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
+  
+  <ui:composition template="/resources/master2.xhtml">
+  <ui:define name="metadata">
+  
+  <f:metadata>     
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+  </f:metadata>
+  </ui:define>
+  
+  <ui:define name="title">Check and Send Contract</ui:define>
+  <ui:define name="content">
+  
+  <h:form id="submitForm" class="basic-grey">
+  	
+  	<h1>ISS 
+        <span>We reach for the stars</span>
+        </h1>
+     
+  	<h2>Check and Send Contract</h2>
+  	<div class="details">
+  	    	<h3>Customer data</h3>    		
+      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+				<h:outputLabel value="Name:                                 " />
+			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.name}"/>
+				<h:outputLabel value="Address:" />
+			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.address}"/>
+			 		<h:outputLabel value="E-Mail:" />
+			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.email}"/>	
+				</h:panelGrid> 	        			     			
+  			<div class="details">      
+      		<h3>Contract details</h3></div>
+      			<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
+        			<p>
+          				<label> 
+                    	<p:inputText id="contracttitle" value="#{processVariables['contracttitle']}" required="true" placeholder="Contract Title"/>
+                    	</label>
+                    	<p:message for="contracttitle" />
+                    	</p>
+        			<p>
+          				<label>
+          				<p:inputText id="contractdescription" value="#{processVariables['contractdescription']}" required="true" placeholder="Contract Description" style="margin: -10px 0px 0px 20px"/>
+                		</label>
+                		<p:message for="contractdescription" />
+                    </p>	
+				</h:panelGrid> 
+    			<h:commandButton id="submit_button" value="Submit Contract" action="#{checkAndSendContractController.confirmRequest()}"  style="margin: 0px 0px 0px 25px"/> 	  			   			
+    			<h:commandButton id="cancel_button" value="Discard Contract" onclick="history.go(-1)" />  			
+  	</div>
+  	</h:form>
+  </ui:define>
+</ui:composition>
 </html>

@@ -1,28 +1,38 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core">
- 
-<ui:composition template="/resources/master.xhtml">
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/resources/master2.xhtml">
   <ui:define name="metadata">
-  <f:metadata>   
+  <f:metadata>     
     <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
   </f:metadata>
   </ui:define>
-<ui:define name="title">Graphics Design Requirements</ui:define>
-    <ui:define name="content">
-		<div class="details">
-		<h2>Project: #{inputGraphicsDesignController.projectEntity.title}</h2>  
-		
-		<h2>Customer: #{inputGraphicsDesignController.customerEntity.name}</h2>
- 			  	
-	  	<h:form id="submitForm">
-					<h2>Enter design details</h2>
-				<h:panelGrid columns="3"
-					columnClasses="form-label,form-input,form-message error"
-					footerClass="form-footer">
-					<p>
+  <ui:define name="title">Graphic Design Requirements</ui:define>
+  <ui:define name="content">
+  
+  	<h:form id="submitForm" class="basic-grey">
+  	
+  	<h1>ISS 
+        <span>We reach for the stars</span>
+        </h1>
+     
+  	<h2>Graphic Design Requirements</h2>
+  	<div class="details">
+  	    	<h3>Project details</h3>    		
+      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+				<h:outputLabel value="Customer name:                                 " />
+			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.name}"/>
+			 	<h:outputLabel value="Project title: " />
+			 	<h:outputLabel value="#{evaluateAppointmentController.projectEntity.title}"/>
+				</h:panelGrid> 	        			     			
+  			<div class="details">      
+      		<h3>Design details</h3></div>
+  			<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
+  					<p>
 						<label for="designTitle">Design Title</label>
 						<h:inputText id="designTitle"
 							value="#{inputGraphicsDesignController.designRequestDTO.designTitle}"
@@ -36,9 +46,9 @@ xmlns:f="http://java.sun.com/jsf/core">
 							required="true" />
 						<h:message for="designDescription" />
 					</p>
-
-					<h3>Select designs</h3>
-					<h:outputLabel for="artType" value="Art Type" />
+			</h:panelGrid>      		
+      		<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+					<h:outputLabel for="artType" value="Design type" />
 					<h:selectOneMenu id="artType"
 						value="#{inputGraphicsDesignController.designRequestDTO.artType}">
 						<f:selectItem itemLabel="Website" itemValue="website" />
@@ -46,15 +56,13 @@ xmlns:f="http://java.sun.com/jsf/core">
 						<f:selectItem itemLabel="Flyer" itemValue="flyer" />
 						<f:selectItem itemLabel="Slogon" itemValue="slogan"/>
 					</h:selectOneMenu>
-				</h:panelGrid>
-
-				<h:outputLabel value="Send for submittal?" />
-					<h:commandButton id="submit_button" value="Ok"
-						action="#{inputGraphicsDesignController.submit()}" />
-					<h:commandButton id="cancel_button" value="Cancel"
-						onclick="history.go(-1)" />
-			</h:form>
-	</div>		
+				<h:outputLabel value="Submit?" />
+		  		<h:commandButton id="submit_button" value="Ok" action="#{inputGraphicsDesignController.submit()}" />  
+		  		<h:outputLabel value=" " />
+	   			<h:commandButton id="cancel_button" value="Cancel" onclick="history.go(-1)" />
+			</h:panelGrid> 	        						
+  	</div>
+  	</h:form>
   </ui:define>
 </ui:composition>
 </html>

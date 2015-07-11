@@ -3,22 +3,30 @@
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
   xmlns:c="http://java.sun.com/jsp/jstl/core"
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
- 
-<ui:composition template="/resources/master.xhtml">
-	<ui:define name="metadata">
-	<f:metadata>   
-		<f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
-	</f:metadata>
-	</ui:define>	
-	
-	<ui:define name="title">Propose Appointment</ui:define>
-	<ui:define name="content">
-		<div class="details">	
-			<h2>Project Data</h2>
-			<h:form>
-	 		<h:panelGrid columns="2" columnClasses="form-label, form-label">
+  
+  
+<ui:composition template="/resources/master2.xhtml">
+  <ui:define name="metadata">
+  <f:metadata>     
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+  </f:metadata>
+  </ui:define>
+  <ui:define name="title">Propose Appointment</ui:define>
+  <ui:define name="content">
+  
+  	<h:form id="submitForm" class="basic-grey">
+  	
+  	<h1>ISS 
+        <span>We reach for the stars</span>
+        </h1>
+     
+  	<h2>Propose Appointment</h2>
+  	<div class="details">
+  	    	<h3>Project data</h3>    		
+      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
 	 			<h:outputLabel value="Project title" />
 			 	<h:outputText value="#{proposeAppointmentController.projectEntity.title}"/>
 	 			<h:outputLabel value="Customer name" />
@@ -31,21 +39,20 @@
 			 	<h:outputText value="#{proposeAppointmentController.projectEntity.projectEnd}">
 			 		<f:convertDateTime pattern="yyyy-MM-dd"/>
 			 	</h:outputText>
+			 	<h:outputLabel value="Project team" />
 			 	<ui:repeat
 					value="#{proposeAppointmentController.projectEntity.employee}"
 					var="emp">
 					<h:outputText value="#{emp.firstName}" />
+					<h:outputText value=" " />
 					<h:outputText value="#{emp.lastName}" />
+					<h:outputText value=", " />
 				</ui:repeat>
-		  	</h:panelGrid>
-	  		</h:form>
-	  		<c:if test="#{not empty processVariables['appointmentId']}">
-	  			Yo man, appointment was declined, bitches
-	  		</c:if>	  		
-	  		<h2>Appointment proposal</h2>
-	  		<h:form>    		
-      		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
-        			<p>
+		  	</h:panelGrid>    			
+  			<div class="details">      
+      		<h3>Appointment proposal</h3></div>
+      			<h:panelGrid style="width: 80%; margin:0px 0px 0px 10px;" footerClass="form-footer">
+					<p>
           				<label for="title">Appointment Title</label>
                     	<h:inputText id="title" value="#{proposeAppointmentController.appointment.title}" required="true" />
                     	<h:message for="title" />
@@ -58,9 +65,10 @@
                     	<h:message for="date" />
         			</p>	
       		</h:panelGrid>
- 		  	<h:commandButton id="proposeAppointment" value="Propose Appointment" action="#{proposeAppointmentController.persist}" /> 	  			   			
-    	</h:form><h:commandButton id="discardAppointment" value="Discard Appointment" onclick="history.go(-1)" />
-  	</div>
+ 		  	<h:commandButton id="proposeAppointment" value="Propose Appointment" action="#{proposeAppointmentController.persist}" style="margin: 0px 0px 0px 25px"/> 	  			   			
+    		<h:commandButton id="discardAppointment" value="Discard Appointment" onclick="history.go(-1)" />
+  		</div>
+  	</h:form>
   </ui:define>
 </ui:composition>
 </html>
