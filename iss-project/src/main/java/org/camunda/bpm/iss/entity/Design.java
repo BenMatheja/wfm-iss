@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Design implements Serializable{
@@ -19,6 +20,7 @@ public class Design implements Serializable{
 	
 	//A base64 encoded byte array, which represents a zip in binary format
 	//Example: http://stackoverflow.com/questions/20706783/put-byte-array-to-json-and-vice-versa
+	@Lob
 	private byte[] designZIP;
 	
 	private boolean approved;

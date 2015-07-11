@@ -98,17 +98,17 @@
     </bpmn2:parallelGateway>
     <bpmn2:sequenceFlow id="SequenceFlow_11" name="" sourceRef="ParallelGateway_1" targetRef="SendTask_8"/>
     <bpmn2:sequenceFlow id="SequenceFlow_23" name="" sourceRef="ParallelGateway_1" targetRef="SendTask_5"/>
-    <bpmn2:sendTask id="SendTask_7" camunda:expression="$(true)" name="Decline Design">
+    <bpmn2:sendTask id="SendTask_7" camunda:expression="${dummyService.doNothing(execution)}" name="Decline Design">
       <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_45</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:sequenceFlow id="SequenceFlow_45" name="" sourceRef="SendTask_7" targetRef="EventBasedGateway_1"/>
-    <bpmn2:sendTask id="SendTask_8" camunda:expression="$(true)" name="Send confirmation to Pink Blob">
+    <bpmn2:sendTask id="SendTask_8" camunda:expression="${dummyService.doNothing(execution)}" name="Send confirmation to Pink Blob">
       <bpmn2:incoming>SequenceFlow_11</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_31</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:sequenceFlow id="SequenceFlow_31" name="" sourceRef="SendTask_8" targetRef="IntermediateCatchEvent_4"/>
-    <bpmn2:sendTask id="SendTask_5" camunda:class="$(true)" name="Send design to customer">
+    <bpmn2:sendTask id="SendTask_5" camunda:expression="${dummyService.doNothing(execution)}" name="Send design to customer">
       <bpmn2:incoming>SequenceFlow_23</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_32</bpmn2:outgoing>
     </bpmn2:sendTask>
@@ -119,7 +119,7 @@
       <bpmn2:messageEventDefinition id="MessageEventDefinition_5" messageRef="Message_3"/>
     </bpmn2:intermediateCatchEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_16" name="" sourceRef="IntermediateCatchEvent_3" targetRef="UserTask_5"/>
-    <bpmn2:sendTask id="SendTask_6" camunda:expression="$(true)" name="Send additional information">
+    <bpmn2:sendTask id="SendTask_6" camunda:expression="${dummyService.doNothing(execution)}" name="Send additional information">
       <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_43</bpmn2:outgoing>
     </bpmn2:sendTask>

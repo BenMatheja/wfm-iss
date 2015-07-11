@@ -33,16 +33,7 @@ public class DesignService {
 		
 		public void mergeAndComplete(Design design) {
 			// Merge detached customerRequest entity with current persisted state
-
 			em.merge(design);
-
-			try {
-				// Complete user task from
-				taskForm.completeTask();
-			} catch (IOException e) {
-				// Rollback both transactions on error
-				throw new RuntimeException("Cannot complete task", e);
-			}
 		}
 		
 }
