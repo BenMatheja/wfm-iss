@@ -1,5 +1,7 @@
 package org.camunda.bpm.iss.api.mock.iss;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -43,8 +45,6 @@ public class IssDesignAPI {
 	public Response receiveAdditionalInformation(DesignDTO design){
 		LOGGER.info("Webservice called!");
 		
-		rs.correlateMessage("design");	  
- 
 		// specify the REST web service to interact with
 		String baseUrl = GlobalDefinitions.getPbBaseURL();
         String relativeUrl = GlobalDefinitions.URL_API_PB_RECEIVE_DESIGN_FEEDBACK;
@@ -79,10 +79,16 @@ public class IssDesignAPI {
 		LOGGER.info("Job Id: " + persistedDesign.getJobId());
 		LOGGER.info("ZIP: " + persistedDesign.getDesignZIP());
 		
-		businessProcess.setVariable("designId",
-				persistedDesign.getId());
-		LOGGER.info("Set Process Variable for Design ID:"
-				+ businessProcess.getVariable("designId"));
+		Map<String,Object> correlationKeys = new HashMap<String,Object>();
+		Map<String,Object> processVariables = new HashMap<String,Object>();
+		
+		correlationKeys.put("jobId", design.getJobId());
+		LOGGER.info("Put jobId: " + design.getJobId() + "into correlationKeys");
+		
+		processVariables.put("designId",persistedDesign.getId());
+		LOGGER.info("Put designId: " + persistedDesign.getId() + "into process variables");
+		
+		rs.correlateMessage("design", correlationKeys, processVariables);
        
         //Send next API call in new thread, which delays the call
 //        Runnable sendThread = new SendThread(jsonToSend, url, 5000, "SendDesignFeedback");

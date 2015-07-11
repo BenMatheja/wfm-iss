@@ -27,26 +27,27 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
   	    	<h3>Project data</h3>    		
       			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
 				<h:outputLabel value="Project title:                                 " />
-			 	<h:outputLabel value="#{initiateProjectController.project.title}"/>
-				<h:outputLabel value="Request ID:" />
-			 	<h:outputLabel value="#{analyseRequestController.customerBillEntity.requestID}"/>		
+			 	<h:outputLabel value="#{evaluateDesignController.projectEntity.title}"/>					
 				</h:panelGrid> 	        			     			
   			<div class="details">      
-      		<h3>Request evaluation</h3></div>
-      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 0px 10px;" footerClass="form-footer">
-					<h:outputLabel value="Reject design" />
-					<h:selectBooleanCheckbox value="#{xyzController.xyz.designRejection}" />	
-				</h:panelGrid>    			
-				<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
-        			<p>
-          				<label> 
-                    	<p:inputText id="designComment" value="#{processVariables['designComment']}" required="true" placeholder="Comments regarding design"/>
-                    	</label>
-                    	<p:message for="designComment" />
-                    	</p>
-        			<p>
-        		</h:panelGrid>
-        		<h:commandButton id="submit_button" value="Submit Response" action="#{camundaTaskForm.completeProcessInstanceForm()}"  style="margin: 0px 0px 0px 25px"/> 	  			   			
+      		<h3>Design evaluation</h3></div>
+      			
+      			Download Design here
+      			
+      			<h:panelGrid style="width: 100%; margin:0px;"
+					footerClass="form-footer">
+					<p>
+						<label> <p:inputText id="designComment"
+								value="#{evaluateDesignController.designFeedback.comment}" required="false"
+								placeholder="Why do you / don't you like the design?"
+								style="margin: -10px 0px 0px 20px" />
+						</label>
+						<p:message for="designComment" />
+					</p>
+				</h:panelGrid>
+      			
+      			<h:commandButton id="accept_button" value="Accept Design" action="#{evaluateDesignController.accept()}"  style="margin: 0px 0px 0px 25px"/>				
+				<h:commandButton id="decline_button" value="Decline Design" action="#{evaluateDesignController.decline()}"  style="margin: 0px 0px 0px 25px"/> 	  			   		  			   			
     			<h:commandButton id="cancel_button" value="Discard Response" onclick="history.go(-1)" />    		
 			</div>
   	</h:form>
