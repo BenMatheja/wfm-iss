@@ -83,10 +83,10 @@ public class IssDesignAPI {
 		Map<String,Object> processVariables = new HashMap<String,Object>();
 		
 		correlationKeys.put("jobId", design.getJobId());
-		LOGGER.info("Put jobId: " + design.getJobId() + "into correlationKeys");
+		LOGGER.info("Put jobId: " + design.getJobId() + " into correlationKeys");
 		
 		processVariables.put("designId",persistedDesign.getId());
-		LOGGER.info("Put designId: " + persistedDesign.getId() + "into process variables");
+		LOGGER.info("Put designId: " + persistedDesign.getId() + " into process variables");
 		
 		rs.correlateMessage("design", correlationKeys, processVariables);
        
