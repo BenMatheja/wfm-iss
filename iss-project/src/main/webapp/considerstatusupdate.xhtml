@@ -41,7 +41,7 @@
 						value="#{considerStatusUpdateController.statusUpdateEntity.message}" />
 				</h:panelGrid>
 				<h:commandButton id="submit_button" value="Confirm status update"
-					action="#{camundaTaskForm.completeProcessInstanceForm()}"
+					action="#{considerStatusUpdateController.submit()}"
 					style="margin: 0px 0px 0px 25px" />
 			</div>
 		</h:form>

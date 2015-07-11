@@ -1,5 +1,6 @@
 package org.camunda.bpm.iss.web;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
@@ -11,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.camunda.bpm.engine.cdi.BusinessProcess;
+import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.iss.ejb.ProjectService;
 import org.camunda.bpm.iss.ejb.StatusUpdateService;
 import org.camunda.bpm.iss.entity.Project;
@@ -18,26 +20,29 @@ import org.camunda.bpm.iss.entity.StatusUpdate;
 
 @Named
 @ConversationScoped
-public class ConsiderStatusUpdateController implements Serializable{
+public class ConsiderStatusUpdateController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	 
-	private static Logger LOGGER = Logger.getLogger(EvaluateAppointmentController.class.getName());
-	 
+
+	private static Logger LOGGER = Logger
+			.getLogger(EvaluateAppointmentController.class.getName());
+
 	@Inject
 	StatusUpdateService statusUpdateService;
-			
-	@Inject 
+
+	@Inject
 	ProjectService projectService;
-	
-	@Inject 
-	BusinessProcess businessProcess;	
-	
-	private Project projectEntity;	
-	private StatusUpdate statusUpdateEntity;	
-	private String designTitle; 
-		
-		
+
+	@Inject
+	BusinessProcess businessProcess;
+
+	@Inject
+	private TaskForm taskForm;
+
+	private Project projectEntity;
+	private StatusUpdate statusUpdateEntity;
+	private String designTitle;
+
 	public Project getProjectEntity() {
 		if (projectEntity == null) {
 			// Load the entity from the database if not already cached
@@ -53,32 +58,42 @@ public class ConsiderStatusUpdateController implements Serializable{
 		}
 		return projectEntity;
 	}
-	
+
 	public StatusUpdate getStatusUpdateEntity() {
 		if (statusUpdateEntity == null) {
-			// Load the entity from the database if not already cached	
-			Map<String, Object> variables = businessProcess.getCachedVariableMap();
+			// Load the entity from the database if not already cached
+			Map<String, Object> variables = businessProcess
+					.getCachedVariableMap();
 			Collection<String> allVars = variables.keySet();
-			for (String a:allVars) {
+			for (String a : allVars) {
 				LOGGER.log(Level.INFO, "Element in BusinessProcess: " + a);
 			}
-			
-			LOGGER.log(Level.INFO, "This is statusUpdateId from businessProcess: "
-					+ businessProcess.getVariable("statusUpdateId"));
+
+			LOGGER.log(Level.INFO,
+					"This is statusUpdateId from businessProcess: "
+							+ businessProcess.getVariable("statusUpdateId"));
 			LOGGER.log(
 					Level.INFO,
 					"This is getStatusUpdate from the Service invoked with it "
-							+ statusUpdateService.getStatusUpdate((Long) businessProcess
-									.getVariable("statusUpdateId")));
-			statusUpdateEntity = statusUpdateService.getStatusUpdate((Long) businessProcess.getVariable("statusUpdateId"));
+							+ statusUpdateService
+									.getStatusUpdate((Long) businessProcess
+											.getVariable("statusUpdateId")));
+			statusUpdateEntity = statusUpdateService
+					.getStatusUpdate((Long) businessProcess
+							.getVariable("statusUpdateId"));
 		} else {
-			LOGGER.log(Level.INFO, "Status Update wasn't NULL, but: " + statusUpdateEntity.getId());
+			LOGGER.log(Level.INFO, "Status Update wasn't NULL, but: "
+					+ statusUpdateEntity.getId());
 		}
 		return statusUpdateEntity;
 	}
-	
-	//output Design Title
-	public String getDesignTitle(){
+
+	// output Design Title
+	public String getDesignTitle() {
 		return businessProcess.getVariable("designRequestTitle");
+	}
+	
+	public void submit() throws IOException {
+		taskForm.completeTask();
 	}
 }
