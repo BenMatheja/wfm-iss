@@ -14,6 +14,7 @@ public class AddInfoRequest implements Serializable {
 	private long addtitionalInfoId;
 
 	private String question;
+	private boolean available;
 
 	public long getAddtitionalInfoId() {
 		return addtitionalInfoId;
@@ -30,5 +31,17 @@ public class AddInfoRequest implements Serializable {
 	public void setQuestion(String question) {
 		this.question = question;
 	}
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+
+	
+	
+	
 
 }

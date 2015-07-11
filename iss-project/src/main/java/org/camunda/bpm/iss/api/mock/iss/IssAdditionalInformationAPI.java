@@ -1,5 +1,7 @@
 package org.camunda.bpm.iss.api.mock.iss;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -40,8 +42,6 @@ public class IssAdditionalInformationAPI{
 	public Response receiveAdditionalInformation(AddInfoRequestDTO infoRequest){
 		LOGGER.info("Webservice called!");
 		
-		rs.correlateMessage("addinf_request");	    
- 
 		// specify the REST web service to interact with
 		String baseUrl = GlobalDefinitions.getPbBaseURL();
         String relativeUrl = GlobalDefinitions.URL_API_PB_RECEIVE_ADDITIONAL_INFORMATION_RESPONSE;
@@ -78,6 +78,17 @@ public class IssAdditionalInformationAPI{
         //Send next API call in new thread, which delays the call
         Runnable sendThread = new SendThread(jsonToSend, url, 0, "SendAddInfo");
         new Thread(sendThread).start();        
+        
+        Map<String,Object> correlationKeys = new HashMap<String,Object>();
+		Map<String,Object> processVariables = new HashMap<String,Object>();
+		
+//		correlationKeys.put("addInfoId", infoRequest.getJobId());
+//		LOGGER.info("Put jobId: " + infoRequest.getJobId() + "into correlationKeys");
+		
+		processVariables.put("addInfoRequestId",infoRequest.getAddtitionalInfoId());
+		LOGGER.info("Put addInfoRequestId: " + infoRequest.getAddtitionalInfoId() + "into process variables");
+		
+		rs.correlateMessage("status_update", correlationKeys, processVariables);
         
         LOGGER.info("Successfully reached the end of IssAdditionalInformationAPI!");
         //Return result with statusCode 200
