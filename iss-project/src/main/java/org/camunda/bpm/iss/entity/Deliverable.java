@@ -18,16 +18,20 @@ public class Deliverable implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	public long getId() {
-		return id;
-	}
+	
 	@ManyToOne
 	protected Project project;
 	
-	@Column(length=999999999)
+	@Column(length=10000000)
 	protected byte[] executableVersion;
-	
 	protected String title;
+	protected String description;
+	protected String contentType;
+	protected String fileName;
+	
+	public long getId() {
+		return id;
+	}	
 	public String getTitle() {
 		return title;
 	}
@@ -40,7 +44,6 @@ public class Deliverable implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	protected String description;
 	
 	public Project getProject() {
 		return project;
@@ -55,5 +58,19 @@ public class Deliverable implements Serializable {
 		this.executableVersion = executableVersion;
 	}
 	
+	public void setFileContent(String contentType){
+		this.contentType = contentType;
+	}
 	
+	public String getFileContent(){
+		return contentType;
+	}
+	
+	public void setFileName(String fileName){
+		this.fileName = fileName;
+	}
+	
+	public String getFileName(){
+		return fileName;
+	}
 }

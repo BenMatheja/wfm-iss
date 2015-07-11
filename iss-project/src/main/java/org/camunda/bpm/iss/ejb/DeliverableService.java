@@ -23,7 +23,7 @@ public class DeliverableService {
 	  	  
 	  private static Logger LOGGER = Logger.getLogger(DeliverableService.class.getName());
 	  
-	  public Deliverable persist(Deliverable deliverable){
+	  public Deliverable create(Deliverable deliverable){
 		  entityManager.persist(deliverable);
 		  return deliverable;
 	  }
