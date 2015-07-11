@@ -20,7 +20,8 @@ public class Design implements Serializable{
 	//A base64 encoded byte array, which represents a zip in binary format
 	//Example: http://stackoverflow.com/questions/20706783/put-byte-array-to-json-and-vice-versa
 	private byte[] designZIP;
-
+	
+	private boolean approved;
 	
 	
 	public long getId() {
@@ -42,4 +43,14 @@ public class Design implements Serializable{
 	public void setDesignZIP(byte[] designZIP) {
 		this.designZIP = designZIP;
 	}
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+	
+	
 }
