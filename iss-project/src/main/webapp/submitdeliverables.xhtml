@@ -1,73 +1,83 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
-
-<ui:composition template="/resources/master.xhtml">
-	<ui:define name="metadata">
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
+  
+  <ui:composition template="/resources/master2.xhtml">
+  <ui:define name="metadata">
+	
+	
 		<f:metadata>
-			<f:event type="preRenderView"
-				listener="#{camundaTaskForm.startTaskForm()}" />
+			<f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
 		</f:metadata>
 	</ui:define>
 
 	<ui:define name="title">Submit Deliverables</ui:define>
 	<ui:define name="content">
-		<div class="details">
-			<h2>Project</h2>
-			<h:form>
-				<h:panelGrid columns="2" columnClasses="form-label, form-label">
-					<h:outputLabel value="Project title" />
-					<h:outputLabel
-						value="#{submitDeliverablesController.project.title}" />
-					<h:outputLabel value="Customer name" />
-					<h:outputLabel
-						value="#{submitDeliverablesController.customer.name}" />
-					<h:outputLabel value="Project start" />
-					<h:outputLabel
-						value="#{submitDeliverablesController.project.projectStart}" />
-					<h:outputLabel value="Project end" />
-					<h:outputLabel
-						value="#{submitDeliverablesController.project.projectEnd}" />
+	
+	<h:form id="submitForm" class="basic-grey">
+  	
+  	<h1>ISS 
+        <span>We reach for the stars</span>
+        </h1>
+        
+        <h2>Submit Deliverables</h2>
+        <div class="details">
+			<h3>Project</h3></div>
+			
+				<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+					<h:outputLabel value="Project title:" />
+					<h:outputLabel value="#{submitDeliverablesController.project.title}" />
+					<h:outputLabel value="Customer name:" />
+					<h:outputLabel value="#{submitDeliverablesController.customer.name}" />
+					<h:outputLabel value="Project start:" />
+					<h:outputLabel value="#{submitDeliverablesController.project.projectStart}" />
+					<h:outputLabel value="Project end:" />
+					<h:outputLabel value="#{submitDeliverablesController.project.projectEnd}" />
 				</h:panelGrid>
-			</h:form>
-			<h2>Deliverable</h2>
-			<h:form enctype="multipart/form-data">
-				<h:panelGrid columns="3"
-					columnClasses="form-label,form-input,form-message error"
-					footerClass="form-footer">
-					<p>
-						<label for="deliverableTitle">Deliverable Title</label>
-						<h:inputText id="deliverableTitle"
+				<div class="details"> 
+			
+			<h3>Deliverable</h3>
+			</div>
+			
+			
+				<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
+				<p>
+						<label> 
+						<p:inputText id="deliverableTitle"
 							value="#{submitDeliverablesController.deliverable.title}"
-							required="true" />
-						<h:message for="deliverableTitle" />
+							required="true" placeholder="Deliverable Title" />
+							</label>
+						<p:message for="deliverableTitle" />
 					</p>
 					<p>
-						<label for="deliverableDescription">Deliverable
-							Description</label>
-						<h:inputText id="deliverableDescription"
+					<label>
+						
+						<p:inputText id="deliverableDescription"
 							value="#{submitDeliverablesController.deliverable.description}"
-							required="true" />
-						<h:message for="deliverableDescription" />
+							required="true" placeholder="Deliverable Description" style="margin: -10px 0px 0px 20px" />
+							</label>
+						<p:message for="deliverableDescription" />
 					</p>
 				</h:panelGrid>
 				<p>
-					<h:inputFile for="executableVersion"
+					<h:inputFile id="file"
 						value="#{submitDeliverablesController.file}" />
 					<h:commandButton value="Post Upload"
 						action="#{submitDeliverablesController.upload}" />
 				</p>
 				<h:form id="submitForm" columns="2"
 					columnClasses="form-label,form-label" footer-Class="form-footer">
+					<h:outputLabel value="Submit Deliverables?" />
 					<h:commandButton id="submitDeliverable" value="Submit deliverable"
 						action="#{submitDeliverablesController.persist}" />
 					<h:commandButton id="discardDeliverable"
 						value="Discard deliverable" onclick="history.go(-1)" />
-				</h:form>
-			</h:form>
-		</div>
-	</ui:define>
+						</h:form>
+				
+  	</h:form>
+  </ui:define>
 </ui:composition>
 </html>
