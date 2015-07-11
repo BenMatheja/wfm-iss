@@ -82,8 +82,8 @@ public class IssAdditionalInformationAPI{
         Map<String,Object> correlationKeys = new HashMap<String,Object>();
 		Map<String,Object> processVariables = new HashMap<String,Object>();
 		
-		correlationKeys.put("jobId", infoRequest.getJobId());
-		LOGGER.info("Put jobId: " + infoRequest.getJobId() + "into correlationKeys");
+		correlationKeys.put("jobId", infoRequest.getDesignJobId());
+		LOGGER.info("Put jobId: " + infoRequest.getDesignJobId() + "into correlationKeys");
 		
 		processVariables.put("addInfoRequestPbId",infoRequest.getAddtitionalInfoId());
 		processVariables.put("addInfoRequestId",persistedAddInfoRequest.getId());
