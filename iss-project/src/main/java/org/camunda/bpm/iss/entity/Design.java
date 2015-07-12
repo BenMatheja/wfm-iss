@@ -23,6 +23,8 @@ public class Design implements Serializable{
 	@Lob
 	private byte[] designZIP;
 	
+	private String fileName;
+	
 	private boolean approved;
 	
 	
@@ -53,6 +55,15 @@ public class Design implements Serializable{
 	public void setApproved(boolean approved) {
 		this.approved = approved;
 	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
 	
 	
 }

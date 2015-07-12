@@ -110,9 +110,9 @@ public class EvaluateDesignController implements Serializable {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		externalContext.setResponseHeader("Content-Type", "application");
-		externalContext.setResponseHeader("Content-Length", "4");
+		externalContext.setResponseHeader("Content-Length", ""+designEntity.getDesignZIP().length);
 		externalContext.setResponseHeader("Content-Disposition",
-				"attachment;filename=\"" + "Design.zip" + "\"");
+				"attachment;filename=\"" + designEntity.getFileName() + "\"");
 		try {
 			externalContext.getResponseOutputStream().write(
 					designEntity.getDesignZIP());

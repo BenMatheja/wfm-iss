@@ -145,9 +145,9 @@ public class CustomerService {
 				// Part two is attachment
 				messageBodyPart = new MimeBodyPart();
 				DataSource source = new ByteArrayDataSource(
-						design.getDesignZIP(), "application/zip");
+						design.getDesignZIP(), "image/jpeg");
 				messageBodyPart.setDataHandler(new DataHandler(source));
-				messageBodyPart.setFileName("Design.zip");
+				messageBodyPart.setFileName(design.getFileName());
 				multipart.addBodyPart(messageBodyPart);
 				// Put parts in message
 				message.setContent(multipart);

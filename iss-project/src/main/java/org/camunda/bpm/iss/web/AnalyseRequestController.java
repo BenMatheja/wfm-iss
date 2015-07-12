@@ -92,9 +92,16 @@ public class AnalyseRequestController implements Serializable{
 
 	public void response() throws IOException {
 		  // respond to PB
+			if(businessProcess == null)
+				taskForm.startTaskForm();
+			
 		  addInfoRequestEntity.setAvailable(true);
 		  addInfoRequestService.mergeAndComplete(addInfoRequestEntity);
-		  
+
+		  LOGGER.log(Level.INFO, "business Process is null?: " + (businessProcess==null));
+		  LOGGER.log(Level.INFO, "addInfoResp is null?: " + (addInfoResp==null));
+		  LOGGER.log(Level.INFO, "addInfoRespPbId is null?: " + (businessProcess.getVariable("addInfoRequestPbId")==null));
+		  addInfoResp.setAddtitionalInfoId((Long) businessProcess.getVariable("addInfoRequestPbId"));
 		// specify the REST web service to interact with
 			String baseUrl = GlobalDefinitions.getPbBaseURL();
 			String relativeUrl = GlobalDefinitions.URL_API_PB_RECEIVE_ADDITIONAL_INFORMATION_RESPONSE;
