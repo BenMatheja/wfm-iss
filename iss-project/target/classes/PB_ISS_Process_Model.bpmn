@@ -108,7 +108,7 @@
       <bpmn2:outgoing>SequenceFlow_31</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:sequenceFlow id="SequenceFlow_31" name="" sourceRef="SendTask_8" targetRef="IntermediateCatchEvent_4"/>
-    <bpmn2:sendTask id="SendTask_5" camunda:expression="${dummyService.doNothing(execution)}" name="Send design to customer">
+    <bpmn2:sendTask id="SendTask_5" camunda:expression="${customerService.mailCustomer(execution)}" name="Send design to customer">
       <bpmn2:incoming>SequenceFlow_23</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_32</bpmn2:outgoing>
     </bpmn2:sendTask>

@@ -95,7 +95,7 @@ public class ConductPaymentController implements Serializable{
 		    ExternalContext externalContext = facesContext.getExternalContext();
 		    externalContext.setResponseHeader("Content-Type", "application");
 		    externalContext.setResponseHeader("Content-Length", "4");
-		    externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"" + "Super File" + "\"");
+		    externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"" + "Bill.pdf" + "\"");
 		    try {
 				externalContext.getResponseOutputStream().write(billEntity.getBill());
 			} catch (IOException e) {
