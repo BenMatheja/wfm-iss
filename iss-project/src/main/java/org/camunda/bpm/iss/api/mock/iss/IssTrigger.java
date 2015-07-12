@@ -1,5 +1,6 @@
 package org.camunda.bpm.iss.api.mock.iss;
 
+import java.nio.ByteBuffer;
 import java.util.logging.Logger;
 
 import javax.jws.WebService;
@@ -8,7 +9,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.map.ObjectMapper;
-
 import org.camunda.bpm.iss.entity.util.GlobalDefinitions;
 import org.camunda.bpm.iss.DTO.out.AddInfoRequestDTO;
 import org.camunda.bpm.iss.DTO.out.BillDTO;
@@ -142,7 +142,11 @@ public class IssTrigger{
         //Create DTO for the API call
         DesignDTO designDTO = new DesignDTO();
         designDTO.setJobId(1);
-        designDTO.setDesignZIP(null);
+        
+        ByteBuffer b = ByteBuffer.allocate(4);        
+        b.putInt(0xAABBCCDD);
+     
+        designDTO.setDesignZIP(b.array());
         
         String jsonToSend = null;
         try {    

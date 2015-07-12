@@ -6,6 +6,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ConversationScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -100,6 +102,25 @@ public class EvaluateDesignController implements Serializable {
 
 	public void setDesignFeedback(DesignFeedbackDTO designFeedback) {
 		this.designFeedback = designFeedback;
+	}
+	
+	public void startDownload() {
+	    designEntity = getDesignEntity();
+	    	
+	    
+	    FacesContext facesContext = FacesContext.getCurrentInstance();
+	    ExternalContext externalContext = facesContext.getExternalContext();
+	    externalContext.setResponseHeader("Content-Type", "application");
+	    externalContext.setResponseHeader("Content-Length", "4");
+	    externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"" + "Super File" + "\"");
+	    try {
+			externalContext.getResponseOutputStream().write(designEntity.getDesignZIP());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    facesContext.responseComplete();
+
 	}
 
 	public void accept() throws IOException {
