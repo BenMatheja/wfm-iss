@@ -24,10 +24,23 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
      
   	<h2>Evaluate Design</h2>
   	<div class="details">
-  	    	<h3>Project data</h3>    		
-      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
-				<h:outputLabel value="Project title:                                 " />
-			 	<h:outputLabel value="#{evaluateDesignController.projectEntity.title}"/>					
+  	    	<h3>Project data</h3> 
+  	    	
+  	    	<style>
+ .cola{
+ 	width: 30%;
+ 	padding-left: 10px;
+ }
+ .colb{
+ 	width: 70%
+ }
+ 
+ </style>     		
+      			<h:panelGrid style="width: 80%;	margin:0px 0px 30px 10px;" columns="2" columnClasses="cola,colb" footerClass="form-footer">
+				<h:outputLabel value="Project title:" />
+			 	<h:outputLabel value="#{evaluateDesignController.projectEntity.title}"/>
+			 	<h:outputLabel value="Design title:" />
+				<h:outputLabel value="#{considerStatusUpdateController.designTitle}" />					
 				</h:panelGrid> 	        			     			
   			<div class="details">      
       		<h3>Design evaluation</h3></div>
@@ -42,12 +55,12 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 								placeholder="Why do you / don't you like the design?"
 								style="margin: -10px 0px 0px 20px" />
 						</label>
-						<p:message for="designComment" />
+						
 					</p>
 				</h:panelGrid>
       			
-      			<h:commandButton id="accept_button" value="Accept Design" action="#{evaluateDesignController.accept}"  style="margin: 0px 0px 0px 25px"/>				
-				<h:commandButton id="decline_button" value="Decline Design" action="#{evaluateDesignController.decline}"  style="margin: 0px 0px 0px 25px"/> 	  			   		  			   			
+      			<h:commandButton id="accept_button" value="Accept Design" action="#{evaluateDesignController.accept}"  style="margin: 0px 25px 0px 25px"/>				
+				<h:commandButton id="decline_button" value="Decline Design" action="#{evaluateDesignController.decline}"  style="margin: 0px 25px 0px 0px"/> 	  			   		  			   			
     			<h:commandButton id="cancel_button" value="Discard Response" onclick="history.go(-1)" />    		
 			</div>
   	</h:form>

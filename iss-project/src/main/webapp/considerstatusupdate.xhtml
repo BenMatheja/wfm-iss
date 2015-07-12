@@ -25,20 +25,24 @@
 
 			<h2>Design Status Update</h2>
 			<div class="details">
+			
+	<style>
+ .cola{
+ 	width: 30%;
+ }
+ .colb{
+ 	width: 70%
+ }
+ 
+ </style>   
 
-				<h:panelGrid columns="2"
-					style="width: 80%; margin:0px 0px 30px 10px;"
-					footerClass="form-footer">
-					<h:outputLabel
-						value="Project title:                                 " />
-					<h:outputLabel
-						value="#{considerStatusUpdateController.projectEntity.title}" />
+				<h:panelGrid style="width: 80%;	margin:0px 0px 30px 10px;" columns="2" columnClasses="cola,colb" footerClass="form-footer">
+					<h:outputLabel value="Project title:" />
+					<h:outputLabel value="#{considerStatusUpdateController.projectEntity.title}" />
 					<h:outputLabel value="Design title:" />
-					<h:outputLabel
-						value="#{considerStatusUpdateController.designTitle}" />
+					<h:outputLabel value="#{considerStatusUpdateController.designTitle}" />
 					<h:outputLabel value="Status update:" />
-					<h:outputLabel
-						value="#{considerStatusUpdateController.statusUpdateEntity.message}" />
+					<h:outputLabel value="#{considerStatusUpdateController.statusUpdateEntity.message}" />
 				</h:panelGrid>
 				<h:commandButton id="submit_button" value="Confirm status update"
 					action="#{considerStatusUpdateController.submit()}"
