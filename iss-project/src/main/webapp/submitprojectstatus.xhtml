@@ -1,101 +1,51 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core">
+ 
 <ui:composition template="/resources/master.xhtml">
 	<ui:define name="metadata">
-		<f:metadata>
-			<f:event type="preRenderView"
-				listener="#{camundaTaskForm.startTaskForm()}" />
-		</f:metadata>
-	</ui:define>
-
+	<f:metadata>   
+		<f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+	</f:metadata>
+	</ui:define>	
+	
 	<ui:define name="title">Submit Project Status</ui:define>
 	<ui:define name="content">
-		<script name="jquery/jquery.js" library="primefaces"></script>
-		<h:form id="submitForm" class="basic-grey">
-
-			<div class="details">
-				<h2>Project Data</h2>
-				<h:form>
-					<h:panelGrid columns="2" columnClasses="form-label, form-label">
-						<h:outputLabel value="Project Title" />
-						<h:inputText
-							value="#{submitProjectStatusController.project.title}"
-							for="{submitProjectStatusController.project.title}" />
-						<h:outputLabel value="Customer Name" />
-						<h:outputText
-							value="#{submitProjectStatusController.customer.name}" />
-						<h:outputLabel value="Project Start: " />
-						<h:outputText
-							value="#{submitProjectStatusController.project.projectStart}">
-							<f:convertDateTime pattern="yyyy-MM-dd" />
-						</h:outputText>
-						<h:outputLabel value="Project End: " />
-						<p:calendar id="deadline"
-							value="#{submitProjectStatusController.project.projectEnd}"
-							pattern="yyyy-MM-dd" required="true"
-							requiredMessage="End date required">
-							<p:watermark for="deadline"
-								value="#{submitProjectStatusController.project.projectEnd}" />
-						</p:calendar>
-					</h:panelGrid>
-				</h:form>
-				<h3>Last Meeting Minutes</h3>
-				<h:panelGrid columns="2" columnClasses="form-label, form-output">
-					<h:outputLabel value="Appointment Topic: " />
-					<h:outputText
-						value="#{submitProjectStatusController.meetingMinutes.appointment.title}" />
-					<h:outputLabel value="From: " />
-					<h:outputText
-						value="#{submitProjectStatusController.meetingMinutes.appointment.date}">
-						<f:convertDateTime pattern="yyyy-MM-dd" />
-					</h:outputText>
-					<h:outputLabel value="Notes: " />
-					<h:commandButton id="downloadButton" value="Download Notes"
-						action="#{submitProjectStatusController.startDownload()}" />
-				</h:panelGrid>
-
-				<h3>History of Deliverables</h3>
-				<h:dataTable value="#{submitProjectStatusController.deliverables}"
-					var="cur" styleClass="data-table"
-					headerClass="data-cell header-cell"
-					columnClasses="data-cell,data-cell,data-cell,data-cell"
-					rendered="#{not empty submitProjectStatusController.deliverables}">
-					<h:column>
-						<f:facet name="header">Title</f:facet>
-						<h:outputText value="#{cur.title}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Description</f:facet>
-						<h:outputText value="#{cur.description}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Download File</f:facet>
-						<h:commandButton value="Download #{cur.title}"
-							action="#{submitProjectStatusController.startDownload(cur)}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Submit Date</f:facet>
-						<h:outputText value="#{cur.timestamp}">
-							<f:convertDateTime pattern="yyyy-MM-dd hh:mm" />
-						</h:outputText>
-					</h:column>
-				</h:dataTable>
-				<p>
-					<h:commandButton id="Cancel" value="Cancel"
-						onclick="history.go(-1)" />
-					<h:commandButton id="discardProjectStatus"
-						value="Project still pending"
-						action="#{submitProjectStatusController.pending}" />
-					<h:commandButton id="submitProjectStatus" value="Project finished"
-						action="#{submitProjectStatusController.finished}" />
-				</p>
-			</div>
-		</h:form>
-	</ui:define>
+		<div class="details">	
+			<h2>Project Data</h2>
+			<h:form>
+	 		<h:panelGrid columns="2" columnClasses="form-label, form-label">
+	 			<h:outputLabel value="Project title" />
+			 	<h:outputLabel value="#{initiateProjectController.projectEntity.projectTitle}"/>
+	 			<h:outputLabel value="Customer name" />
+			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.name}"/>
+	 			<h:outputLabel value="Project start" />
+			 	<h:outputLabel value="#{initiateProjectController.projectEntity.projectStart}"/>
+			 	<h:outputLabel value="Project end" />
+			 	<h:outputLabel value="#{initiateProjectController.projectEntity.projectEnd}"/>
+		  	</h:panelGrid>
+	  		</h:form>
+	  		<h2>Change project status</h2>
+			<h:form>
+	 		<h:panelGrid columns="2" columnClasses="form-label, form-label">
+	 			<h:outputLabel value="Project title" />
+			 	<h:outputLabel value="#{initiateProjectController.projectEntity.projectTitle}"/>
+		  	</h:panelGrid>
+	  		</h:form>
+      		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
+        			<p>
+          				<label for="projectStatusreport">Status report</label>
+                    	<h:inputText id="projectStatusreport" value="#{processVariables['projectStatusreport']}" required="true" />
+                    	<h:message for="projectStatusreport" />
+        			</p>
+      		</h:panelGrid>
+	  		Project finished
+	  		<h:selectBooleanCheckbox value="#{processVariables['status']}" />
+ 		  	<h:commandButton id="submitProjectStatus" value="Submit project status" action="#{camundaTaskForm.completeProcessInstanceForm()}" /> 	  			   			
+    	</h:form><h:commandButton id="discardProjectStatus" value="Discard project status" onclick="history.go(-1)" />
+  	</div>
+  </ui:define>
 </ui:composition>
-</html>
+</html>      

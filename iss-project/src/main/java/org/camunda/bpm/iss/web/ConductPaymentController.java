@@ -96,6 +96,7 @@ public class ConductPaymentController implements Serializable{
 		    externalContext.setResponseHeader("Content-Type", "application");
 		    externalContext.setResponseHeader("Content-Length", ""+billEntity.getBill().length);
 		    externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"" + projectEntity.getTitle()+" PinkBlobBill.pdf" + "\"");
+
 		    try {
 				externalContext.getResponseOutputStream().write(billEntity.getBill());
 			} catch (IOException e) {

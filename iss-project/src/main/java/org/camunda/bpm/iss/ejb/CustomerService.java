@@ -38,6 +38,9 @@ public class CustomerService {
 
 	// Inject task form available through the camunda cdi artifact
 	@Inject
+	private TaskForm taskForm;
+
+	@Inject
 	private DesignService designService;
 
 	private static Logger LOGGER = Logger.getLogger(CustomerService.class
@@ -92,13 +95,11 @@ public class CustomerService {
 		String attachment = "0";
 		Design design = null;
 		if (delegateExecution.getVariable("attachment") != null) {
-			attachment = (String) delegateExecution
-					.getVariable("attachment");
+			attachment = (String) delegateExecution.getVariable("attachment");
 			design = designService.getDesign((Long) delegateExecution
 					.getVariable("designId"));
-		} 
-		
-		
+		}
+
 		// Prepare local vars
 		String newline = System.getProperty("line.separator");
 		String envelopedMessage = "Dear " + customer.getName() + "," + mailtext
@@ -145,14 +146,15 @@ public class CustomerService {
 				// Part two is attachment
 				messageBodyPart = new MimeBodyPart();
 				DataSource source = new ByteArrayDataSource(
-						design.getDesignZIP(), "image/jpeg");
+						design.getDesignZIP(), "application/zip");
 				messageBodyPart.setDataHandler(new DataHandler(source));
-				messageBodyPart.setFileName(design.getFileName());
+				messageBodyPart.setFileName("Design.zip");
 				multipart.addBodyPart(messageBodyPart);
 				// Put parts in message
 				message.setContent(multipart);
-				
-				//Unset the attachment value, so further messages don't get the attachment
+
+				// Unset the attachment value, so further messages don't get the
+				// attachment
 				delegateExecution.setVariable(attachment, "0");
 			}
 			Transport.send(message);
@@ -161,5 +163,6 @@ public class CustomerService {
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
+
 	}
 }

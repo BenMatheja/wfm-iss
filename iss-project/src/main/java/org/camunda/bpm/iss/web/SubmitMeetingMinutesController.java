@@ -157,8 +157,7 @@ public class SubmitMeetingMinutesController implements Serializable {
 						.getVariable("appointmentId")));
 		MeetingMinutes persistedMeetingMinutes = meetingMinutesService
 				.create(meetingMinutes);
-		//set Process Variable for last meetingMinutes
-		businessProcess.setVariable("meetingMinutesId", meetingMinutes.getId());
+
 		LOGGER.log(Level.INFO, "These are the Infos for MeetingMinutes:");
 		LOGGER.log(Level.INFO, "ID:  " + persistedMeetingMinutes.getId());
 		LOGGER.log(Level.INFO, "appointmentID:  "

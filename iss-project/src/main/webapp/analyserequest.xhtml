@@ -36,14 +36,12 @@
 
 				<h:panelGrid style="width: 80%;	margin:0px 0px 30px 10px;"
 					columns="2" columnClasses="cola,colb" footerClass="form-footer">
-
 					<h:outputLabel value="Project Title:" />
 
 					<h:outputLabel
 						value="#{analyseRequestController.projectEntity.title}" />
 
 					<h:outputLabel value="Request ID:" />
-
 					<h:outputLabel
 						value="#{analyseRequestController.addInfoRequestEntity.addtitionalInfoId}" />
 
@@ -63,6 +61,7 @@
 				<h:panelGrid style="width: 100%; margin:0px;"
 					footerClass="form-footer">
 					<p:message for="requestAnswer" />
+					
 					<p>
 						<label> <p:inputText id="requestAnswer"
 								value="#{analyseRequestController.addInfoResp.answer}"

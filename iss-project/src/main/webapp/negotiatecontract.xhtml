@@ -16,9 +16,13 @@
   
   	<h:form id="submitForm" class="basic-grey">
   	
+    <h:panelGrid columns="2" style="width: 100%; margin:0px 0px 0px 0px;" footerClass="form-footer">
   	<h1>ISS 
         <span>We reach for the stars</span>
         </h1>
+	<h4><h:graphicImage value="resources/Images_header/ISS_Logo.png"  height="42px" width="73px" style="margin: -100px 0px 0px 300px"/></h4>
+	</h:panelGrid> 
+	
   	<h2>Negotiate Contract</h2>
   	<div class="details">
   	    	<h3>Customer data</h3>    		
@@ -29,7 +33,8 @@
 			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.address}"/>
 			 	<h:outputLabel value="E-Mail:" />
 			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.email}"/>	
-				</h:panelGrid> 	        			     			    
+				</h:panelGrid> 	
+			<h3>Contract details</h3>         			     			    
       			<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
         			<p>
           				<label> 
@@ -44,12 +49,8 @@
                 		<p:message for="contractDescription" />
                     </p>  
                 </h:panelGrid>
-                <h:panelGrid columns="2" style="width: 80%; margin:0px 0px 0px 10px;" footerClass="form-footer">
-                <h:outputLabel value="Send for submittal?" />
-                <h:commandButton id="submit_button" value="Ok" action="#{negotiateContractController.confirmRequest()}" />
-				<h:outputLabel value=" " />
-				<h:commandButton id="cancel_button" value="Cancel" onclick="history.go(-1)" />
-                </h:panelGrid>    			
+                <h:commandButton id="submit_button" value="Submit contract" action="#{negotiateContractController.confirmRequest()}"  style="margin: 0px 0px 0px 25px"/>
+				<h:commandButton id="cancel_button" value="Discard contract" onclick="history.go(-1)"/> 			
   	</div>
   	</h:form>
   </ui:define>
