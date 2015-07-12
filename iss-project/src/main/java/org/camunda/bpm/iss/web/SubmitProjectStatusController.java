@@ -2,6 +2,7 @@ package org.camunda.bpm.iss.web;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,9 +15,11 @@ import javax.inject.Named;
 import org.camunda.bpm.engine.cdi.BusinessProcess;
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.iss.ejb.CustomerService;
+import org.camunda.bpm.iss.ejb.DeliverableService;
 import org.camunda.bpm.iss.ejb.MeetingMinutesService;
 import org.camunda.bpm.iss.ejb.ProjectService;
 import org.camunda.bpm.iss.entity.Customer;
+import org.camunda.bpm.iss.entity.Deliverable;
 import org.camunda.bpm.iss.entity.MeetingMinutes;
 import org.camunda.bpm.iss.entity.Project;
 
@@ -42,11 +45,15 @@ public class SubmitProjectStatusController implements Serializable {
 	
 	@Inject
 	private TaskForm taskform;
+	
+	@Inject
+	private DeliverableService deliverableService;
 
 	private Project project;
 	private Customer customer;
 	//only the last meeting minutes
 	private MeetingMinutes meetingMinutes;
+	private Collection<Deliverable> deliverables;
 
 	public Project getProject() {
 		if (project == null) {
@@ -73,7 +80,15 @@ public class SubmitProjectStatusController implements Serializable {
 		}
 		return meetingMinutes;
 	}
+	
+	public Collection<Deliverable> getDeliverables(){
+		if (deliverables == null){
+			deliverables = deliverableService.getAllDeliverables();
+		}
+		return deliverables;
+	}
 
+	//for the last meeting minute
 	public void startDownload() {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -85,6 +100,26 @@ public class SubmitProjectStatusController implements Serializable {
 		try {
 			externalContext.getResponseOutputStream().write(
 					meetingMinutes.getFile());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		facesContext.responseComplete();
+
+	}
+	
+	//for each of the listed deliverables
+	public void startDownload(Deliverable deliverable) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		externalContext.setResponseHeader("Content-Type", "application");
+		externalContext.setResponseHeader("Content-Length", ""+deliverable.getExecutableVersion().length);
+		externalContext.setResponseHeader("Content-Disposition",
+				"attachment;filename=\"" + deliverable.getFileName() + "\"");
+		try {
+			externalContext.getResponseOutputStream().write(
+					deliverable.getExecutableVersion());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

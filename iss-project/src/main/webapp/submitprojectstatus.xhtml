@@ -23,47 +23,78 @@
 				<h:form>
 					<h:panelGrid columns="2" columnClasses="form-label, form-label">
 						<h:outputLabel value="Project Title" />
-						<h:inputText value="#{submitProjectStatusController.project.title}"
-							for="{submitProjectStatusController.project.title}"/>
+						<h:inputText
+							value="#{submitProjectStatusController.project.title}"
+							for="{submitProjectStatusController.project.title}" />
 						<h:outputLabel value="Customer Name" />
-						<h:outputText value="#{submitProjectStatusController.customer.name}" />
-						<h:outputLabel value="Project Start: "/>
-						<h:outputText value="#{submitProjectStatusController.project.projectStart}" >
-							<f:convertDateTime pattern="yyyy-MM-dd"/>
+						<h:outputText
+							value="#{submitProjectStatusController.customer.name}" />
+						<h:outputLabel value="Project Start: " />
+						<h:outputText
+							value="#{submitProjectStatusController.project.projectStart}">
+							<f:convertDateTime pattern="yyyy-MM-dd" />
 						</h:outputText>
 						<h:outputLabel value="Project End: " />
 						<p:calendar id="deadline"
 							value="#{submitProjectStatusController.project.projectEnd}"
 							pattern="yyyy-MM-dd" required="true"
 							requiredMessage="End date required">
-							<p:watermark for="deadline" value="#{submitProjectStatusController.project.projectEnd}"/>
+							<p:watermark for="deadline"
+								value="#{submitProjectStatusController.project.projectEnd}" />
 						</p:calendar>
 					</h:panelGrid>
 				</h:form>
 				<h2>Last Meeting Minutes</h2>
 				<h:panelGrid columns="2" columnClasses="form-label, form-output">
-				<h:outputLabel value="Appointment Topic: "/>
-				<h:outputText value="#{submitProjectStatusController.meetingMinutes.appointment.title}" />
-				<h:outputLabel value="From: " />
-				<h:outputText value="#{submitProjectStatusController.meetingMinutes.appointment.date}">
-					<f:convertDateTime pattern="yyyy-MM-dd"/>
-				</h:outputText>
-				<h:outputLabel value="Notes: "/>
-				<h:commandButton id="downloadButton" 
-					value="Download Notes" 
-					action="#{submitProjectStatusController.startDownload()}" />
+					<h:outputLabel value="Appointment Topic: " />
+					<h:outputText
+						value="#{submitProjectStatusController.meetingMinutes.appointment.title}" />
+					<h:outputLabel value="From: " />
+					<h:outputText
+						value="#{submitProjectStatusController.meetingMinutes.appointment.date}">
+						<f:convertDateTime pattern="yyyy-MM-dd" />
+					</h:outputText>
+					<h:outputLabel value="Notes: " />
+					<h:commandButton id="downloadButton" value="Download Notes"
+						action="#{submitProjectStatusController.startDownload()}" />
 				</h:panelGrid>
-				
-				<h:commandButton id="Cancel"
-					value="Cancel"
-					onclick="history.go(-1)" />
-				<h:commandButton id="discardProjectStatus"
-					value="Project still pending" 
-					action="#{submitProjectStatusController.pending}" />
-				<h:commandButton id="submitProjectStatus"
-					value="Project finished"
-					action="#{submitProjectStatusController.finished}" />
-			</div>	
+
+				<h3>History of Deliverables</h3>
+				<h:dataTable value="#{submitProjectStatusController.deliverables}"
+					var="cur" styleClass="data-table"
+					headerClass="data-cell header-cell"
+					columnClasses="data-cell,data-cell,data-cell,data-cell"
+					rendered="#{not empty submitProjectStatusController.deliverables}">
+					<h:column>
+						<f:facet name="header">Title</f:facet>
+						<h:outputText value="#{cur.title}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Description</f:facet>
+						<h:outputText value="#{cur.description}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Download File</f:facet>
+						<h:commandButton value="download #{cur.title}"
+							action="#{submitProjectStatusController.startDownload(cur)}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Submit Date</f:facet>
+						<h:outputText value="#{cur.timestamp}">
+							<f:convertDateTime pattern="yyyy-MM-dd hh:mm" />
+						</h:outputText>
+					</h:column>
+				</h:dataTable>
+				<h:form>
+					<h:commandButton id="Cancel" value="Cancel"
+						onclick="history.go(-1)" />
+					<h:commandButton id="discardProjectStatus"
+						value="Project still pending"
+						action="#{submitProjectStatusController.pending}" />
+					<h:commandButton id="submitProjectStatus" value="Project finished"
+						action="#{submitProjectStatusController.finished}" />
+				</h:form>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>
