@@ -44,7 +44,7 @@
 						</p:calendar>
 					</h:panelGrid>
 				</h:form>
-				<h2>Last Meeting Minutes</h2>
+				<h3>Last Meeting Minutes</h3>
 				<h:panelGrid columns="2" columnClasses="form-label, form-output">
 					<h:outputLabel value="Appointment Topic: " />
 					<h:outputText
@@ -75,7 +75,7 @@
 					</h:column>
 					<h:column>
 						<f:facet name="header">Download File</f:facet>
-						<h:commandButton value="download #{cur.title}"
+						<h:commandButton value="Download #{cur.title}"
 							action="#{submitProjectStatusController.startDownload(cur)}" />
 					</h:column>
 					<h:column>
@@ -85,7 +85,7 @@
 						</h:outputText>
 					</h:column>
 				</h:dataTable>
-				<h:form>
+				<p>
 					<h:commandButton id="Cancel" value="Cancel"
 						onclick="history.go(-1)" />
 					<h:commandButton id="discardProjectStatus"
@@ -93,7 +93,7 @@
 						action="#{submitProjectStatusController.pending}" />
 					<h:commandButton id="submitProjectStatus" value="Project finished"
 						action="#{submitProjectStatusController.finished}" />
-				</h:form>
+				</p>
 			</div>
 		</h:form>
 	</ui:define>
