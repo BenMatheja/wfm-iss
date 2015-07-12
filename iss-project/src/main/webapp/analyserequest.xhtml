@@ -21,39 +21,49 @@
      
   	<h2>Analyse Request</h2>
   	<div class="details">
-  	    	<h3>Project data</h3>    		
-      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
-				<h:outputLabel value="Project Title:" />
-			 	<h:outputLabel value="#{analyseRequestController.projectEntity.title}"/>
-				<h:outputLabel value="Request ID:" />
-			 	<h:outputLabel value="#{analyseRequestController.addInfoRequestEntity.addtitionalInfoId}"/>
+  	    	<h3>Project data</h3> 
+  	    	
+<style>
+ .cola{
+ 	width: 30%;
+ }
+ .colb{
+ 	width: 70%
+ }
+ 
+ </style>   
+ 		
+      			<h:panelGrid style="width: 80%;	margin:0px 0px 30px 10px;" columns="2" columnClasses="cola,colb" footerClass="form-footer">
+				
+					<h:outputLabel value="Project Title:" />
+			
+			 		<h:outputLabel value="#{analyseRequestController.projectEntity.title}"/>
+			 	
+					<h:outputLabel value="Request ID:" />
+			
+			 		<h:outputLabel value="#{analyseRequestController.addInfoRequestEntity.addtitionalInfoId}"/>
+			 
 				</h:panelGrid> 	        			     			
   			<div class="details">      
       		<h3>Design details</h3></div>
-  	    		<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+  	    		<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" columnClasses="cola,colb" footerClass="form-footer">
 				<h:outputLabel value="Design title:" />
 			 	<h:outputLabel value="#{analyseRequestController.designTitle}"/>
 			 	<h:outputLabel value="Request:" />
 			 	<h:outputLabel value="#{analyseRequestController.addInfoRequestEntity.question}"/>
 				</h:panelGrid>
-				<h:panelGrid style="width: 100%; margin:0px;"
-					footerClass="form-footer">
+				<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
+					<p:message for="requestAnswer" />
 					<p>
-						<label> <p:inputText id="requestAnswer"
-								value="#{analyseRequestController.addInfoResp.answer}" required="false"
-								placeholder="Answer to request:" />
-						</label>
-						<p:message for="requestAnswer" />
+						<label> <p:inputText id="requestAnswer"	value="#{analyseRequestController.addInfoResp.answer}" required="false"	placeholder="Answer to request:" /></label>
+						
 					</p>
 				</h:panelGrid>
-				<h:commandButton id="answer_button" value="Respond to Pink Blob" action="#{analyseRequestController.response()}"  style="margin: 0px 0px 0px 25px"/>
-				<h:panelGrid style="width: 100%; margin:0px;"
-					footerClass="form-footer">
+				<h:commandButton id="answer_button" value="Respond to Pink Blob" action="#{analyseRequestController.response()}"  style="margin: 0px 0px 25px 25px"/>
+				<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
+					<p:message for="customerComment" />
 					<p>
-						<label> <p:inputText id="customerComment"
-								value="#{processVariables['customerComment']}" required="false"
-								placeholder="Additional information for customer"
-								style="margin: -10px 0px 0px 20px" />
+						<label> <p:inputText id="customerComment" value="#{processVariables['customerComment']}" required="false" placeholder="Additional information for customer"	style="margin: -10px 0px 0px 20px" />
 						</label>
 						<p:message for="customerComment" />
 					</p>
