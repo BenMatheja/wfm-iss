@@ -22,7 +22,11 @@ public class Bill implements Serializable {
 	//See: DesigntDTO.java
 	@Lob
 	private byte[] bill;
-		
+			
+	public long getId() {
+		return id;
+	}
+
 	public long getJobId() {
 		return jobId;
 	}

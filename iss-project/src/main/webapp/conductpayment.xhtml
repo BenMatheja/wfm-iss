@@ -27,15 +27,14 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
   	    	<h3>Project data</h3>    		
       			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
 				<h:outputLabel value="Project title:                                 " />
-			 	<h:outputLabel value="#{initiateProjectController.project.title}"/>
-				<h:outputLabel value="Request ID:" />
-			 	<h:outputLabel value="#{analyseRequestController.customerBillEntity.requestID}"/>
+			 	<h:outputLabel value="#{conductPaymentController.projectEntity.title}"/>				
 				</h:panelGrid> 	        			     			
   			<div class="details">      
       		<h3>Payment details</h3></div>
       			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 0px 10px;" footerClass="form-footer">
+      			Download Bill here
 				</h:panelGrid>    			
-    			<h:commandButton id="submit_button" value="Confirm Settlement" action="#{camundaTaskForm.completeProcessInstanceForm()}"  style="margin: 0px 0px 0px 25px"/> 	  			   			
+    			<h:commandButton id="submit_button" value="Confirm Settlement" action="#{conductPaymentController.submit()}"  style="margin: 0px 0px 0px 25px"/> 	  			   			
     			<h:commandButton id="cancel_button" value="Discard Settlement" onclick="history.go(-1)" />
   	</div>
   	</h:form>
