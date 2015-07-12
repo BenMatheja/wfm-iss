@@ -16,12 +16,9 @@
   
   	<h:form id="submitForm" class="basic-grey">
   	
-    <h:panelGrid columns="2" style="width: 100%; margin:0px 0px 0px 0px;" footerClass="form-footer">
   	<h1>ISS 
         <span>We reach for the stars</span>
         </h1>
-	<h4><h:graphicImage value="resources/Images_header/ISS_Logo.png"  height="42px" width="73px" style="margin: -100px 0px 0px 300px"/></h4>
-	</h:panelGrid> 
      
   	<h2>Evaluate Appointment</h2>
   	<div class="details">
@@ -54,10 +51,10 @@
 			  	<h:outputText value="#{evaluateAppointmentController.appointmentEntity.title}" />
 			   	<h:outputLabel value="Next appointment:" />
 			  	<h:outputText value="#{evaluateAppointmentController.appointmentEntity.date}" >
-			  			<f:convertDateTime pattern="yyyy-MM-dd"/>
+			  			<f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
 	  			</h:outputText>	
 		  		<h:outputLabel value="Approve Appointment?"/>
-		  		<h:commandButton id="confirmButton" value="Approve appointment" action="#{evaluateAppointmentController.confirmRequest()}" style="margin: 5px 0px 0px 0px"/>  
+		  		<h:commandButton id="confirmButton" value="Approve appointment" action="#{evaluateAppointmentController.confirmRequest()}" />  
 		  		<h:outputLabel value=" " />
 	   			<h:commandButton id="declineButton" value="Reject appointment" action="#{evaluateAppointmentController.declineRequest()}" />
 			 	</h:panelGrid> 			
