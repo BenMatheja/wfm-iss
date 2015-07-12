@@ -90,7 +90,7 @@
       <bpmn2:outgoing>SequenceFlow_14</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:sequenceFlow id="SequenceFlow_14" name="" sourceRef="SendTask_3" targetRef="UserTask_4"/>
-    <bpmn2:serviceTask id="ServiceTask_InformAccounting" camunda:expression="$(true)" name="Inform Accounting">
+    <bpmn2:serviceTask id="ServiceTask_InformAccounting" camunda:expression="${informAccounting.calcTime(execution)}" name="Inform Accounting">
       <bpmn2:incoming>SequenceFlow_35</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_41</bpmn2:outgoing>
     </bpmn2:serviceTask>
