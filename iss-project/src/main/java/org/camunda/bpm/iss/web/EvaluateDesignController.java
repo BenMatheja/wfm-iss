@@ -103,64 +103,85 @@ public class EvaluateDesignController implements Serializable {
 	public void setDesignFeedback(DesignFeedbackDTO designFeedback) {
 		this.designFeedback = designFeedback;
 	}
-	
+
 	public void startDownload() {
-	    designEntity = getDesignEntity();
-	    	
-	    
-	    FacesContext facesContext = FacesContext.getCurrentInstance();
-	    ExternalContext externalContext = facesContext.getExternalContext();
-	    externalContext.setResponseHeader("Content-Type", "application");
-	    externalContext.setResponseHeader("Content-Length", "4");
-	    externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"" + "Super File" + "\"");
-	    try {
-			externalContext.getResponseOutputStream().write(designEntity.getDesignZIP());
+		designEntity = getDesignEntity();
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		externalContext.setResponseHeader("Content-Type", "application");
+		externalContext.setResponseHeader("Content-Length", "4");
+		externalContext.setResponseHeader("Content-Disposition",
+				"attachment;filename=\"" + "Design.zip" + "\"");
+		try {
+			externalContext.getResponseOutputStream().write(
+					designEntity.getDesignZIP());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    facesContext.responseComplete();
+		facesContext.responseComplete();
 
 	}
 
 	public void accept() throws IOException {
-		  // respond to PB
-		  designEntity = getDesignEntity();
-		  designEntity.setApproved(true);
-		  designService.mergeAndComplete(designEntity);
-		  
-		  LOGGER.log(Level.INFO,"This is the jobId" + businessProcess.getVariable("jobId"));
-		  designFeedback.setApproved(true);
-		  designFeedback.setJobId((long) businessProcess.getVariable("jobId"));
-		  
-		  
-		// specify the REST web service to interact with
-			String baseUrl = GlobalDefinitions.getPbBaseURL();
-			String relativeUrl = GlobalDefinitions.URL_API_PB_RECEIVE_DESIGN_FEEDBACK;
-			String url = baseUrl + relativeUrl;
+		// respond to PB
+		designEntity = getDesignEntity();
+		designEntity.setApproved(true);
+		designService.mergeAndComplete(designEntity);
 
-			 String jsonToSend = null;
-		        try {    
-		            //Instantiate JSON mapper
-		            ObjectMapper mapper = new ObjectMapper();
-		            //Log request dto
-		            LOGGER.info("Sent DTO: " + mapper.writeValueAsString(designFeedback));
-		           
-		            //Parse to json
-		            jsonToSend = mapper.writeValueAsString(designFeedback);
-		        } catch (Exception e){
-		        	e.printStackTrace();
-		        	Response.serverError().build();
-		        }    
-			
-			// Send
-			Runnable sendThread = new SendThread(
-					jsonToSend, url, 0, "Create Send Thread for designFeedback");
-			new Thread(sendThread).start();			  
-		 
-			taskForm.completeTask();
-			
-	  }	public void decline() throws IOException {
+		LOGGER.log(Level.INFO,
+				"This is the jobId" + businessProcess.getVariable("jobId"));
+		designFeedback.setApproved(true);
+		designFeedback.setJobId((long) businessProcess.getVariable("jobId"));
+
+		// specify the REST web service to interact with
+		String baseUrl = GlobalDefinitions.getPbBaseURL();
+		String relativeUrl = GlobalDefinitions.URL_API_PB_RECEIVE_DESIGN_FEEDBACK;
+		String url = baseUrl + relativeUrl;
+
+		String jsonToSend = null;
+		try {
+			// Instantiate JSON mapper
+			ObjectMapper mapper = new ObjectMapper();
+			// Log request dto
+			LOGGER.info("Sent DTO: "
+					+ mapper.writeValueAsString(designFeedback));
+
+			// Parse to json
+			jsonToSend = mapper.writeValueAsString(designFeedback);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Response.serverError().build();
+		}
+
+		// Send
+		Runnable sendThread = new SendThread(jsonToSend, url, 0,
+				"Create Send Thread for designFeedback");
+		new Thread(sendThread).start();
+
+		// Specify E-Mail to Customer
+		 LOGGER.log(Level.INFO, "This is customerId from businessProcess: " + businessProcess.getVariable("customerId"));
+		
+		String newline = System.getProperty("line.separator");
+
+		String subject = "Project " + projectEntity.getTitle() +": Your design has been finished";
+		String mailtext = newline + "We have received the final design deliverable from our design partner Pink Blob."
+				+ newline + "Please find attached the deliverable."
+				+ newline
+				+ newline + "We will proceed and integrate the design in our final project deliverable."
+				+ newline
+				+ newline + "In case of any enquiries, please do not hesitate contacting us via customerrelations@ISS.de"
+				+ newline + newline;
+		businessProcess.setVariable("subject", subject);
+		businessProcess.setVariable("mailtext", mailtext);
+		businessProcess.setVariable("attachment", "1");
+
+		taskForm.completeTask();
+
+	}
+
+	public void decline() throws IOException {
 		// respond to PB
 
 		designEntity = getDesignEntity();
@@ -170,7 +191,7 @@ public class EvaluateDesignController implements Serializable {
 		LOGGER.info("DesignEntity id: " + designEntity.getId());
 		LOGGER.info("DesignEntity JobId: " + designEntity.getJobId());
 		LOGGER.info("DesignEntity Approved: " + designEntity.isApproved());
-		
+
 		designFeedback.setApproved(false);
 		designFeedback.setJobId((long) businessProcess.getVariable("jobId"));
 
