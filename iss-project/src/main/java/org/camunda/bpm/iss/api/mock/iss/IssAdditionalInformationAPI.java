@@ -76,8 +76,8 @@ public class IssAdditionalInformationAPI{
 		
        
         //Send next API call in new thread, which delays the call
-        Runnable sendThread = new SendThread(jsonToSend, url, 0, "SendAddInfo");
-        new Thread(sendThread).start();        
+//        Runnable sendThread = new SendThread(jsonToSend, url, 0, "SendAddInfo");
+//        new Thread(sendThread).start();        
         
         Map<String,Object> correlationKeys = new HashMap<String,Object>();
 		Map<String,Object> processVariables = new HashMap<String,Object>();
@@ -87,9 +87,10 @@ public class IssAdditionalInformationAPI{
 		
 		processVariables.put("addInfoRequestPbId",infoRequest.getAddtitionalInfoId());
 		processVariables.put("addInfoRequestId",persistedAddInfoRequest.getId());
+		
 		LOGGER.info("Put addInfoRequestPbId: " + infoRequest.getAddtitionalInfoId() + "into process variables");
 		LOGGER.info("Put addInfoRequestId: " + persistedAddInfoRequest.getId() + "into process variables");
-		
+
 		rs.correlateMessage("addinf_request", correlationKeys, processVariables);
         
         LOGGER.info("Successfully reached the end of IssAdditionalInformationAPI!");

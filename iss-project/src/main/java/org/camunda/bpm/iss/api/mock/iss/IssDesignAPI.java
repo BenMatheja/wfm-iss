@@ -73,6 +73,7 @@ public class IssDesignAPI {
         Design designEntity = new Design();
         designEntity.setJobId(design.getJobId());
         designEntity.setDesignZIP(design.getDesignZIP());
+        designEntity.setFileName(design.getFileName());
         
         Design persistedDesign = designService.create(designEntity);
 		LOGGER.info("Design persisted id: " + persistedDesign.getId());

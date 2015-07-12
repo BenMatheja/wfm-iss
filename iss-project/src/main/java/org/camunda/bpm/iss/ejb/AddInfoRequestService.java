@@ -42,13 +42,6 @@ public class AddInfoRequestService {
 		// Merge detached customerRequest entity with current persisted state
 
 		em.merge(addInfoRequest);
-
-		try {
-			// Complete user task from
-			taskForm.completeTask();
-		} catch (IOException e) {
-			// Rollback both transactions on error
-			throw new RuntimeException("Cannot complete task", e);
-		}
+		
 	}
 }

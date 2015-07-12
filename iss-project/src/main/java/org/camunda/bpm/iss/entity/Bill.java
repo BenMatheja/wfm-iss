@@ -22,6 +22,8 @@ public class Bill implements Serializable {
 	//See: DesigntDTO.java
 	@Lob
 	private byte[] bill;
+	
+	private double totalSum;
 			
 	public long getId() {
 		return id;
@@ -41,5 +43,13 @@ public class Bill implements Serializable {
 
 	public void setBill(byte[] bill) {
 		this.bill = bill;
+	}
+
+	public double getTotalSum() {
+		return totalSum;
+	}
+
+	public void setTotalSum(double totalSum) {
+		this.totalSum = totalSum;
 	}
 }

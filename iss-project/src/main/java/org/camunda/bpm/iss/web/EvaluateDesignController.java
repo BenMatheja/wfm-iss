@@ -105,16 +105,17 @@ public class EvaluateDesignController implements Serializable {
 	}
 	
 	public void startDownload() {
-	    designEntity = getDesignEntity();
-	    	
-	    
-	    FacesContext facesContext = FacesContext.getCurrentInstance();
-	    ExternalContext externalContext = facesContext.getExternalContext();
-	    externalContext.setResponseHeader("Content-Type", "application");
-	    externalContext.setResponseHeader("Content-Length", "4");
-	    externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\"" + "Super File" + "\"");
-	    try {
-			externalContext.getResponseOutputStream().write(designEntity.getDesignZIP());
+		designEntity = getDesignEntity();
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		externalContext.setResponseHeader("Content-Type", "application");
+		externalContext.setResponseHeader("Content-Length", ""+designEntity.getDesignZIP().length);
+		externalContext.setResponseHeader("Content-Disposition",
+				"attachment;filename=\"" + designEntity.getFileName() + "\"");
+		try {
+			externalContext.getResponseOutputStream().write(
+					designEntity.getDesignZIP());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
