@@ -181,7 +181,10 @@ public class IssTrigger{
         //Create DTO for the API call
         BillDTO billDTO = new BillDTO();
         billDTO.setJobId(1);
-        billDTO.setBill(null);
+        
+        ByteBuffer b = ByteBuffer.allocate(4);        
+        b.putInt(0xAABBCCDD);
+        billDTO.setBill(b.array());
         
         String jsonToSend = null;
         try {    

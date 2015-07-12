@@ -32,7 +32,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
   			<div class="details">      
       		<h3>Payment details</h3></div>
       			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 0px 10px;" footerClass="form-footer">
-      			Download Bill here
+      			<h:commandButton id="download_button" value="Download Bill" action="#{conductPaymentController.startDownload()}" style="margin: 0px 0px 0px 25px" />
 				</h:panelGrid>    			
     			<h:commandButton id="submit_button" value="Confirm Settlement" action="#{conductPaymentController.submit()}"  style="margin: 0px 0px 0px 25px"/> 	  			   			
     			<h:commandButton id="cancel_button" value="Discard Settlement" onclick="history.go(-1)" />
