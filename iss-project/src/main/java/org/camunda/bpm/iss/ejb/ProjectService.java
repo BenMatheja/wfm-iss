@@ -64,13 +64,15 @@ public class ProjectService {
 		  
 	  }
 	  
-	  public void updateProject(Long projectId) throws IOException {
-		  Project project = getProject(projectId);		 
-		  Boolean projectStatus = businessProcess.getVariable("projectStatus");
-		  project.setProjectStatus(projectStatus);
-		  LOGGER.log(Level.INFO, "This is updateProject for project: "+project.toString());
-		  LOGGER.log(Level.INFO, "The project status now is: "+project.getProjectStatus());
-		  entityManager.merge(project);
+	  public Project updateProject(Project project) throws IOException {
+		  Project attachedProject = getProject(project.getId());		 
+		  attachedProject.setProjectStatus(project.getProjectStatus());
+		  attachedProject.setProjectEnd(project.getProjectEnd());
+		  LOGGER.log(Level.INFO, "This is updateProject for project: "+attachedProject.toString());
+		  LOGGER.log(Level.INFO, "The project status now is: "+attachedProject.getProjectStatus());
+		  LOGGER.log(Level.INFO, "This is the new Project Deadline: "+attachedProject.getProjectEnd() );
+		  entityManager.merge(attachedProject);
+		  return attachedProject;
 	  } 
 	  
 }
