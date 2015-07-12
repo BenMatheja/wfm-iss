@@ -27,15 +27,24 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
      
   	<h2>Conduct Payment</h2>
   	<div class="details">
-  	    	<h3>Project data</h3>    		
-      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
-				<h:outputLabel value="Project title:                                 " />
+  	    	<h3>Project data</h3>   
+  	    	<style>
+			 .cola{
+			 	width: 30%;
+			 }
+			 .colb{
+			 	width: 70%
+			 }
+			 </style> 		
+      			<h:panelGrid style="width: 80%;	margin:0px 0px 30px 10px;" columns="2" columnClasses="cola,colb" footerClass="form-footer">
+				<h:outputLabel value="Project title: " />
 			 	<h:outputLabel value="#{conductPaymentController.projectEntity.title}"/>				
 				</h:panelGrid> 	        			     			
   			<div class="details">      
       		<h3>Payment details</h3></div>
-      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 40px 0px;" footerClass="form-footer">
-      			<h:commandButton id="download_button" value="Download Bill" action="#{conductPaymentController.startDownload()}" style="margin: 0px 0px 0px 25px" />
+      			<h:panelGrid style="width: 80%;	margin:0px 0px 30px 10px;" columns="2" columnClasses="cola,colb" footerClass="form-footer">
+				<h:outputLabel value="Bill: " />
+      			<h:commandButton id="download_button" value="Download Bill" action="#{conductPaymentController.startDownload()}" />
 				</h:panelGrid>    			
     			<h:commandButton id="submit_button" value="Confirm Settlement" action="#{conductPaymentController.submit()}"  style="margin: 0px 0px 0px 25px"/> 	  			   			
     			<h:commandButton id="cancel_button" value="Discard Settlement" onclick="history.go(-1)" />

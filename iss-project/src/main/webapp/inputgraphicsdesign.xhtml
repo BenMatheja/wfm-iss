@@ -25,8 +25,18 @@
      
   	<h2>Graphic Design Requirements</h2>
   	<div class="details">
-  	    	<h3>Project details</h3>    		
-      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+  	    	<h3>Project details</h3>    
+  				<style>
+			 .cola{
+			 	width: 50%;
+			 }
+			 .colb{
+			 	width: 50%
+			 }
+			 
+			 </style>    	
+  	    			
+      			<h:panelGrid style="width: 80%;	margin:0px 0px 30px 10px;" columns="2" columnClasses="cola,colb" footerClass="form-footer">
 				<h:outputLabel value="Customer name:                                 " />
 			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.name}"/>
 			 	<h:outputLabel value="Project title: " />

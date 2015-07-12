@@ -49,9 +49,9 @@
 					<h:outputLabel value="Status update:" />
 					<h:outputLabel value="#{considerStatusUpdateController.statusUpdateEntity.message}" />
 				</h:panelGrid>
-				<h:commandButton id="submit_button" value="Confirm status update"
-					action="#{considerStatusUpdateController.submit()}"
-					style="margin: 0px 0px 0px 25px" />
+				<h:commandButton id="submit_button" value="Confirm status update" action="#{considerStatusUpdateController.submit()}" style="margin: 0px 0px 0px 25px" />
+				<h:commandButton id="cancel_button" value="Cancel" onclick="history.go(-1)" />	        						
+  	
 			</div>
 		</h:form>
 	</ui:define>

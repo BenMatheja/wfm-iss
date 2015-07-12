@@ -29,7 +29,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
   	<div class="details">
   	    	<h3>Customer data</h3>    		
       			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
-				<h:outputLabel value="Name:                                 " />
+				<h:outputLabel value="Name: " />
 			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.name}"/>
 				<h:outputLabel value="Address:" />
 			 	<h:outputLabel value="#{evaluateRequestController.customerEntity.address}"/>
@@ -41,15 +41,13 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
       			<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
         			<p>
           				<label> 
-                    	<p:inputText id="contracttitle" value="#{processVariables['contracttitle']}" required="true" placeholder="Contract Title"/>
+                    	<p:inputText id="contracttitle" value="#{processVariables['contracttitle']}" required="true" placeholder="#{checkAndSendContractController.contractEntity.contractTitle}"/>
                     	</label>
-                    	<p:message for="contracttitle" />
                     	</p>
         			<p>
           				<label>
-          				<p:inputText id="contractdescription" value="#{processVariables['contractdescription']}" required="true" placeholder="Contract Description" style="margin: -10px 0px 0px 20px"/>
+          				<p:inputText id="contractdescription" value="#{processVariables['contractdescription']}" required="true" placeholder="#{checkAndSendContractController.contractEntity.contractDescription}" style="margin: -10px 0px 0px 20px"/>
                 		</label>
-                		<p:message for="contractdescription" />
                     </p>	
 				</h:panelGrid> 
     			<h:commandButton id="submit_button" value="Submit Contract" action="#{checkAndSendContractController.confirmRequest()}"  style="margin: 0px 0px 0px 25px"/> 	  			   			

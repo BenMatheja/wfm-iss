@@ -42,7 +42,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 		  		<h:outputLabel value="Description:" />
 		  		<h:outputLabel value="#{evaluateRequestController.customerRequestEntity.text}" style="vertical-align:top;"/>
 		  		<h:outputLabel value="Accept request?" />
-		  		<h:commandButton id="confirmButton" value="Accept Request" action="#{evaluateRequestController.confirmRequest()}" />  
+		  		<h:commandButton id="confirmButton" value="Accept Request" action="#{evaluateRequestController.confirmRequest()}" style="margin:5px 0px 0px 0px;"/>  
 		  		<h:outputLabel value=" " />
 	   			<h:commandButton id="declineButton" value="Decline Request" action="#{evaluateRequestController.declineRequest()}" />
 				</h:panelGrid>    			

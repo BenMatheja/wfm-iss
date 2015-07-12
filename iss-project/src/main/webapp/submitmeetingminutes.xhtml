@@ -1,61 +1,73 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
 
+  
 <f:view>
-	<f:metadata>
-
-		<f:event type="preRenderView"
-			listener="#{camundaTaskForm.startTaskForm()}" />
-	</f:metadata>
-	<h:head>
-		<title>Submit Meeting Minutes</title>
-	</h:head>
-	<h:body>
-
-		<h2>Customer:
-			#{submitMeetingMinutesController.customerEntity.name}</h2>
-
-		<h2>Project Title:
-			#{submitMeetingMinutesController.projectEntity.title}</h2>
-		<h:form enctype="multipart/form-data">
-			<h:panelGrid columns="2" columnClasses="form-label, form-label">
+<ui:composition template="/resources/master2.xhtml">
+  <ui:define name="metadata">
+  <f:metadata>     
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startTaskForm()}" />
+  </f:metadata>
+  </ui:define>
+  <ui:define name="title">Submit Meeting Minutes</ui:define>
+  <ui:define name="content">
+  
+	<h:form enctype="multipart/form-data">
+  	
+    <h:panelGrid columns="2" style="width: 100%; margin:0px 0px 0px 0px;" footerClass="form-footer">
+  	<h1>ISS 
+        <span>We reach for the stars</span>
+        </h1>
+	<h4><h:graphicImage value="resources/Images_header/ISS_Logo.png"  height="42px" width="73px" style="margin: -100px 0px 0px 300px"/></h4>
+	</h:panelGrid> 
+     
+  	<h2>Submit Meeting Minutes</h2>
+  	<div class="details">
+  	    	<h3>Project data</h3>    		
+      			<h:panelGrid columns="2" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+				<h:outputLabel value="Customer name:" />
+			 	<h:outputLabel value="#{submitMeetingMinutesController.customerEntity.name}"/>      			
+				<h:outputLabel value="Project title:" />
+			 	<h:outputLabel value="#{submitMeetingMinutesController.projectEntity.title}"/>
 				<h:outputLabel value="Project start:" />
-				<h:outputLabel
-					value="#{submitMeetingMinutesController.projectEntity.projectStart}" />
-				<h:outputLabel value="Project end:" />
-				<h:outputLabel
-					value="#{submitMeetingMinutesController.projectEntity.projectEnd}" />
-				<h:outputLabel value="Emplyoees:" />
-				<div>
+				<h:outputText value="#{submitMeetingMinutesController.projectEntity.projectStart}">
+			 		<f:convertDateTime pattern="yyyy-MM-dd"/>
+		 		</h:outputText>
+			 	<h:outputLabel value="Project end:" />
+			 	<h:outputText value="#{submitMeetingMinutesController.projectEntity.projectEnd}">
+			 		<f:convertDateTime pattern="yyyy-MM-dd"/>
+			 	</h:outputText>
+			 	<h:outputLabel value="Project team:" />
 				<ui:repeat
 					value="#{submitMeetingMinutesController.projectEntity.employee}"
 					var="emp">
-					<h:outputText value="#{emp.firstName} " /> 
+					<h:outputText value="#{emp.firstName}" />
+					<h:outputText value=" " />
 					<h:outputText value="#{emp.lastName}" />
-					<br/>
+					<h:outputText value=", " />
 				</ui:repeat>
-				</div>
-				<h:outputLabel
-					value="#{submitMeetingMinutesController.appointmentEntity.date}" />
-			</h:panelGrid>
-			<p>
-			<h:inputFile id="file" value="#{submitMeetingMinutesController.file}">
-			</h:inputFile>
-			<h:commandButton value="Post Upload"
-				action="#{submitMeetingMinutesController.upload}" />
-			</p>
-			<h:form id="submitForm" columns="2"
-				columnClasses="form-label,form-label" footer-Class="form-footer">
-				<h:outputLabel value="Submit Meeting Minutes?" />
-				<h:commandButton id="confirmButton" value="Submit meeting minutes"
-					action="#{submitMeetingMinutesController.persist}" />
-				<h:commandButton id="declineButton" value="Discard meeting minutes"
-					onclick="history.go(-1)" />
-			</h:form>
-		</h:form>
-	</h:body>
+				<h:outputLabel value="Date of Appointment:" />
+			 	<h:outputText value="#{submitMeetingMinutesController.appointmentEntity.date}">
+			 		<f:convertDateTime pattern="yyyy-MM-dd"/>
+			 	</h:outputText>
+				</h:panelGrid>
+			<h3>Meeting Minutes</h3> 	     			
+				<p>
+				<h:inputFile id="file" value="#{submitMeetingMinutesController.file}">
+				</h:inputFile>
+				<h:commandButton value="Post Upload"
+					action="#{submitMeetingMinutesController.upload}" />
+
+				</p>
+    			<h:commandButton id="confirmButton" value="Submit meeting minutes" action="#{submitMeetingMinutesController.persist}" style="margin: 0px 0px 0px 25px"/> 	  			   			
+				<h:commandButton id="declineButton" value="Discard meeting minutes" onclick="history.go(-1)" />	
+  	</div>
+  	</h:form>
+  </ui:define>
+</ui:composition>
 </f:view>
 </html>
