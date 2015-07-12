@@ -19,9 +19,12 @@
   
   	<h:form id="submitForm" class="basic-grey">
   	
+    <h:panelGrid columns="2" style="width: 100%; margin:0px 0px 0px 0px;" footerClass="form-footer">
   	<h1>ISS 
         <span>We reach for the stars</span>
         </h1>
+	<h4><h:graphicImage value="resources/Images_header/ISS_Logo.png"  height="42px" width="73px" style="margin: -100px 0px 0px 300px"/></h4>
+	</h:panelGrid> 
      
   	<h2>Propose Appointment</h2>
   	<div class="details">
@@ -51,19 +54,18 @@
 		  	</h:panelGrid>    			
   			<div class="details">      
       		<h3>Appointment proposal</h3></div>
-      			<h:panelGrid style="width: 80%; margin:0px 0px 0px 10px;" footerClass="form-footer">
-					<p>
-          				<label for="title">Appointment Title</label>
-                    	<h:inputText id="title" value="#{proposeAppointmentController.appointment.title}" required="true" />
-                    	<h:message for="title" />
-        			</p>
-        			<p>
-          				<label for="date">Date</label>
-                    	<h:inputText id="date" value="#{proposeAppointmentController.appointment.date}" required="true" p:placeholder="e.g. 2015-06-30">
-                    		<f:convertDateTime pattern="yyyy-MM-dd"/>
-                    	</h:inputText>
-                    	<h:message for="date" />
-        			</p>	
+      			<h:panelGrid columns="3" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+					<h:outputLabel value="Appointment Title:" style="height: 30px; padding: 10px 0px 10px 0px;"/>
+					<h:inputText id="title"
+							value="#{proposeAppointmentController.appointment.title}"
+							required="true" />
+					<h:message for="title" />  
+					<h:outputLabel value="Date:" style="height: 30px; padding: 10px 0px 10px 0px;"/>
+					<p:calendar
+						value="#{proposeAppointmentController.appointment.date}"
+						pattern="yyyy-MM-dd" required="true"
+						requiredMessage="Date required" />
+					<h:message for="date" /> 		
       		</h:panelGrid>
  		  	<h:commandButton id="proposeAppointment" value="Propose Appointment" action="#{proposeAppointmentController.persist}" style="margin: 0px 0px 0px 25px"/> 	  			   			
     		<h:commandButton id="discardAppointment" value="Discard Appointment" onclick="history.go(-1)" />

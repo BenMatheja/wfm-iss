@@ -14,19 +14,23 @@
  
   <ui:define name="title">Customer Request</ui:define> 
   <ui:define name="content">
+
   	<h:form id="submitForm" class="basic-grey">
   	
+    <h:panelGrid columns="2" style="width: 100%; margin:0px 0px 0px 0px;" footerClass="form-footer">
   	<h1>ISS 
         <span>We reach for the stars</span>
         </h1>
-     
+	<h4><h:graphicImage value="resources/Images_header/ISS_Logo.png"  height="42px" width="73px" style="margin: -100px 0px 0px 300px"/></h4>
+	</h:panelGrid> 
+	
   	<h2>Customer Request</h2>
   	<div class="details">
   	    	<h3>Insert Customer Data</h3>    		
       			<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
         			<p>
           				<label> 
-                    	<p:inputText id="name" value="#{processVariables['name']}" required="true" placeholder="Customer name"/>
+                    	<p:inputText id="name" value="#{processVariables['name']}" required="true" placeholder="Customer name" style="margin: -10px 0px 0px 20px"/>
                     	</label>
                     	<p:message for="name" />
                     	</p>
