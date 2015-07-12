@@ -28,9 +28,9 @@
 						<h:outputLabel value="Customer Name" />
 						<h:outputText value="#{submitProjectStatusController.customer.name}" />
 						<h:outputLabel value="Project Start: "/>
-						<h:outputLabel value="#{submitProjectStatusController.project.projectStart}" >
+						<h:outputText value="#{submitProjectStatusController.project.projectStart}" >
 							<f:convertDateTime pattern="yyyy-MM-dd"/>
-						</h:outputLabel>
+						</h:outputText>
 						<h:outputLabel value="Project End: " />
 						<p:calendar id="deadline"
 							value="#{submitProjectStatusController.project.projectEnd}"
@@ -40,6 +40,19 @@
 						</p:calendar>
 					</h:panelGrid>
 				</h:form>
+				<h2>Last Meeting Minutes</h2>
+				<h:panelGrid columns="2" columnClasses="form-label, form-output">
+				<h:outputLabel value="Appointment Topic: "/>
+				<h:outputText value="#{submitProjectStatusController.meetingMinutes.appointment.title}" />
+				<h:outputLabel value="From: " />
+				<h:outputText value="#{submitProjectStatusController.meetingMinutes.appointment.date}">
+					<f:convertDateTime pattern="yyyy-MM-dd"/>
+				</h:outputText>
+				<h:outputLabel value="Notes: "/>
+				<h:commandButton id="downloadButton" 
+					value="Download Notes" 
+					action="#{submitProjectStatusController.startDownload()}" />
+				</h:panelGrid>
 				
 				<h:commandButton id="Cancel"
 					value="Cancel"
