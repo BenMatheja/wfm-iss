@@ -103,7 +103,7 @@ public class CreateBillController implements Serializable{
 	/**This part has to happen definitely in order to make PDF creation working
 	 * 
 	 */
-	String billUser = businessProcess.getTask().getAssignee();
-	  LOGGER.log(Level.INFO, "This task is assigned to: "+billUser);
-	  businessProcess.setVariable("billUser", billUser);
-}
+//	String billUser = businessProcess.getTask().getAssignee();
+//	  LOGGER.log(Level.INFO, "This task is assigned to: "+billUser);
+//	  businessProcess.setVariable("billUser", billUser);
+//}
