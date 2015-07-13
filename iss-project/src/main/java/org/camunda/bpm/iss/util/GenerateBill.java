@@ -117,10 +117,10 @@ public class GenerateBill{
 		document.add(Chunk.NEWLINE);
 		document.add(Chunk.NEWLINE);
 		
-		document.add(getSecondTable(bill));
-		
-		document.add(Chunk.NEWLINE);
-		document.add(Chunk.NEWLINE);
+//		document.add(getSecondTable(bill));
+//		
+//		document.add(Chunk.NEWLINE);
+//		document.add(Chunk.NEWLINE);
 		
 		document.add(getThirdTable(bill));
 				
@@ -230,17 +230,14 @@ public class GenerateBill{
 		table.addCell(" ");
 				
 				
-		table.addCell(new Phrase("Total Sum (VAT excl.)",f));
-		table.addCell("");
-		table.addCell(String.valueOf(bill.getPriceInCent()/100));
+		table.addCell(new Phrase("Total Sum (VAT excl.)",f));		
+		table.addCell(String.valueOf(bill.getPriceInCent()));
 		table.addCell("");
 		table.addCell(new Phrase ("19.00% VAT", f));
+		table.addCell(String.valueOf((bill.getPriceInCent())*0.19));
 		table.addCell("");
-		table.addCell(String.valueOf((bill.getPriceInCent()/100)*0.19));
-		table.addCell("");
-		table.addCell(new Phrase ("Total Sum (VAT incl.)",f));
-		table.addCell("");
-		table.addCell(String.valueOf((bill.getPriceInCent()/100)*1.19));
+		table.addCell(new Phrase ("Total Sum (VAT incl.)",f));		
+		table.addCell(String.valueOf((bill.getPriceInCent())*1.19));
 
 		return table;
 	}

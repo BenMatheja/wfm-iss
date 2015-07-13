@@ -142,7 +142,7 @@ public class InformAccounting {
 		  Contract contractEntity = contractService.getContract((Long) delegateExecution.getVariable("contractId"));
 		  String contractTitle = contractEntity.getContractTitle();
 		  int contractPrice = contractEntity.getPrice();
-		  
+		 
 		// Employees
 		  Collection<Employee> employees = projectEntity.getEmployee();
 		  
@@ -158,7 +158,7 @@ public class InformAccounting {
 		  
 		  // Initiate Bill Object
 		  BillIss newbill = new BillIss();
-		  newbill.setCostEstimation(contractPrice); 		//costEstimation
+		  newbill.setCostEstimation(100); 		//costEstimation
 		  newbill.setCustomerName(customerName); 			//customerName
 		  newbill.setCustomerAddress(customerAddress);		//customerAddress
 		  newbill.setProjectTitle(projectTitle); 			//projectTitle
@@ -174,6 +174,7 @@ public class InformAccounting {
 		  BillIss persistedBill = billIssService.create(newbill);
 		  delegateExecution.setVariable("billIssId", persistedBill.getId());
 		  LOGGER.info("Bill Id in process Vars: " + delegateExecution.getVariable("billIssId"));
+		  LOGGER.info("Price in cent = " + persistedBill.getPriceInCent());
 		  
 		  generateBill.main(delegateExecution, persistedBill);
 	}
