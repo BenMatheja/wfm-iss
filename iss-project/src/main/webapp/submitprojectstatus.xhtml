@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/resources/master.xhtml">
+<ui:composition template="/resources/master2.xhtml">
 	<ui:define name="metadata">
 		<f:metadata>
 			<f:event type="preRenderView"
@@ -17,24 +17,42 @@
 	<ui:define name="content">
 		<script name="jquery/jquery.js" library="primefaces"></script>
 		<h:form id="submitForm" class="basic-grey">
-
-			<div class="details">
-				<h2>Project Data</h2>
-				<h:form>
-					<h:panelGrid columns="2" columnClasses="form-label, form-label">
-						<h:outputLabel value="Project Title" />
+		
+	    <h:panelGrid columns="2" style="width: 100%; margin:0px 0px 0px 0px;" footerClass="form-footer">
+	  	<h1>ISS 
+	        <span>We reach for the stars</span>
+	        </h1>
+		<h4><h:graphicImage value="resources/Images_header/ISS_Logo.png"  height="42px" width="73px" style="margin: -100px 0px 0px 300px"/></h4>
+		</h:panelGrid> 
+		
+	  	<h2>Submit Project Status</h2>
+	  	<div class="details">
+	  	    	<h3>Project data</h3>  
+			<style>
+			 .cola{
+			 	width: 30%;
+			 }
+			 .colb{
+			 	width: 70%
+			 }
+			 </style>   
+      			<h:panelGrid columns="3" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+					<h:outputLabel value="Project title:" style="height: 30px; padding: 10px 0px 10px 0px;"/>
 						<h:inputText
 							value="#{submitProjectStatusController.project.title}"
 							for="{submitProjectStatusController.project.title}" />
-						<h:outputLabel value="Customer Name" />
+					<h:message for="title" /> 
+					<h:outputLabel value="Customer name:" style="height: 30px; padding: 10px 0px 10px 0px;"/>						
 						<h:outputText
-							value="#{submitProjectStatusController.customer.name}" />
-						<h:outputLabel value="Project Start: " />
+							value="#{submitProjectStatusController.customer.name}" style="margin:0px 0px 0px 20px;"/>
+					<h:message for="name" /> 						
+					<h:outputLabel value="Project start: " style="height: 30px; padding: 10px 0px 10px 0px;"/>						
 						<h:outputText
-							value="#{submitProjectStatusController.project.projectStart}">
+							value="#{submitProjectStatusController.project.projectStart}"  style="margin:0px 0px 0px 20px;">
 							<f:convertDateTime pattern="yyyy-MM-dd" />
 						</h:outputText>
-						<h:outputLabel value="Project End: " />
+					<h:message for="projectStart" /> 							
+					<h:outputLabel value="Project end: " style="height: 30px; padding: 10px 0px 10px 0px;"/>						
 						<p:calendar id="deadline"
 							value="#{submitProjectStatusController.project.projectEnd}"
 							pattern="yyyy-MM-dd" required="true"
@@ -42,28 +60,30 @@
 							<p:watermark for="deadline"
 								value="#{submitProjectStatusController.project.projectEnd}" />
 						</p:calendar>
-					</h:panelGrid>
-				</h:form>
-				<h3>Last Meeting Minutes</h3>
-				<h:panelGrid columns="2" columnClasses="form-label, form-output">
-					<h:outputLabel value="Appointment Topic: " />
+					<h:message for="projectEnd" />
+				</h:panelGrid>
+			<h3>Meeting Minutes</h3>
+      			<h:panelGrid columns="3" style="width: 80%; margin:0px 0px 30px 10px;" footerClass="form-footer">
+					<h:outputLabel value="Appointment topic:" style="height: 30px; padding: 10px 0px 10px 0px;"/>
 					<h:outputText
 						value="#{submitProjectStatusController.meetingMinutes.appointment.title}" />
-					<h:outputLabel value="From: " />
+					<h:message for="title" /> 
+					<h:outputLabel value="Appointment date:" style="height: 30px; padding: 10px 0px 10px 0px;"/>
 					<h:outputText
 						value="#{submitProjectStatusController.meetingMinutes.appointment.date}">
 						<f:convertDateTime pattern="yyyy-MM-dd" />
 					</h:outputText>
-					<h:outputLabel value="Notes: " />
+					<h:message for="date" /> 					
+					<h:outputLabel value="Notes: " style="height: 30px; padding: 10px 0px 10px 0px;"/>
 					<h:commandButton id="downloadButton" value="Download Notes"
 						action="#{submitProjectStatusController.startDownload()}" />
+					<h:outputLabel value=" "/>						
 				</h:panelGrid>
-
-				<h3>History of Deliverables</h3>
-				<h:dataTable value="#{submitProjectStatusController.deliverables}"
+			<h3>Overview of Deliverables</h3>
+				<h:dataTable value="#{submitProjectStatusController.deliverables}" style="margin:0px 0px 0px 10px;"
 					var="cur" styleClass="data-table"
 					headerClass="data-cell header-cell"
-					columnClasses="data-cell,data-cell,data-cell,data-cell"
+					columnClasses="data-cell,data-cell"
 					rendered="#{not empty submitProjectStatusController.deliverables}">
 					<h:column>
 						<f:facet name="header">Title</f:facet>
@@ -73,6 +93,12 @@
 						<f:facet name="header">Description</f:facet>
 						<h:outputText value="#{cur.description}" />
 					</h:column>
+				</h:dataTable>	
+				<h:dataTable value="#{submitProjectStatusController.deliverables}"  style="margin:0px 0px 0px 10px;"
+					var="cur" styleClass="data-table"
+					headerClass="data-cell header-cell"
+					columnClasses="data-cell,data-cell"
+					rendered="#{not empty submitProjectStatusController.deliverables}">
 					<h:column>
 						<f:facet name="header">Download File</f:facet>
 						<h:commandButton value="Download #{cur.title}"
@@ -84,15 +110,11 @@
 							<f:convertDateTime pattern="yyyy-MM-dd hh:mm" />
 						</h:outputText>
 					</h:column>
-				</h:dataTable>
+				</h:dataTable>		
 				<p>
-					<h:commandButton id="Cancel" value="Cancel"
-						onclick="history.go(-1)" />
-					<h:commandButton id="discardProjectStatus"
-						value="Project still pending"
-						action="#{submitProjectStatusController.pending}" />
-					<h:commandButton id="submitProjectStatus" value="Project finished"
-						action="#{submitProjectStatusController.finished}" />
+					<h:commandButton id="Cancel" value="Cancel"	onclick="history.go(-1)"   style="margin: 20px 0px 0px 10px"/>
+					<h:commandButton id="discardProjectStatus" value="Project still pending" action="#{submitProjectStatusController.pending}" />
+					<h:commandButton id="submitProjectStatus" value="Project finished" action="#{submitProjectStatusController.finished}" />
 				</p>
 			</div>
 		</h:form>

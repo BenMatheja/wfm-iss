@@ -69,20 +69,15 @@
 				</p>
 			</h:panelGrid>
 			<p>
-				<h:inputFile id="file" value="#{submitDeliverablesController.file}" />
+				<h:inputFile id="file" value="#{submitDeliverablesController.file}" style="margin: 0px 0px 0px 10px"/>
 				<h:commandButton value="Post Upload"
 					action="#{submitDeliverablesController.upload}" />
 			</p>
-			<h:form id="submitForm" columns="2"
-				columnClasses="form-label,form-label" footer-Class="form-footer">
-				<h:outputLabel value="Submit Deliverables?" />
 				<h:commandButton id="submitDeliverable" value="Submit deliverable"
-					action="#{submitDeliverablesController.persist}" />
+					action="#{submitDeliverablesController.persist}"  style="margin: 20px 0px 0px 10px"/>
 				<h:commandButton id="discardDeliverable" value="Discard deliverable"
 					onclick="history.go(-1)" />
 			</h:form>
-
-		</h:form>
 	</ui:define>
 </ui:composition>
 </html>
