@@ -38,10 +38,10 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 				</h:panelGrid> 	        			     			
   			<div class="details">      
       		<h3>Contract details</h3></div>
-      			<h:panelGrid style="width: 100%; margin:0px;" footerClass="form-footer">
+      			<h:panelGrid style="width: 100%; margin:0px 0px 30px 10px;" footerClass="form-footer">
         			<p>
           				<label> 
-                    	<p:inputText id="contracttitle" value="#{processVariables['contracttitle']}" required="true" placeholder="#{checkAndSendContractController.contractEntity.contractTitle}"/>
+                    	<p:inputText id="contracttitle" value="#{processVariables['contracttitle']}" required="true" placeholder="#{checkAndSendContractController.contractEntity.contractTitle}" style="margin: -10px 0px 0px 20px"/>
                     	</label>
                     	</p>
         			<p>
