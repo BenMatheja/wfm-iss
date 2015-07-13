@@ -29,12 +29,16 @@ public class BillIss implements Serializable {
 	
 	private String customerName;
 	
+	private String customerAddress;
+	
 	private String projectTitle;
 	
 	private String contractTitle;	
 	
 //	private Collection<Employee> employees;
 	
+	private Date date;
+
 	private Date projectStart;
 	
 	private Date projectEnd;
@@ -89,6 +93,14 @@ public class BillIss implements Serializable {
 
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
+	}	
+
+	public String getCustomerAddress() {
+		return customerAddress;
+	}
+
+	public void setCustomerAddress(String customerAddress) {
+		this.customerAddress = customerAddress;
 	}
 
 	public String getProjectTitle() {
@@ -154,8 +166,13 @@ public class BillIss implements Serializable {
 	public void setIssTotal(int issTotal) {
 		this.issTotal = issTotal;
 	}
-	
-	
-	
+		
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 		
 }

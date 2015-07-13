@@ -3,9 +3,6 @@ package org.camunda.bpm.iss.util;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -15,14 +12,7 @@ import javax.inject.Named;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.iss.ejb.BillIssService;
-import org.camunda.bpm.iss.ejb.ContractService;
-import org.camunda.bpm.iss.ejb.CustomerService;
-import org.camunda.bpm.iss.ejb.EmployeeService;
-import org.camunda.bpm.iss.ejb.ProjectService;
-import org.camunda.bpm.iss.entity.Contract;
-import org.camunda.bpm.iss.entity.Customer;
-import org.camunda.bpm.iss.entity.Employee;
-import org.camunda.bpm.iss.entity.Project;
+import org.camunda.bpm.iss.entity.BillIss;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -52,67 +42,26 @@ public class GenerateBill{
 	private static Logger LOGGER = Logger.getLogger(InformAccounting.class
 			.getName());
 
-	@Inject
-	CustomerService customerService;
 	
 	@Inject
-	BillIssService billService;
-	
-	@Inject
-	ProjectService projectService;
-	
-	@Inject
-	ContractService contractService;
-	
-	@Inject
-	EmployeeService employeeService;
+	BillIssService billService;	
 	
 	// Soem vars
-	Customer customerEntity;
-	Project projectEntity;
-	Contract contractEntity;
+	
 	
 	public void createPdf(String filename, DelegateExecution delegateExecution) throws DocumentException,
 			IOException {
 		// prepare data
-		// Customer
-		  customerEntity = customerService.getCustomer((Long) delegateExecution.getVariable("customerId"));
-		  String customerName = customerEntity.getName();
-		  String customerAddress = customerEntity.getAddress();
-		  
-		// Invoice Number
-		  Long invoiceNoLo = (customerEntity.getId() + projectEntity.getId());
-		  String invoiceNo = invoiceNoLo.toString();
-		  
-		// Invoice Date
-		  Calendar calendar = Calendar.getInstance();			 
-		  java.util.Date now = calendar.getTime();
-		  Date date = now;
-		  
-		// Project Title
-		  String projectTitle = projectEntity.getTitle();
-		  
-		// Current Employee
-		  String curEmp = (String) delegateExecution.getVariable("billUser");
-		  
-		// Contract Title + Price
-		  Contract contractEntity = contractService.getContract((Long) delegateExecution.getVariable("contractId"));
-		  String contractTitle = contractEntity.getContractTitle();
-		  int contractPrice = contractEntity.getPrice();
-		  
-		// Employees
-		  Collection<Employee> employees = projectEntity.getEmployee();
-		  
+		BillIss bill = billService.getBill((long) delegateExecution.getVariable("billId"));
+		LOGGER.info("This is billIss Id: " + bill.getId());  
+		
 		// step 1
 		Document document = new Document(PageSize.A4);
 		// step 2
 		PdfWriter.getInstance(document, new FileOutputStream(filename));
 		// step 3
 		document.open();
-		// step 4
-		List<String> days = new ArrayList<String>();
-		days.add("1");
-		days.add("2");
+		// step 4		
 
 		document.newPage();
 		document.add(new Chunk(""));
@@ -134,10 +83,10 @@ public class GenerateBill{
 		document.add(Chunk.NEWLINE);
 		document.add(Chunk.NEWLINE);
 
-		Paragraph cusName = new Paragraph("Customer Name", new Font(
+		Paragraph cusName = new Paragraph(bill.getCustomerName(), new Font(
 				FontFamily.HELVETICA, 12));
 		cusName.setAlignment(Element.ALIGN_LEFT);
-		Paragraph cusAddress = new Paragraph("Address", new Font(
+		Paragraph cusAddress = new Paragraph(bill.getCustomerAddress(), new Font(
 				FontFamily.HELVETICA, 12));
 		cusName.setAlignment(Element.ALIGN_LEFT);
 		
@@ -156,7 +105,7 @@ public class GenerateBill{
 		document.add(invoice);
 		document.add(Chunk.NEWLINE);
 		
-		document.add(getFirstTable());
+		document.add(getFirstTable(bill));
 		
 		document.add(Chunk.NEWLINE);
 		document.add(Chunk.NEWLINE);
@@ -167,7 +116,7 @@ public class GenerateBill{
 		document.close();
 	}
 
-	public PdfPTable getFirstTable() throws DocumentException, IOException {
+	public PdfPTable getFirstTable(BillIss bill) throws DocumentException, IOException {
 		// Create a table with 5 columns
 		PdfPTable table = new PdfPTable(new float[] { 2, 3, 1, 2, 3 });
 		table.setWidthPercentage(100f);
@@ -181,19 +130,19 @@ public class GenerateBill{
 		// Add the second header row twice
 		table.getDefaultCell().setBackgroundColor(BaseColor.WHITE);
 		table.getDefaultCell().setBorderColor(BaseColor.WHITE);
-		
-
+						
+				
 		table.addCell(new Phrase("Invoice No.: ", f));
-		table.addCell("Generated Serial No.");
+		table.addCell(String.valueOf(bill.getId()));
 		table.addCell("  ");
 		table.addCell(new Phrase("Invoice Date: ", f));		
-		table.addCell("today");
+		table.addCell(String.valueOf(bill.getDate()));
 		
 		table.addCell(new Phrase("Project Title: ", f));
-		table.addCell("<Project Title>");
+		table.addCell(bill.getProjectTitle());
 		table.addCell("  ");
 		table.addCell(new Phrase("Employee: ", f));
-		table.addCell("<user name>");
+		table.addCell("");
 
 		// There are three special rows
 		//table.setHeaderRows(1);
