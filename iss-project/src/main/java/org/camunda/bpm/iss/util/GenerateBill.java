@@ -52,8 +52,9 @@ public class GenerateBill{
 	public void createPdf(String filename, DelegateExecution delegateExecution) throws DocumentException,
 			IOException {
 		// prepare data
-		BillIss bill = billService.getBill((long) delegateExecution.getVariable("billId"));
-		LOGGER.info("This is billIss Id: " + bill.getId());  
+		BillIss bill = billService.getBill((long) delegateExecution.getVariable("billIssId"));
+		LOGGER.info("This is billIss Id from the proces Variables: " + (long) delegateExecution.getVariable("billIssId")); 
+		LOGGER.info("This is billIss Id from the DB: " + bill.getId());  
 		
 		// step 1
 		Document document = new Document(PageSize.A4);
@@ -110,7 +111,12 @@ public class GenerateBill{
 		document.add(Chunk.NEWLINE);
 		document.add(Chunk.NEWLINE);
 		
-		document.add(getSecondTable());
+		document.add(getSecondTable(bill));
+		
+		document.add(Chunk.NEWLINE);
+		document.add(Chunk.NEWLINE);
+		
+		document.add(getThirdTable(bill));
 				
 		// step 5
 		document.close();
@@ -126,8 +132,8 @@ public class GenerateBill{
 		Font f = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
 		f.setColor(BaseColor.BLACK);
 		
+		table.getDefaultCell().setBorderWidth(0.2F);
 		
-		// Add the second header row twice
 		table.getDefaultCell().setBackgroundColor(BaseColor.WHITE);
 		table.getDefaultCell().setBorderColor(BaseColor.WHITE);
 						
@@ -142,65 +148,73 @@ public class GenerateBill{
 		table.addCell(bill.getProjectTitle());
 		table.addCell("  ");
 		table.addCell(new Phrase("Employee: ", f));
-		table.addCell("");
-
-		// There are three special rows
-		//table.setHeaderRows(1);
-		// One of them is a footer
-		// table.setFooterRows(1);
-		// Now let's loop over the screenings
-		// List<Screening> screenings = PojoFactory.getScreenings(day);
-		// Movie movie;
-		// for (Screening screening : screenings) {
-		// movie = screening.getMovie();
-
-		// table.addCell(String.format("%1$tH:%1$tM", screening.getTime()));
-		// table.addCell(String.format("%d '", movie.getDuration()));
-		// table.addCell(movie.getMovieTitle());
-		// table.addCell(String.valueOf(movie.getYear()));
-		// cell = new PdfPCell();
-		// cell.setUseAscender(true);
-		// cell.setUseDescender(true);
-		// cell.addElement(PojoToElementFactory.getDirectorList(movie));
-		// table.addCell(cell);
-		// cell = new PdfPCell();
-		// cell.setUseAscender(true);
-		// cell.setUseDescender(true);
-		// cell.addElement(PojoToElementFactory.getCountryList(movie));
-		// table.addCell(cell);
-		// }
+		table.addCell(" ");
+		
+		table.addCell(new Phrase("Contract Title: ", f));
+		table.addCell(String.valueOf(bill.getContractTitle()));
+		table.addCell("  ");
+		table.addCell(new Phrase("Cost Estimation: ", f));		
+		table.addCell(String.valueOf(bill.getCostEstimation()));
+		
+		table.addCell(new Phrase("Project Start: ", f));
+		table.addCell(String.valueOf(bill.getProjectStart()));
+		table.addCell("  ");
+		table.addCell(new Phrase("Project End: ", f));		
+		table.addCell(String.valueOf(bill.getProjectEnd()));
+				
+		
 		return table;
 	}
 	
-	public PdfPTable getSecondTable() throws DocumentException, IOException {
+	public PdfPTable getSecondTable(BillIss bill) throws DocumentException, IOException {
 		// Create a table with 5 columns
-		PdfPTable table = new PdfPTable(new float[] { 4, 5, 2, 4});
+		PdfPTable table = new PdfPTable(new float[] { 1 });
+		table.setWidthPercentage(30f);
+		
+		Font f = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+		f.setColor(BaseColor.BLACK);
+		
+		table.getDefaultCell().setBorderWidth(0.2F);
+		
+		table.getDefaultCell().setBackgroundColor(BaseColor.WHITE);
+		table.getDefaultCell().setBorderColor(BaseColor.WHITE);
+						
+				
+		table.addCell(new Phrase("Project Employees: ", f));
+		
+		for (int i = 0; i < 5; i++) {
+			table.addCell("employeeName");			
+		}		
+		return table;
+	}
+	
+	public PdfPTable getThirdTable(BillIss bill) throws DocumentException, IOException {
+		// Create a table with 5 columns
+		PdfPTable table = new PdfPTable(new float[] { 1, 1, 1 });
 		table.setWidthPercentage(100f);
 		
 		Font f = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
 		f.setColor(BaseColor.BLACK);
 		
-		table.getDefaultCell().setBorderWidth(0.2F);;
+		table.getDefaultCell().setBorderWidth(0.2F);
 						
 //		table.getDefaultCell().setBackgroundColor(BaseColor.WHITE);
 //		table.getDefaultCell().setLeft(PdfPCell.NO_BORDER);
 //		table.getDefaultCell().setBorderColorRight(BaseColor.RED);
 
-		table.addCell(new Phrase("Consultant", f));
-		table.addCell(new Phrase("Daily Rate", f));
-		table.addCell(new Phrase("Billed Days", f));
+		table.addCell(new Phrase("Item", f));
+		table.addCell(new Phrase("Accumulated Hours", f));
 		table.addCell(new Phrase("Total", f));		
 			
 		
-		//table.setHeaderRows(1);
+		//table.setHeaderRows(1);		
 		
-		
-		for (int i = 0; i < 5; i++) {
-			table.addCell("employeeName");
-			table.addCell("hourlyRate");
-			table.addCell("# of Days");
-			table.addCell("hourly Rate * no of days");
-		}
+		table.addCell("ISS Security Solution");
+		table.addCell(String.valueOf(bill.getAccumulatedHours()));
+		table.addCell(String.valueOf(bill.getIssTotal()));
+		table.addCell("PB Design ");
+		table.addCell(" ");
+		table.addCell(String.valueOf(bill.getPbTotal()));
 		
 		table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
 		
@@ -208,24 +222,19 @@ public class GenerateBill{
 		table.addCell(" ");
 		table.addCell(" ");
 		table.addCell(" ");
-		
-		table.addCell("");
-		
-		table.addCell(new Phrase("+ Design Price: ", f));
-		table.addCell("");
-		table.addCell("<designPrice>");
-		table.addCell("");
+				
+				
 		table.addCell(new Phrase("Total Sum (VAT excl.)",f));
 		table.addCell("");
-		table.addCell("<Sum>");
+		table.addCell(String.valueOf(bill.getPriceInCent()/100));
 		table.addCell("");
 		table.addCell(new Phrase ("19.00% VAT", f));
 		table.addCell("");
-		table.addCell("<Sum*0.19>");
+		table.addCell(String.valueOf((bill.getPriceInCent()/100)*0.19));
 		table.addCell("");
 		table.addCell(new Phrase ("Total Sum (VAT incl.)",f));
 		table.addCell("");
-		table.addCell("<Sum*1.19>");
+		table.addCell(String.valueOf((bill.getPriceInCent()/100)*1.19));
 
 		return table;
 	}
