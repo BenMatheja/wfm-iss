@@ -31,9 +31,9 @@ public class BillIss implements Serializable {
 	
 	private String projectTitle;
 	
-	private String contractTitle;
-	 
-	private Collection<Employee> employees;
+	private String contractTitle;	
+	
+//	private Collection<Employee> employees;
 	
 	private Date projectStart;
 	
@@ -107,13 +107,13 @@ public class BillIss implements Serializable {
 		this.contractTitle = contractTitle;
 	}
 
-	public Collection<Employee> getEmployees() {
-		return employees;
-	}
-
-	public void setEmployees(Collection<Employee> employees) {
-		this.employees = employees;
-	}
+//	public Collection<Employee> getEmployees() {
+//		return employees;
+//	}
+//
+//	public void setEmployees(Collection<Employee> employees) {
+//		this.employees = employees;
+//	}
 
 	public Date getProjectStart() {
 		return projectStart;
