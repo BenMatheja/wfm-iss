@@ -1,6 +1,8 @@
 package org.camunda.bpm.iss.util;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -16,7 +18,15 @@ import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.iss.ejb.BillService;
+import org.camunda.bpm.iss.ejb.ContractService;
+import org.camunda.bpm.iss.ejb.CustomerService;
 import org.camunda.bpm.iss.ejb.ProjectService;
+import org.camunda.bpm.iss.entity.Bill;
+import org.camunda.bpm.iss.entity.BillIss;
+import org.camunda.bpm.iss.entity.Contract;
+import org.camunda.bpm.iss.entity.Customer;
+import org.camunda.bpm.iss.entity.Employee;
 import org.camunda.bpm.iss.entity.Project;
 
 import com.itextpdf.text.DocumentException;
@@ -41,16 +51,26 @@ public class InformAccounting {
 	@Inject
 	private GenerateBill generateBill;
 
+	@Inject
+	private CustomerService customerService;
+	
+	@Inject 
+	private ContractService contractService;
+	
+	@Inject 
+	private BillService billService;
+	
 	// Local vars
-
+	long pmHourlyRate = 20;
+	long emHourlyRate = 12;
+	long noOfPm = 1;
+	long workingHours;
+	long projectCosts;
+	long workingHoursAcc;
+	
 	public void calcTime(DelegateExecution delegateExecution) throws DocumentException, IOException {
 		LOGGER.info("This is calc Time!");
 		
-		// Local vars
-		long pmHourlyRate = 20;
-		long emHourlyRate = 12;
-		long noOfPm = 1;
-
 		Map<String, Object> variables = delegateExecution.getVariables();
 		Project project = projectService.getProject((Long) variables
 				.get("projectId"));
@@ -65,7 +85,7 @@ public class InformAccounting {
 		long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
 		// We assume a 42 hour-week
-		long workingHours = days * 6;
+		workingHours = days * 6;
 
 		LOGGER.info("No. of days: " + days);
 		LOGGER.info("Working Hours: " + workingHours);
@@ -78,7 +98,7 @@ public class InformAccounting {
 		long emWage = project.getEmployee().size() * emHourlyRate;
 		
 		// Calc Project Costs
-		long projectCosts = pmWage + emWage;
+		projectCosts = pmWage + emWage;
 		
 		delegateExecution.setVariable("projectCosts", projectCosts);
 		LOGGER.log(Level.INFO, "This is projectCosts in the business process: "
@@ -87,10 +107,58 @@ public class InformAccounting {
 		/** 
 		 * Here begins some further calc bc. we changed requiremtnts
 		 */
-		long workingHoursAcc = (workingHours * noOfPm) + (workingHours * project.getEmployee().size()); 
+		workingHoursAcc = (workingHours * noOfPm) + (workingHours * project.getEmployee().size()); 
+	}
+	
+	public void persistBill(DelegateExecution delegateExecution){
 		
-				
-		// Bill persistence here
-
+		try{
+			calcTime(delegateExecution);	
+		} catch(Exception e){
+			
+		}
+		
+		// Customer
+		  Customer customerEntity = customerService.getCustomer((Long) delegateExecution.getVariable("customerId"));
+		  String customerName = customerEntity.getName();
+		  String customerAddress = customerEntity.getAddress();
+		  
+		// Invoice Date
+		  Calendar calendar = Calendar.getInstance();			 
+		  java.util.Date now = calendar.getTime();
+		  Date date = now;
+		  
+		// Project Title
+		  Project projectEntity = projectService.getProject((Long) delegateExecution.getVariable("projectId"));
+		  String projectTitle = projectEntity.getTitle();
+		  Date projectStart = projectEntity.getProjectStart();
+		  Date projectEnd = projectEntity.getProjectEnd();
+		  
+		// Contract Title + Price
+		  Contract contractEntity = contractService.getContract((Long) delegateExecution.getVariable("contractId"));
+		  String contractTitle = contractEntity.getContractTitle();
+		  int contractPrice = contractEntity.getPrice();
+		  
+		// Employees
+		  Collection<Employee> employees = projectEntity.getEmployee();
+		  
+		  //Pb Bill
+		  Bill billPb = billService.getBill((Long) delegateExecution.getVariable("billId"));
+		  double pbTotal = billPb.getTotalSum();
+		  
+		  // Initiate Bill Object
+		  BillIss newbill = new BillIss();
+		  newbill.setCostEstimation(contractPrice); 		//costEstimation
+		  newbill.setCustomerName(customerName); 			//customerName
+		  newbill.setCustomerAddress(customerAddress);		//customerAddress
+		  newbill.setProjectTitle(projectTitle); 			//projectTitle
+		  newbill.setContractTitle(contractTitle); 			//contractTitle
+		  newbill.setDate(now);								//date
+		  newbill.setProjectStart(projectStart);			//projectStart
+		  newbill.setProjectEnd(projectEnd);				//projectEnd
+		  newbill.setAccumulatedHours(workingHoursAcc);		//accumulatedHours
+		  newbill.setIssTotal((int)projectCosts);			//issTotal
+		  newbill.setPbTotal(pbTotal);						//pbTotal
+		  newbill.setPriceInCent(newbill.getIssTotal() + (int)(newbill.getPbTotal()*100)); //priceInCent 
 	}
 }
