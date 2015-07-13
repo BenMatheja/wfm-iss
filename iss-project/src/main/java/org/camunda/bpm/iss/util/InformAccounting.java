@@ -1,5 +1,6 @@
 package org.camunda.bpm.iss.util;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -17,6 +18,8 @@ import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.iss.ejb.ProjectService;
 import org.camunda.bpm.iss.entity.Project;
+
+import com.itextpdf.text.DocumentException;
 
 @Stateless
 @Named
@@ -40,7 +43,7 @@ public class InformAccounting {
 
 	// Local vars
 
-	public void calcTime(DelegateExecution delegateExecution) {
+	public void calcTime(DelegateExecution delegateExecution) throws DocumentException, IOException {
 		LOGGER.info("This is calc Time!");
 		
 		// Local vars
@@ -80,6 +83,8 @@ public class InformAccounting {
 		delegateExecution.setVariable("projectCosts", projectCosts);
 		LOGGER.log(Level.INFO, "This is projectCosts in the business process: "
 				+ delegateExecution.getVariable("projectCosts"));
+		
+		generateBill.main(delegateExecution);
 
 	}
 }

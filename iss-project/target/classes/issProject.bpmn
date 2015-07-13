@@ -90,7 +90,7 @@
       <bpmn2:outgoing>SequenceFlow_14</bpmn2:outgoing>
     </bpmn2:sendTask>
     <bpmn2:sequenceFlow id="SequenceFlow_14" name="" sourceRef="SendTask_3" targetRef="UserTask_4"/>
-    <bpmn2:serviceTask id="ServiceTask_InformAccounting" camunda:expression="$(true)" name="Inform Accounting">
+    <bpmn2:serviceTask id="ServiceTask_InformAccounting" camunda:expression="${informAccounting.calcTime(execution)}" name="Inform Accounting">
       <bpmn2:incoming>SequenceFlow_35</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_41</bpmn2:outgoing>
     </bpmn2:serviceTask>
@@ -114,7 +114,7 @@
       <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_16</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:userTask id="UserTask_3" camunda:formKey="app:submitprojectstatus.jsf" name="Submit Project Status">
+    <bpmn2:userTask id="UserTask_3" camunda:formKey="app:submitprojectstatus.jsf" camunda:candidateGroups="project-manager" name="Submit Project Status">
       <bpmn2:incoming>SequenceFlow_60</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_19</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -155,7 +155,7 @@
       <bpmn2:outgoing>SequenceFlow_46</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_46" name="" sourceRef="UserTask_4" targetRef="UserTask_5"/>
-    <bpmn2:userTask id="UserTask_5" camunda:formKey="app:submitdeliverables.jsf" name="Submit Deliverables">
+    <bpmn2:userTask id="UserTask_5" camunda:formKey="app:submitdeliverables.jsf" camunda:candidateGroups="project-team" name="Submit Deliverables">
       <bpmn2:incoming>SequenceFlow_46</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_60</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -166,7 +166,7 @@
       <bpmn2:outgoing>SequenceFlow_45</bpmn2:outgoing>
     </bpmn2:parallelGateway>
     <bpmn2:sequenceFlow id="SequenceFlow_45" name="" sourceRef="ParallelGateway_5" targetRef="UserTask_CreateBill"/>
-    <bpmn2:userTask id="UserTask_CreateBill" name="Create Bill">
+    <bpmn2:userTask id="UserTask_CreateBill" camunda:candidateGroups="accounting" camunda:formKey="app:createbill.jsf" name="Create Bill">
       <bpmn2:incoming>SequenceFlow_45</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_33</bpmn2:outgoing>
     </bpmn2:userTask>
