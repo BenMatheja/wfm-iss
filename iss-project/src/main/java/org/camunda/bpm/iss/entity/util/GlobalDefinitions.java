@@ -2,8 +2,8 @@ package org.camunda.bpm.iss.entity.util;
 
 public class GlobalDefinitions {
 
-	public static final boolean USE_MOCK_SOLUTION_ISS = true;
-	public static final boolean USE_MOCK_SOLUTION_PB = true;
+	public static final boolean USE_MOCK_SOLUTION_ISS = false;
+	public static final boolean USE_MOCK_SOLUTION_PB = false;
 	
 	public static final String URL_PINKBLOB_BASE = "http://192.168.0.11:8080/pinkblob-wfms/api";
 	public static final String URL_PINKBLOB_BASE_MOCK = "http://localhost:8080/iss-project/api/pb";
