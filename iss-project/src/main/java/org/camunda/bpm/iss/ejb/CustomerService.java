@@ -117,12 +117,17 @@ public class CustomerService {
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
 
-		Session session = Session.getInstance(props,
+		Session session = null;
+		try {
+		session = Session.getInstance(props,
 				new javax.mail.Authenticator() {
 					protected PasswordAuthentication getPasswordAuthentication() {
 						return new PasswordAuthentication(username, password);
 					}
 				});
+		} catch(Exception e) {
+			// ok
+		}
 
 		try {
 
@@ -160,8 +165,8 @@ public class CustomerService {
 			Transport.send(message);
 			System.out.println("Done");
 
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+		} catch (Exception e) {
+			// ok
 		}
 
 	}
