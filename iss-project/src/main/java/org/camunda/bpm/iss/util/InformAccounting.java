@@ -18,6 +18,7 @@ import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.iss.ejb.BillIssService;
 import org.camunda.bpm.iss.ejb.BillService;
 import org.camunda.bpm.iss.ejb.ContractService;
 import org.camunda.bpm.iss.ejb.CustomerService;
@@ -59,6 +60,9 @@ public class InformAccounting {
 	
 	@Inject 
 	private BillService billService;
+	
+	@Inject 
+	private BillIssService billIssService;
 	
 	// Local vars
 	long pmHourlyRate = 20;
@@ -110,7 +114,7 @@ public class InformAccounting {
 		workingHoursAcc = (workingHours * noOfPm) + (workingHours * project.getEmployee().size()); 
 	}
 	
-	public void persistBill(DelegateExecution delegateExecution){
+	public void persistBill(DelegateExecution delegateExecution) throws DocumentException, IOException{
 		
 		try{
 			calcTime(delegateExecution);	
@@ -143,8 +147,14 @@ public class InformAccounting {
 		  Collection<Employee> employees = projectEntity.getEmployee();
 		  
 		  //Pb Bill
+		  double pbTotal = 0;
+		  try {
 		  Bill billPb = billService.getBill((Long) delegateExecution.getVariable("billId"));
-		  double pbTotal = billPb.getTotalSum();
+		  pbTotal = billPb.getTotalSum();
+		  } catch (Exception e) {
+			  pbTotal = 0;
+		  }		  
+		  
 		  
 		  // Initiate Bill Object
 		  BillIss newbill = new BillIss();
@@ -160,5 +170,12 @@ public class InformAccounting {
 		  newbill.setIssTotal((int)projectCosts);			//issTotal
 		  newbill.setPbTotal(pbTotal);						//pbTotal
 		  newbill.setPriceInCent(newbill.getIssTotal() + (int)(newbill.getPbTotal()*100)); //priceInCent 
+		  
+		  BillIss persistedBill = billIssService.create(newbill);
+		  delegateExecution.setVariable("billIssId", persistedBill.getId());
+		  LOGGER.info("Bill Id in process Vars: " + delegateExecution.getVariable("billIssId"));
+		  
+		  generateBill.main(delegateExecution, persistedBill);
 	}
+	
 }

@@ -34,7 +34,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class GenerateBill{
 
 	/** The resulting PDF file. */
-	public static final String RESULT = "abcde.pdf";
+	public static final String RESULT = "invoice.pdf";
 	
 	/** The ISS Logo. */
 	public static final String LOGO = "Logo.jpg";
@@ -49,10 +49,16 @@ public class GenerateBill{
 	// Soem vars
 	
 	
-	public void createPdf(String filename, DelegateExecution delegateExecution) throws DocumentException,
+	public void createPdf(String filename, DelegateExecution delegateExecution, BillIss bill_alternative) throws DocumentException,
 			IOException {
 		// prepare data
-		BillIss bill = billService.getBill((long) delegateExecution.getVariable("billIssId"));
+		BillIss bill;
+		try {
+		bill = billService.getBill((long) delegateExecution.getVariable("billIssId"));
+		} catch (Exception e) {
+			bill = bill_alternative; 
+			LOGGER.info("Alternative was taken");
+		}
 		LOGGER.info("This is billIss Id from the proces Variables: " + (long) delegateExecution.getVariable("billIssId")); 
 		LOGGER.info("This is billIss Id from the DB: " + bill.getId());  
 		
@@ -240,7 +246,7 @@ public class GenerateBill{
 	}
 
 	
-	public void main(DelegateExecution delegateExecution) throws DocumentException, IOException {
-		createPdf(RESULT, delegateExecution);
+	public void main(DelegateExecution delegateExecution, BillIss bill) throws DocumentException, IOException {
+		createPdf(RESULT, delegateExecution, bill);
 	}
 }
