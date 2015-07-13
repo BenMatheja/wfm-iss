@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -14,10 +15,13 @@ import javax.inject.Named;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.iss.ejb.BillIssService;
+import org.camunda.bpm.iss.ejb.ContractService;
 import org.camunda.bpm.iss.ejb.CustomerService;
 import org.camunda.bpm.iss.ejb.EmployeeService;
 import org.camunda.bpm.iss.ejb.ProjectService;
+import org.camunda.bpm.iss.entity.Contract;
 import org.camunda.bpm.iss.entity.Customer;
+import org.camunda.bpm.iss.entity.Employee;
 import org.camunda.bpm.iss.entity.Project;
 
 import com.itextpdf.text.BaseColor;
@@ -58,11 +62,15 @@ public class GenerateBill{
 	ProjectService projectService;
 	
 	@Inject
+	ContractService contractService;
+	
+	@Inject
 	EmployeeService employeeService;
 	
 	// Soem vars
 	Customer customerEntity;
 	Project projectEntity;
+	Contract contractEntity;
 	
 	public void createPdf(String filename, DelegateExecution delegateExecution) throws DocumentException,
 			IOException {
@@ -83,6 +91,17 @@ public class GenerateBill{
 		  
 		// Project Title
 		  String projectTitle = projectEntity.getTitle();
+		  
+		// Current Employee
+		  String curEmp = (String) delegateExecution.getVariable("billUser");
+		  
+		// Contract Title + Price
+		  Contract contractEntity = contractService.getContract((Long) delegateExecution.getVariable("contractId"));
+		  String contractTitle = contractEntity.getContractTitle();
+		  int contractPrice = contractEntity.getPrice();
+		  
+		// Employees
+		  Collection<Employee> employees = projectEntity.getEmployee();
 		  
 		// step 1
 		Document document = new Document(PageSize.A4);

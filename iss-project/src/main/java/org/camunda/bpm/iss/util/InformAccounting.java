@@ -84,6 +84,11 @@ public class InformAccounting {
 		LOGGER.log(Level.INFO, "This is projectCosts in the business process: "
 				+ delegateExecution.getVariable("projectCosts"));
 		
+		/** 
+		 * Here begins some further calc bc. we changed requiremtnts
+		 */
+		
+		
 		generateBill.main(delegateExecution);
 
 	}
