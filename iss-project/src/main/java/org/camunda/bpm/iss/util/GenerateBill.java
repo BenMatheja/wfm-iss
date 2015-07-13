@@ -3,6 +3,8 @@ package org.camunda.bpm.iss.util;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -11,9 +13,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.iss.ejb.BillIssService;
 import org.camunda.bpm.iss.ejb.CustomerService;
 import org.camunda.bpm.iss.ejb.EmployeeService;
 import org.camunda.bpm.iss.ejb.ProjectService;
+import org.camunda.bpm.iss.entity.Customer;
+import org.camunda.bpm.iss.entity.Project;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -47,14 +52,38 @@ public class GenerateBill{
 	CustomerService customerService;
 	
 	@Inject
+	BillIssService billService;
+	
+	@Inject
 	ProjectService projectService;
 	
 	@Inject
 	EmployeeService employeeService;
 	
-	public void createPdf(String filename) throws DocumentException,
+	// Soem vars
+	Customer customerEntity;
+	Project projectEntity;
+	
+	public void createPdf(String filename, DelegateExecution delegateExecution) throws DocumentException,
 			IOException {
-		// create a database connection
+		// prepare data
+		// Customer
+		  customerEntity = customerService.getCustomer((Long) delegateExecution.getVariable("customerId"));
+		  String customerName = customerEntity.getName();
+		  String customerAddress = customerEntity.getAddress();
+		  
+		// Invoice Number
+		  Long invoiceNoLo = (customerEntity.getId() + projectEntity.getId());
+		  String invoiceNo = invoiceNoLo.toString();
+		  
+		// Invoice Date
+		  Calendar calendar = Calendar.getInstance();			 
+		  java.util.Date now = calendar.getTime();
+		  Date date = now;
+		  
+		// Project Title
+		  String projectTitle = projectEntity.getTitle();
+		  
 		// step 1
 		Document document = new Document(PageSize.A4);
 		// step 2
@@ -235,6 +264,6 @@ public class GenerateBill{
 
 	
 	public void main(DelegateExecution delegateExecution) throws DocumentException, IOException {
-		createPdf(RESULT);
+		createPdf(RESULT, delegateExecution);
 	}
 }
