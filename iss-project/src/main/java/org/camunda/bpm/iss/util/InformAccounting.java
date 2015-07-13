@@ -87,9 +87,10 @@ public class InformAccounting {
 		/** 
 		 * Here begins some further calc bc. we changed requiremtnts
 		 */
+		long workingHoursAcc = (workingHours * noOfPm) + (workingHours * project.getEmployee().size()); 
 		
-		
-		generateBill.main(delegateExecution);
+				
+		// Bill persistence here
 
 	}
 }
