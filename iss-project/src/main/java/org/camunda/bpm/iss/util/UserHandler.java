@@ -26,8 +26,7 @@ public class UserHandler {
 	
 	/**
 	 * Returns a LinkedList containing the first names of users which excludes the
-	 * user with the corresponding <code>negId</code>.
-	 * @author Shabdiz Ghasemivand 
+	 * user with the corresponding <code>negId</code>. 
 	 * @param negId
 	 * @return 
 	 * @throws EmptyCandidateUserException 
